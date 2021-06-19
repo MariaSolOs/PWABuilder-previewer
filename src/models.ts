@@ -1,22 +1,4 @@
 /**
- * Possible stages of the preview component
- */
-export enum PreviewStage {
-  Install,
-  Splashscreen,
-  Name,
-  Shortname,
-  Themecolor,
-  Shortcuts,
-  Display
-}
-
-/**
- * Supported platforms
- */
-export type Platform = 'windows' | 'android' | 'iOS';
-
-/**
  * Reference: https://www.w3.org/TR/image-resource/#dom-imageresource
  */
  export type ImageResource = {
