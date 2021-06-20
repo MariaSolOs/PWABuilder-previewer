@@ -74,20 +74,6 @@ export class ManifestPreviewer extends LitElement {
   @property() manifestUrl = '';
 
   /**
-   * The website's URL, assuming it can be derived from the manifest's URL.
-   */
-  private _siteUrl: string | undefined;
-
-  @state()
-  private get siteUrl() {
-    if (typeof this._siteUrl === 'undefined') {
-      this._siteUrl = this.manifestUrl.substring(0, this.manifestUrl.lastIndexOf('manifest.json'));
-    }
-
-    return this._siteUrl;
-  }
-
-  /**
    * The URL used for icon previews, or undefined if the manifest specifies no icons.
    */
   private _iconUrl: string | undefined;
@@ -113,10 +99,9 @@ export class ManifestPreviewer extends LitElement {
   /**
    * If true, the application's window is open.
    */
-  @state() private isAppOpen = false;
+  @state() private isAppOpen = true;
 
   render() {
-    console.log(this.siteUrl)
     return html`
       <div class="page-container">
         <div class="desktop-container">
@@ -131,7 +116,8 @@ export class ManifestPreviewer extends LitElement {
           .isWindowOpen=${this.isAppOpen}
           .onClose=${() => { this.isAppOpen = false; }}
           .backgroundColor=${this.manifest.background_color}
-          .appName=${this.manifest.name}>
+          .appName=${this.manifest.name}
+          .iconUrl=${this.iconUrl}>
           </app-window>
         </div>
       </div>
