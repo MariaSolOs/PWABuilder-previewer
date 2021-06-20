@@ -127,7 +127,12 @@ export class ManifestPreviewer extends LitElement {
                 <img alt="App icon" src=${this.iconUrl} />
               </div>` : 
             null}
-          <app-window .isWindowOpen=${this.isAppOpen}></app-window>
+          <app-window 
+          .isWindowOpen=${this.isAppOpen}
+          .onClose=${() => { this.isAppOpen = false; }}
+          .backgroundColor=${this.manifest.background_color}
+          .appName=${this.manifest.name}>
+          </app-window>
         </div>
       </div>
     `;
