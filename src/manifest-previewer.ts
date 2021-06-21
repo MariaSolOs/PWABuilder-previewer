@@ -2,6 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { customElement, state, property } from 'lit/decorators.js';
 
 import './app-window.js';
+import './start-menu.js';
 import { Manifest } from './models';
 
 @customElement('manifest-previewer')
@@ -149,6 +150,9 @@ export class ManifestPreviewer extends LitElement {
               </div>` : 
             null}
           <div class="menu-toggler" @click=${this.toggleMenu}></div>
+          <start-menu
+          .isMenuOpen=${this.isMenuOpen}>
+          </start-menu>
           <app-window 
           .isWindowOpen=${this.isAppOpen}
           .onClose=${this.closeAppWindow}
