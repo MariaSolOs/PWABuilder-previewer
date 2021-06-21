@@ -20,6 +20,7 @@
   "author": "manifest-previewer",
   "license": "MIT",
   "dependencies": {
+    "@codemirror/basic-setup": "^0.18.2",
     "lit": "^2.0.0-rc.2"
   }
 }

@@ -29,8 +29,9 @@ export class ManifestPreviewer extends LitElement {
     }
 
     .desktop-container {
+      overflow: hidden;
       width: 800px;
-      height: 530px;
+      height: 533px;
       position: relative;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
@@ -46,7 +47,7 @@ export class ManifestPreviewer extends LitElement {
 
     .taskbar-icon {
       position: absolute;
-      bottom: -3.5px;
+      bottom: 0;
       left: 287px;
       width: 19px;
       height: 19px;
@@ -71,7 +72,7 @@ export class ManifestPreviewer extends LitElement {
       height: 8.5px;
       cursor: pointer;
       position: absolute;
-      bottom: 2px;
+      bottom: 5px;
       left: 7.5px;
       transition: 300ms background-color ease-in-out
     }
@@ -135,7 +136,7 @@ export class ManifestPreviewer extends LitElement {
   /**
    * If true, the start menu is open.
    */
-  @state() private isMenuOpen = false;
+  @state() private isMenuOpen = true;
   private toggleMenu = () => { this.isMenuOpen = !this.isMenuOpen; }
 
   render() {
@@ -151,7 +152,11 @@ export class ManifestPreviewer extends LitElement {
             null}
           <div class="menu-toggler" @click=${this.toggleMenu}></div>
           <start-menu
-          .isMenuOpen=${this.isMenuOpen}>
+          .isMenuOpen=${this.isMenuOpen}
+          .appName=${this.manifest.name}
+          .iconUrl=${this.iconUrl}
+          .onClose=${this.toggleMenu}
+          .onOpenApp=${this.openAppWindow}>
           </start-menu>
           <app-window 
           .isWindowOpen=${this.isAppOpen}
