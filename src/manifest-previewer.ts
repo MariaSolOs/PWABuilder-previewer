@@ -7,18 +7,31 @@ import { Manifest } from './models';
 @customElement('manifest-previewer')
 export class ManifestPreviewer extends LitElement {
   static styles = css`
-    .page-container {
+    .background {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100vw;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    }
+
+    .background::before {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(252.83deg, #5039A8 2.36%, #6AA2DB 99.69%);
+      opacity: 0.3;
     }
 
     .desktop-container {
       width: 800px;
       height: 530px;
       position: relative;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 
     img.desktop {
@@ -50,6 +63,21 @@ export class ManifestPreviewer extends LitElement {
 
     .taskbar-icon img {
       width: 80%;
+    }
+
+    .menu-toggler {
+      width: 8px;
+      height: 8.5px;
+      cursor: pointer;
+      position: absolute;
+      bottom: 2px;
+      left: 7.5px;
+      transition: 300ms background-color ease-in-out
+    }
+
+    .menu-toggler:hover {
+      background-color: rgb(0, 120, 215);
+      opacity: 0.7;
     }
   `;
 
@@ -99,22 +127,31 @@ export class ManifestPreviewer extends LitElement {
   /**
    * If true, the application's window is open.
    */
-  @state() private isAppOpen = true;
+  @state() private isAppOpen = false;
+  private openAppWindow = () => { this.isAppOpen = true; }
+  private closeAppWindow = () => { this.isAppOpen = false; }
+
+  /**
+   * If true, the start menu is open.
+   */
+  @state() private isMenuOpen = false;
+  private toggleMenu = () => { this.isMenuOpen = !this.isMenuOpen; }
 
   render() {
     return html`
-      <div class="page-container">
+      <div class="background">
         <div class="desktop-container">
           <img class="desktop" alt="Windows desktop" src="../assets/images/desktop.png" />
           ${this.iconUrl ? 
             html`
-              <div class="taskbar-icon" @click=${() => { this.isAppOpen = true; }}>
+              <div class="taskbar-icon" @click=${this.openAppWindow}>
                 <img alt="App icon" src=${this.iconUrl} />
               </div>` : 
             null}
+          <div class="menu-toggler" @click=${this.toggleMenu}></div>
           <app-window 
           .isWindowOpen=${this.isAppOpen}
-          .onClose=${() => { this.isAppOpen = false; }}
+          .onClose=${this.closeAppWindow}
           .backgroundColor=${this.manifest.background_color}
           .appName=${this.manifest.name}
           .iconUrl=${this.iconUrl}>
