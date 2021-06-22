@@ -1,3 +1,5 @@
+import { Transaction } from '@codemirror/state';
+
 /**
  * Reference: https://www.w3.org/TR/image-resource/#dom-imageresource
  */
@@ -43,3 +45,22 @@ export interface Manifest {
   screenshots?: ImageResource[];
   iarc_rating_id?: string;
 }
+
+export enum CodeEditorEvents {
+  sync = 'code-editor-sync',
+  update = 'code-editor-update',
+}
+
+export interface CodeEditorSyncEvent {
+  text: string;
+}
+
+export interface CodeEditorUpdateEvent {
+  transaction: Transaction;
+}
+
+export type TextLeaf = {
+  text: string[];
+}
+
+export type Lazy<T> = T | undefined;

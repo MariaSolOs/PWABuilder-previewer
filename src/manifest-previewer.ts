@@ -3,7 +3,8 @@ import { customElement, state, property } from 'lit/decorators.js';
 
 import './app-window.js';
 import './start-menu.js';
-import { Manifest } from './models';
+import './code-editor.js';
+import { Manifest, CodeEditorEvents, CodeEditorUpdateEvent, TextLeaf } from './models';
 
 @customElement('manifest-previewer')
 export class ManifestPreviewer extends LitElement {
@@ -34,6 +35,7 @@ export class ManifestPreviewer extends LitElement {
       height: 533px;
       position: relative;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      margin-right: 50px;
     }
 
     img.desktop {
@@ -133,20 +135,53 @@ export class ManifestPreviewer extends LitElement {
   private openAppWindow = () => { this.isAppOpen = true; }
   private closeAppWindow = () => { this.isAppOpen = false; }
 
+  private handleTaskbarClick = (event: MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const isRightClick = event.buttons === 2;
+    console.log(isRightClick);
+  }
+
   /**
    * If true, the start menu is open.
    */
-  @state() private isMenuOpen = true;
+  @state() private isMenuOpen = false;
   private toggleMenu = () => { this.isMenuOpen = !this.isMenuOpen; }
 
+  /**
+   * To show the jumplist when right-clicking, disable the default 
+   * context menu.
+   */
+  connectedCallback() {
+    super.connectedCallback();
+    document.addEventListener('contextmenu', this.handleContextMenuDisable);
+
+    this.addEventListener(CodeEditorEvents.update, event => {
+      const e = event as CustomEvent<CodeEditorUpdateEvent>;
+      const doc: TextLeaf = e.detail.transaction.newDoc as any;
+      console.log(JSON.parse(doc.text.join('')))
+    });
+  }
+  
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    document.removeEventListener('contextmenu', this.handleContextMenuDisable);
+  }
+
+  private handleContextMenuDisable = (event: Event) => { 
+    event.preventDefault();
+  }
+
   render() {
+    console.log(this.manifest)
     return html`
       <div class="background">
         <div class="desktop-container">
           <img class="desktop" alt="Windows desktop" src="../assets/images/desktop.png" />
           ${this.iconUrl ? 
             html`
-              <div class="taskbar-icon" @click=${this.openAppWindow}>
+              <div class="taskbar-icon" @mousedown=${this.handleTaskbarClick} @click=${this.openAppWindow}>
                 <img alt="App icon" src=${this.iconUrl} />
               </div>` : 
             null}
@@ -166,6 +201,7 @@ export class ManifestPreviewer extends LitElement {
           .iconUrl=${this.iconUrl}>
           </app-window>
         </div>
+      <code-editor></code-editor>
       </div>
     `;
   }
