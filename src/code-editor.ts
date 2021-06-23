@@ -4,7 +4,7 @@ import { debounce } from 'lodash-es';
 import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { getEditorState, emitter, idGenerator } from './utils/codemirror';
-import { CodeEditorEvents, CodeEditorSyncEvent, Lazy } from './models';
+import { CodeEditorEvents, CodeEditorSyncEvent } from './models';
 
 @customElement('code-editor')
 export class CodeEditor extends LitElement {
@@ -22,13 +22,13 @@ export class CodeEditor extends LitElement {
     }
   `;
 
-  @property({ type: String }) startText: Lazy<string>;
+  @property({ type: String }) startText?: string;
 
   @state() editorId: string;
 
-  @state() editorState: Lazy<EditorState>;
+  @state() editorState?: EditorState;
 
-  @state() editorView: Lazy<EditorView>;
+  @state() editorView?: EditorView;
 
   @state() editorEmitter = emitter;
 

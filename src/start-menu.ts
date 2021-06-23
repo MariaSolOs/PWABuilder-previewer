@@ -11,10 +11,10 @@ export class StartMenu extends LitElement {
 
     .menu-container {
       position: absolute;
-      width: 310px;
-      bottom: 19px;
+      width: 270px;
+      bottom: 16px;
       left: 0;
-      height: 186px;
+      height: 166px;
       opacity: 0;
       transform: translateY(205px);
       transition: all 400ms ease-in-out;
@@ -33,10 +33,10 @@ export class StartMenu extends LitElement {
     .hidden {
       background-color: var(--windows-background);
       position: absolute;
-      width: 125px;
+      width: 109px;
       height: 72px;
-      left: 29px;
-      bottom: 68px;
+      left: 25px;
+      bottom: 62px;
     }
 
     .app-initial {
@@ -44,8 +44,8 @@ export class StartMenu extends LitElement {
       color: rgba(255, 255, 255, 0.6);
       text-transform: capitalize;
       position: absolute;
-      left: 32px;
-      bottom: 142px;
+      left: 28px;
+      bottom: 127px;
       font-size: 6px;
       width: 7px;
       text-align: center;
@@ -54,18 +54,18 @@ export class StartMenu extends LitElement {
     .app-name {
       position: absolute;
       color: rgba(255, 255, 255, 0.6);
-      bottom: 127px;
-      left: 45px;
-      font-size: 6px;
+      bottom: 112px;
+      left: 40px;
+      font-size: 5.7px;
       cursor: pointer;
     }
 
     .app-icon {
       position: absolute;
-      bottom: 124px;
-      left: 29px;
-      width: 13px;
-      height: 13px;
+      bottom: 110px;
+      left: 26px;
+      width: 11px;
+      height: 11px;
       cursor: pointer;
     }
   `;
@@ -78,12 +78,12 @@ export class StartMenu extends LitElement {
   /**
    * The name specified on the manifest.
    */
-  @property() appName: string | undefined;
+  @property() appName?: string;
   
   /**
    * The application icon's URL.
    */
-  @property() iconUrl: string | undefined;
+  @property() iconUrl?: string;
 
   /**
    * Callback fired when closing the window.

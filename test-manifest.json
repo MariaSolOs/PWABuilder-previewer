@@ -1,0 +1,51 @@
+{
+  "name": "PWA application",
+  "display": "standalone",
+  "short_name": "PWApp",
+  "theme_color": "yellow",
+  "background_color": "magenta",
+  "shortcuts": [
+    {
+      "name": "Something cool",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/assets/icons/icon_120.png",
+          "sizes": "120x120",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Something else",
+      "url": "/"
+    }
+  ],
+  "icons": [
+      {
+          "src": "/assets/icons/icon_512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+      },
+      {
+          "src": "/assets/icons/icon_192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+      },
+      {
+          "src": "/assets/icons/icon_120.png",
+          "sizes": "120x120",
+          "type": "image/png"
+      },
+      {
+          "src": "/assets/icons/icon_60.png",
+          "sizes": "60x60",
+          "type": "image/png"
+      },
+      {
+          "src": "/assets/icons/icon_57.png",
+          "sizes": "57x57",
+          "type": "image/png"
+      }
+  ]
+}

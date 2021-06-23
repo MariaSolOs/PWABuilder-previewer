@@ -62,5 +62,3 @@ export interface CodeEditorUpdateEvent {
 export type TextLeaf = {
   text: string[];
 }
-
-export type Lazy<T> = T | undefined;

@@ -4,6 +4,8 @@ import { customElement, state, property } from 'lit/decorators.js';
 import './app-window.js';
 import './start-menu.js';
 import './code-editor.js';
+import './jump-list.js';
+import MANIFEST_TEMPLATE from './manifest.js';
 import { Manifest, CodeEditorEvents, CodeEditorUpdateEvent, TextLeaf } from './models';
 
 @customElement('manifest-previewer')
@@ -71,7 +73,7 @@ export class ManifestPreviewer extends LitElement {
 
     .menu-toggler {
       width: 7px;
-      height: 8.5px;
+      height: 6.5px;
       cursor: pointer;
       position: absolute;
       bottom: 5px;
@@ -94,17 +96,7 @@ export class ManifestPreviewer extends LitElement {
   /**
    * The input web manifest.
    */
-  @property({ 
-    type: Object,
-    converter: value => {
-      if (!value) {
-        return undefined;
-      }
-      
-      return JSON.parse(value);
-    }
-  })
-  manifest = {} as Manifest;
+  @state() manifest: Manifest;
 
   /**
    * The url where the manifest resides.
@@ -114,7 +106,7 @@ export class ManifestPreviewer extends LitElement {
   /**
    * The URL used for icon previews, or undefined if the manifest specifies no icons.
    */
-  private _iconUrl: string | undefined;
+  private _iconUrl?: string;
 
   @state()
   private get iconUrl() {
@@ -138,36 +130,49 @@ export class ManifestPreviewer extends LitElement {
    * If true, the application's window is open.
    */
   @state() private isAppOpen = false;
-  private openAppWindow = () => { this.isAppOpen = true; }
-  private closeAppWindow = () => { this.isAppOpen = false; }
-
-  private handleTaskbarClick = (event: MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const isRightClick = event.buttons === 2;
-    console.log(isRightClick);
+  private openAppWindow = () => { 
+    this.isAppOpen = true; 
+    this.closeJumplist();
+    this.closeStartMenu();
   }
+  private closeAppWindow = () => { this.isAppOpen = false; }
 
   /**
    * If true, the start menu is open.
    */
   @state() private isMenuOpen = false;
-  private toggleMenu = () => { this.isMenuOpen = !this.isMenuOpen; }
+  private openStartMenu = () => { 
+    this.isMenuOpen = true;
+    this.closeJumplist();
+  }
+  private closeStartMenu = () => { this.isMenuOpen = false; }
 
   /**
-   * To show the jumplist when right-clicking, disable the default 
+   * If true, the jump list is open.
+   */
+  @state() private isJumplistOpen = false;
+  private openJumplist = () => { this.isJumplistOpen = true; }
+  private closeJumplist = () => { this.isJumplistOpen = false; }
+
+  constructor() {
+    super();
+
+    this.manifest = JSON.parse(MANIFEST_TEMPLATE);
+    // Update the manifest every time the code changes.
+    this.addEventListener(CodeEditorEvents.update, event => {
+      const e = event as CustomEvent<CodeEditorUpdateEvent>;
+      const doc: TextLeaf = e.detail.transaction.newDoc as any;
+      this.manifest = JSON.parse(doc.text.join(''));
+    });
+  }
+
+  /**
+   * To show the jump list when right-clicking, disable the default 
    * context menu.
    */
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener('contextmenu', this.handleContextMenuDisable);
-
-    this.addEventListener(CodeEditorEvents.update, event => {
-      const e = event as CustomEvent<CodeEditorUpdateEvent>;
-      const doc: TextLeaf = e.detail.transaction.newDoc as any;
-      console.log(JSON.parse(doc.text.join('')))
-    });
   }
   
   disconnectedCallback() {
@@ -179,23 +184,47 @@ export class ManifestPreviewer extends LitElement {
     event.preventDefault();
   }
 
+  /**
+   * Depending on the click, open the jump list or application when clicking
+   * taskbar icon.
+   */
+  private handleTaskbarClick = (event: MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const isRightClick = event.buttons === 2;
+    if (isRightClick) {
+      this.openJumplist();
+    } else {
+      this.openAppWindow();
+    }
+  }
+
+  /**
+   * When clicking on the backgroud image, close the menus.
+   */
+  private handleBackdropClick = () => {
+    this.closeJumplist();
+    this.closeStartMenu();
+  }
+
   render() {
     return html`
       <div class="background">
         <div class="desktop-container">
-          <img class="desktop" alt="Windows desktop" src="../assets/images/desktop.png" />
+          <img @click=${this.handleBackdropClick} class="desktop" alt="Windows desktop" src="../assets/images/desktop.png" />
           ${this.iconUrl ? 
             html`
-              <div class="taskbar-icon" @mousedown=${this.handleTaskbarClick} @click=${this.openAppWindow}>
+              <div class="taskbar-icon" @mousedown=${this.handleTaskbarClick} @click=${this.handleTaskbarClick}>
                 <img alt="App icon" src=${this.iconUrl} />
               </div>` : 
             null}
-          <div class="menu-toggler" @click=${this.toggleMenu}></div>
+          <div class="menu-toggler" @click=${this.isMenuOpen ? this.closeStartMenu : this.openStartMenu}></div>
           <start-menu
           .isMenuOpen=${this.isMenuOpen}
           .appName=${this.manifest.name}
           .iconUrl=${this.iconUrl}
-          .onClose=${this.toggleMenu}
+          .onClose=${this.closeStartMenu}
           .onOpenApp=${this.openAppWindow}>
           </start-menu>
           <app-window 
@@ -205,8 +234,11 @@ export class ManifestPreviewer extends LitElement {
           .appName=${this.manifest.name}
           .iconUrl=${this.iconUrl}>
           </app-window>
+          <jump-list
+          .isListOpen=${this.isJumplistOpen}>
+          </jump-list>
         </div>
-        <code-editor></code-editor>
+        <code-editor .startText=${MANIFEST_TEMPLATE}></code-editor>
       </div>
     `;
   }
