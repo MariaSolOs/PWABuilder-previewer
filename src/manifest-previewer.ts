@@ -31,8 +31,8 @@ export class ManifestPreviewer extends LitElement {
 
     .desktop-container {
       overflow: hidden;
-      width: 800px;
-      height: 533px;
+      width: 700px;
+      height: 466px;
       position: relative;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       margin-right: 50px;
@@ -50,9 +50,9 @@ export class ManifestPreviewer extends LitElement {
     .taskbar-icon {
       position: absolute;
       bottom: 0;
-      left: 287px;
-      width: 19px;
-      height: 19px;
+      left: 292px;
+      width: 16px;
+      height: 16px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -70,18 +70,24 @@ export class ManifestPreviewer extends LitElement {
     }
 
     .menu-toggler {
-      width: 8px;
+      width: 7px;
       height: 8.5px;
       cursor: pointer;
       position: absolute;
       bottom: 5px;
-      left: 7.5px;
+      left: 6.5px;
       transition: 300ms background-color ease-in-out
     }
 
     .menu-toggler:hover {
       background-color: rgb(0, 120, 215);
       opacity: 0.7;
+    }
+
+    @media(max-width: 1100px) {
+      .desktop-container { 
+        display: none; 
+      }
     }
   `;
 
@@ -174,7 +180,6 @@ export class ManifestPreviewer extends LitElement {
   }
 
   render() {
-    console.log(this.manifest)
     return html`
       <div class="background">
         <div class="desktop-container">
@@ -201,7 +206,7 @@ export class ManifestPreviewer extends LitElement {
           .iconUrl=${this.iconUrl}>
           </app-window>
         </div>
-      <code-editor></code-editor>
+        <code-editor></code-editor>
       </div>
     `;
   }

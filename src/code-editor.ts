@@ -11,8 +11,14 @@ export class CodeEditor extends LitElement {
   static styles = css`
     .cm-editor {
       background-color: #FFF;
-      height: 533px;
-      width: 400px;
+      height: 467px;
+      width: 350px;
+    }
+
+    @media(max-width: 1100px) {
+      :host {
+        display: none;
+      }
     }
   `;
 
@@ -70,8 +76,6 @@ export class CodeEditor extends LitElement {
   }
 
   render() {
-    return html`
-      <div id=${this.editorId} class="${this.className}"></div>
-    `;
+    return html`<div id=${this.editorId} class="${this.className}"></div>`;
   }
 }
