@@ -6,18 +6,18 @@ import { classMap } from 'lit/directives/class-map.js';
 export class StartMenu extends LitElement {
   static styles = css`
     :host {
-      --windows-background: #38332f;
+      --windows-background: #F1F0F6;
     }
 
     .menu-container {
       position: absolute;
-      width: 270px;
-      bottom: 16px;
-      left: 0;
-      height: 166px;
+      width: 250px;
+      bottom: 22px;
+      left: calc(50% - 125px);
+      height: 263px;
       opacity: 0;
-      transform: translateY(205px);
-      transition: all 400ms ease-in-out;
+      transform: translateY(285px);
+      transition: all 200ms ease-in-out;
     }
 
     .menu-container.open {
@@ -28,44 +28,40 @@ export class StartMenu extends LitElement {
     img.menu {
       width: 100%;
       height: 100%;
+      border-radius: 4px;
     }
     
     .hidden {
       background-color: var(--windows-background);
       position: absolute;
-      width: 109px;
-      height: 72px;
+      width: 195px;
+      height: 42px;
       left: 25px;
-      bottom: 62px;
+      bottom: 43px;
     }
 
-    .app-initial {
-      background-color: var(--windows-background);
-      color: rgba(255, 255, 255, 0.6);
-      text-transform: capitalize;
+    .app-info {
       position: absolute;
-      left: 28px;
-      bottom: 127px;
-      font-size: 6px;
-      width: 7px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--windows-background);
+      right: 88px;
+      top: 34px;
+      max-width: 38px;
     }
 
     .app-name {
-      position: absolute;
-      color: rgba(255, 255, 255, 0.6);
-      bottom: 112px;
-      left: 40px;
-      font-size: 5.7px;
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 5px;
       cursor: pointer;
+      font-weight: 600;
+      letter-spacing: -0.1px;
     }
 
     .app-icon {
-      position: absolute;
-      bottom: 110px;
-      left: 26px;
-      width: 11px;
-      height: 11px;
+      width: 15px;
+      height: 15px;
       cursor: pointer;
     }
   `;
@@ -105,14 +101,9 @@ export class StartMenu extends LitElement {
       <div class=${classMap({ 'menu-container': true, open: this.isMenuOpen })}>
         <img alt="Start menu" src="../assets/images/start-menu.png" class="menu" />
         <div class="hidden"></div>
-        <div @click=${this.handleAppClick}>
-          ${this.appName ? 
-            html`
-              <div class="app-initial">${this.appName.charAt(0)}</div>
-              <div class="app-name">${this.appName}</div>
-            ` 
-          : null}
+        <div class="app-info" @click=${this.handleAppClick}>
           ${this.iconUrl ? html`<img class="app-icon" alt="App icon" src=${this.iconUrl} />` : null}
+          <div class="app-name">${this.appName || 'PWA App'}</div>
         </div>
       </div>
     `;

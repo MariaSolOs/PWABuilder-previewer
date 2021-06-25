@@ -51,20 +51,20 @@ export class ManifestPreviewer extends LitElement {
 
     .taskbar-icon {
       position: absolute;
-      bottom: 0;
-      left: 292px;
-      width: 16px;
-      height: 16px;
+      bottom: 2px;
+      right: 240.5px;
+      width: 15px;
+      height: 15px;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #3B3436;
       cursor: pointer;
-      transition: background-color 300ms ease-in-out
+      transition: background-color 300ms ease-in-out;
+      border-radius: 2px;
     }
 
     .taskbar-icon:hover {
-      background-color: #8D8A90;
+      background-color: rgba(255, 255, 255, 0.8);
     }
 
     .taskbar-icon img {
@@ -72,25 +72,25 @@ export class ManifestPreviewer extends LitElement {
     }
 
     .menu-toggler {
-      width: 7px;
-      height: 6.5px;
       cursor: pointer;
       position: absolute;
-      bottom: 5px;
-      left: 6.5px;
-      transition: 300ms background-color ease-in-out
+      left: 240px;
+      bottom: 2px;
+      right: 240.5px;
+      width: 15px;
+      height: 15px;
+      border-radius: 2px;
     }
 
     .menu-toggler:hover {
-      background-color: rgb(0, 120, 215);
-      opacity: 0.7;
+      background-image: radial-gradient(transparent, #FFF);
     }
 
-    @media(max-width: 1100px) {
+    /* @media(max-width: 1100px) {
       .desktop-container { 
         display: none; 
       }
-    }
+    } */
   `;
 
   /**
@@ -106,12 +106,11 @@ export class ManifestPreviewer extends LitElement {
   /**
    * The URL used for icon previews, or undefined if the manifest specifies no icons.
    */
-  private _iconUrl?: string;
+  @state() private iconUrl = '';
 
-  @state()
-  private get iconUrl() {
-    if (typeof this._iconUrl === 'undefined' && this.manifest.icons) {
-      // Try to get the icon for Android Chrome, or the first one by default
+  firstUpdated() {
+    if (this.manifest.icons) {
+      // Try to get the largest icon, or the first one by default
       let iconUrl = this.manifest.icons[0].src;
       for (const icon of this.manifest.icons) {
         if (icon.sizes?.includes('192x192')) {
@@ -120,10 +119,8 @@ export class ManifestPreviewer extends LitElement {
         }
       }
       const absoluteUrl = new URL(iconUrl, this.manifestUrl).href;
-      this._iconUrl = `https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${absoluteUrl}`;
+      this.iconUrl = `https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${absoluteUrl}`;
     }
-
-    return this._iconUrl;
   }
 
   /**
@@ -150,7 +147,7 @@ export class ManifestPreviewer extends LitElement {
   /**
    * If true, the jump list is open.
    */
-  @state() private isJumplistOpen = false;
+  @state() private isJumplistOpen = true;
   private openJumplist = () => { this.isJumplistOpen = true; }
   private closeJumplist = () => { this.isJumplistOpen = false; }
 
@@ -235,7 +232,8 @@ export class ManifestPreviewer extends LitElement {
           .iconUrl=${this.iconUrl}>
           </app-window>
           <jump-list
-          .isListOpen=${this.isJumplistOpen}>
+          .isListOpen=${this.isJumplistOpen}
+          .shortcuts=${this.manifest.shortcuts}>
           </jump-list>
         </div>
         <code-editor .startText=${MANIFEST_TEMPLATE}></code-editor>
