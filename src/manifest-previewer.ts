@@ -37,7 +37,7 @@ export class ManifestPreviewer extends LitElement {
       height: 466px;
       position: relative;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      margin-right: 50px;
+      margin-right: 30px;
     }
 
     img.desktop {
@@ -86,11 +86,11 @@ export class ManifestPreviewer extends LitElement {
       background-image: radial-gradient(transparent, #FFF);
     }
 
-    /* @media(max-width: 1100px) {
+    @media(max-width: 1100px) {
       .desktop-container { 
         display: none; 
       }
-    } */
+    }
   `;
 
   /**
@@ -147,7 +147,7 @@ export class ManifestPreviewer extends LitElement {
   /**
    * If true, the jump list is open.
    */
-  @state() private isJumplistOpen = true;
+  @state() private isJumplistOpen = false;
   private openJumplist = () => { this.isJumplistOpen = true; }
   private closeJumplist = () => { this.isJumplistOpen = false; }
 
@@ -159,7 +159,11 @@ export class ManifestPreviewer extends LitElement {
     this.addEventListener(CodeEditorEvents.update, event => {
       const e = event as CustomEvent<CodeEditorUpdateEvent>;
       const doc: TextLeaf = e.detail.transaction.newDoc as any;
-      this.manifest = JSON.parse(doc.text.join(''));
+      try {
+        this.manifest = JSON.parse(doc.text.join(''));
+      } catch (err) {
+        // Ignore the syntax error
+      }
     });
   }
 
@@ -229,11 +233,13 @@ export class ManifestPreviewer extends LitElement {
           .onClose=${this.closeAppWindow}
           .backgroundColor=${this.manifest.background_color}
           .appName=${this.manifest.name}
-          .iconUrl=${this.iconUrl}>
+          .iconUrl=${this.iconUrl}
+          .display=${this.manifest.display || 'browser'}>
           </app-window>
           <jump-list
           .isListOpen=${this.isJumplistOpen}
-          .shortcuts=${this.manifest.shortcuts}>
+          .shortcuts=${this.manifest.shortcuts}
+          .manifestUrl=${this.manifestUrl}>
           </jump-list>
         </div>
         <code-editor .startText=${MANIFEST_TEMPLATE}></code-editor>

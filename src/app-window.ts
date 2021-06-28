@@ -2,6 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import type { Display } from './models';
 import { getContrastingColor } from './utils/colors';
 
 @customElement('app-window')
@@ -64,32 +65,44 @@ export class AppWindow extends LitElement {
   @property() onClose = () => {};
 
   /**
-   * The background color specified on the manifest.
+   * The background color attribute on the manifest.
    */
-  @property() backgroundColor: string | undefined;
+  @property() backgroundColor?: string;
 
   /**
-   * The name specified on the manifest.
+   * The name attribute on the manifest.
    */
-  @property() appName: string | undefined;
+  @property() appName?: string;
 
   /**
    * The application icon's URL.
    */
-  @property() iconUrl: string | undefined;
+  @property() iconUrl?: string;
+
+  /**
+   * The display attribute on the manifest.
+   */
+  @property() display: Display = 'browser';
 
   /**
    * The color to use on top of the background color, such that the text is visible.
    */
-  @state()
-  private _contrastingBackgroundColor = '';
-   
-  @state()
-  private get contrastingBackgroundColor() {
-    if (!this._contrastingBackgroundColor) {
-      this._contrastingBackgroundColor = this.backgroundColor ? getContrastingColor(this.backgroundColor) : '#000';
+  @state() private contrastingBackgroundColor = '';
+
+  @state() private showDisplay = false;
+  
+  firstUpdated() {
+    this.contrastingBackgroundColor = this.backgroundColor ? getContrastingColor(this.backgroundColor) : '#000';
+  }
+  
+  willUpdate(changedProps: Map<string, any>) {
+    // When opening the window, show the splash screen and then preview the app display
+    if (changedProps.has('isWindowOpen') && !changedProps.get('isWindowOpen')) {
+      this.showDisplay = false;
+      setTimeout(() => {
+        this.showDisplay = true;
+      }, 3000);
     }
-    return this._contrastingBackgroundColor;
   }
 
   render() {
@@ -102,13 +115,15 @@ export class AppWindow extends LitElement {
               <g><path style="fill:${this.contrastingBackgroundColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
             </svg>
           </div>
-          <div class="app-info">
-            ${this.iconUrl ? 
-              html`<img alt="Application icon" src=${this.iconUrl} />`: null}
-            <p style=${styleMap({ color: this.contrastingBackgroundColor })}>
-              ${this.appName || 'PWA App'}
-            </p>
-          </div>
+          ${this.showDisplay ? 
+            html`` : 
+            html`<div class="app-info">
+              ${this.iconUrl ? 
+                html`<img alt="Application icon" src=${this.iconUrl} />`: null}
+              <p style=${styleMap({ color: this.contrastingBackgroundColor })}>
+                ${this.appName || 'PWA App'}
+              </p>
+            </div>`}
         </div>
       ` : null;
   }

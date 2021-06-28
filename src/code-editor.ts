@@ -12,7 +12,7 @@ export class CodeEditor extends LitElement {
     .cm-editor {
       background-color: #FFF;
       height: 467px;
-      width: 350px;
+      width: 370px;
     }
 
     @media(max-width: 1100px) {
@@ -53,7 +53,7 @@ export class CodeEditor extends LitElement {
       CodeEditorEvents.update,
       debounce((event: Event) => {
         this.dispatchEvent(event);
-      })
+      }, 1000)
     );
   }
 
