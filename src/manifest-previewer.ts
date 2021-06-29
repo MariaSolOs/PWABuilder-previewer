@@ -51,10 +51,10 @@ export class ManifestPreviewer extends LitElement {
 
     .taskbar-icon {
       position: absolute;
-      bottom: 2px;
-      right: 240.5px;
-      width: 15px;
-      height: 15px;
+      bottom: 1.5px;
+      right: 240px;
+      width: 15.5px;
+      height: 15.5px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -86,11 +86,11 @@ export class ManifestPreviewer extends LitElement {
       background-image: radial-gradient(transparent, #FFF);
     }
 
-    @media(max-width: 1100px) {
+    /* @media(max-width: 1100px) {
       .desktop-container { 
         display: none; 
       }
-    }
+    } */
   `;
 
   /**
@@ -103,12 +103,17 @@ export class ManifestPreviewer extends LitElement {
    */
   @property() manifestUrl = '';
 
+  @state() siteUrl = '';
+
   /**
    * The URL used for icon previews, or undefined if the manifest specifies no icons.
    */
   @state() private iconUrl = '';
 
   firstUpdated() {
+    // Set the site URL (assuming it can be derived from the manifest's URL)
+    this.siteUrl = this.manifestUrl.substring(0, this.manifestUrl.lastIndexOf('manifest.json'));
+
     if (this.manifest.icons) {
       // Try to get the largest icon, or the first one by default
       let iconUrl = this.manifest.icons[0].src;
@@ -232,9 +237,11 @@ export class ManifestPreviewer extends LitElement {
           .isWindowOpen=${this.isAppOpen}
           .onClose=${this.closeAppWindow}
           .backgroundColor=${this.manifest.background_color}
+          .themeColor=${this.manifest.theme_color}
           .appName=${this.manifest.name}
           .iconUrl=${this.iconUrl}
-          .display=${this.manifest.display || 'browser'}>
+          .siteUrl=${this.siteUrl}
+          .display=${this.manifest.display || 'minimal-ui'}>
           </app-window>
           <jump-list
           .isListOpen=${this.isJumplistOpen}

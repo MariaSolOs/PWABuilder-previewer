@@ -9,8 +9,9 @@
 :root {
   --font-family: Segoe-UI;
   --font-color: #292C3A;
-  --secondary-font-color: #808080;
   --font-bold: 600;
+  --pwa-theme-color: #808080;
+  --pwa-background-color: #FFF;
 }
 
 html, body {
@@ -21,5 +22,5 @@ html, body {
 
 fast-design-system-provider {
   color: var(--font-color);
-  --background-color: var(--primary-background-color);
+  --background-color: var(--pwa-background-color);
 }
