@@ -36,6 +36,10 @@ export class AppWindow extends LitElement {
       margin-right: 5px;
     }
 
+    .close {
+      cursor: pointer;
+    }
+
     .app-info {
       display: flex;
       justify-content: space-between;
@@ -107,59 +111,40 @@ export class AppWindow extends LitElement {
       right: 0;
     }
 
-    /*
-
-    .app-background.fullscreen {
-      top: 12px;
-      height: 222.8px;
-    }
-
-    .app-background.minimal-ui {
-      width: 260px;
-    }
-
-    .app-background.standalone {
-      width: 260px;
-    } */
-
-    /*
-     
-     .title-bar {
-      width: 260px;
+    .title-bar {
+      width: 100%;
+      padding: 0 3px;
       z-index: 1;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      position: absolute; 
+      top: 0;
       background-color: var(--pwa-theme-color);
     }
-     .nav-actions {
+
+    .title-bar .name {
+      font-size: 6px;
+    }
+
+    .nav-actions {
       display: flex;
       align-items: center;
     }
-     .nav-actions img {
-      width: 10px;
+
+    .nav-actions img {
+      width: 8px;
       height: 8px;
-      margin: 4px 2px 0;
+      margin: 2px;
       opacity: 0.8;
     }
-     .nav-actions svg {
-      margin: 4px 5px 0;
+
+    .display-background.minimal-ui, .display-background.standalone {
+      position: unset;
+      width: 100%;
+      height: 100%;
     }
-     .nav-actions .collapse {
-      margin: 4px 5px 0;
-      width: 6px;
-      height: 1px;
-    }
-     .nav-actions .enlarge {
-      margin: 4px 5px 0;
-      width: 6px;
-      height: 6px;
-      border-width: 1px;
-      border-style: solid;
-    }
-     .title-bar .app-name {
-      margin: 4px;
-      font-size: 6px;
-    } */
   `;
 
   /**
@@ -222,11 +207,10 @@ export class AppWindow extends LitElement {
   willUpdate(changedProps: Map<string, any>) {
     // When opening the window, show the splash screen and then preview the app display
     if (changedProps.has('isWindowOpen') && !changedProps.get('isWindowOpen')) {
-      // this.showDisplay = false;
-      this.showDisplay = true;
-      // setTimeout(() => {
-      //   this.showDisplay = true;
-      // }, 3000);
+      this.showDisplay = false;
+      setTimeout(() => {
+        this.showDisplay = true;
+      }, 3000);
     }
   }
 
@@ -262,14 +246,14 @@ export class AppWindow extends LitElement {
           class="title-bar"
           style=${styleMap({ '--pwa-background-color': this.themeColor })}>
             <div class="nav-actions">
-              <img alt="Go back" src="../assets/images/windows/backarrow.svg" />
-              <img alt="Refresh page" src="../assets/images/windows/refresharrow.svg" />
+              <img alt="Go back" src="../assets/images/back-arrow.svg" />
+              <img alt="Refresh page" src="../assets/images/refresh-arrow.svg" />
             </div>
-            <span class="app-name">${this.appName}</span>
+            <span class="name">${this.appName}</span>
             <div class="nav-actions">
               <div class="collapse" style=${styleMap({ backgroundColor: this.contrastingThemeColor })}></div>
               <div class="enlarge" style=${styleMap({ borderColor: this.contrastingThemeColor })}></div>
-              <svg class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+              <svg @click=${this.onClose} class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
                 <g><path style="fill:${this.contrastingThemeColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
               </svg>
             </div>
@@ -281,11 +265,11 @@ export class AppWindow extends LitElement {
           <div 
           class="title-bar"
           style=${styleMap({ '--pwa-background-color': this.themeColor })}>
-            <span class="app-name">${this.appName}</span>
+            <span class="name">${this.appName}</span>
             <div class="nav-actions">
               <div class="collapse" style=${styleMap({ backgroundColor: this.contrastingThemeColor })}></div>
               <div class="enlarge" style=${styleMap({ borderColor: this.contrastingThemeColor })}></div>
-              <svg class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+              <svg @click=${this.onClose} class="close" width="4px" height="4px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
                 <g><path style="fill:${this.contrastingThemeColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
               </svg>
             </div>

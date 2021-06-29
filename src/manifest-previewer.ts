@@ -241,7 +241,7 @@ export class ManifestPreviewer extends LitElement {
           .appName=${this.manifest.name}
           .iconUrl=${this.iconUrl}
           .siteUrl=${this.siteUrl}
-          .display=${this.manifest.display || 'minimal-ui'}>
+          .display=${this.manifest.display || 'browser'}>
           </app-window>
           <jump-list
           .isListOpen=${this.isJumplistOpen}
