@@ -11,7 +11,7 @@ export class CodeEditor extends LitElement {
   static styles = css`
     .cm-editor {
       background-color: #FFF;
-      height: 467px;
+      height: 466px;
       width: 370px;
     }
 

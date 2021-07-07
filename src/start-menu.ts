@@ -36,7 +36,7 @@ export class StartMenu extends LitElement {
       position: absolute;
       width: 195px;
       height: 42px;
-      left: 25px;
+      left: 24px;
       bottom: 43px;
     }
 
@@ -49,6 +49,9 @@ export class StartMenu extends LitElement {
       right: 88px;
       top: 34px;
       max-width: 38px;
+      overflow-x: hidden;
+      min-height: 21px;
+      justify-content: flex-end;
     }
 
     .app-name {
@@ -57,12 +60,31 @@ export class StartMenu extends LitElement {
       cursor: pointer;
       font-weight: 600;
       letter-spacing: -0.1px;
+      white-space: nowrap;
     }
 
     .app-icon {
       width: 15px;
       height: 15px;
       cursor: pointer;
+    }
+
+    .avatar {
+      position: absolute;
+      background-color: #EDEEFB;
+      display: flex;
+      align-items: center;
+      font-size: 6.5px;
+      bottom: 5px;
+      left: 23px;
+      width: 59px;
+    }
+
+    .avatar img {
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
     }
   `;
 
@@ -104,6 +126,10 @@ export class StartMenu extends LitElement {
         <div class="app-info" @click=${this.handleAppClick}>
           ${this.iconUrl ? html`<img class="app-icon" alt="App icon" src=${this.iconUrl} />` : null}
           <div class="app-name">${this.appName || 'PWA App'}</div>
+        </div>
+        <div class="avatar">
+          <img alt="User" src="../assets/images/avatar.jpg" />
+          Jane Doe
         </div>
       </div>
     `;

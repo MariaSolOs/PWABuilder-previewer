@@ -72,6 +72,15 @@ export class AppWindow extends LitElement {
       white-space: nowrap;
       background-color: white;
     }
+
+    .avatar {
+      width: 9px;
+      height: 9px;
+      position: absolute;
+      top: -14px;
+      right: 15px;
+      border-radius: 50%;
+    }
     
     .display-background {
       width: 98.9%;
@@ -237,6 +246,7 @@ export class AppWindow extends LitElement {
         return html`
           <img class="browser-img" alt="Window's browser" src="../assets/images/browser-window.png" />
           <span class="app-url">${this.siteUrl}</span>
+          <img class="avatar" alt="User" src="../assets/images/avatar.jpg" />
           <div class="browser-close" @click=${this.onClose}></div>
           ${appSplash}
         `;

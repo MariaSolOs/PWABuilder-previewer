@@ -5,8 +5,9 @@ import './app-window.js';
 import './start-menu.js';
 import './code-editor.js';
 import './jump-list.js';
+import './store-window.js';
 import MANIFEST_TEMPLATE from './manifest.js';
-import { Manifest, CodeEditorEvents, CodeEditorUpdateEvent, TextLeaf } from './models';
+import { Manifest, CodeEditorEvents, CodeEditorUpdateEvent } from './models';
 
 @customElement('manifest-previewer')
 export class ManifestPreviewer extends LitElement {
@@ -31,6 +32,10 @@ export class ManifestPreviewer extends LitElement {
       opacity: 0.3;
     }
 
+    .content {
+      display: flex;
+    }
+
     .desktop-container {
       overflow: hidden;
       width: 700px;
@@ -52,7 +57,6 @@ export class ManifestPreviewer extends LitElement {
     .taskbar-icon {
       position: absolute;
       bottom: 1.5px;
-      right: 240px;
       width: 15.5px;
       height: 15.5px;
       display: flex;
@@ -63,7 +67,15 @@ export class ManifestPreviewer extends LitElement {
       border-radius: 2px;
     }
 
-    .taskbar-icon:hover {
+    .taskbar-icon.taskbar-app-icon {
+      right: 240px;
+    }
+
+    .store-icon {
+      right: 295px;
+    }
+
+    .taskbar-app-icon:hover {
       background-color: rgba(255, 255, 255, 0.8);
     }
 
@@ -82,8 +94,16 @@ export class ManifestPreviewer extends LitElement {
       border-radius: 2px;
     }
 
-    .menu-toggler:hover {
+    .menu-toggler:hover, .store-icon:hover {
       background-image: radial-gradient(transparent, #FFF);
+    }
+
+    .invalid-message {
+      color: #B90E0A;
+      font-weight: 600;
+      margin: 8px 0 0;
+      font-size: 14px;
+      height: 18px;
     }
 
     /* @media(max-width: 1100px) {
@@ -103,12 +123,65 @@ export class ManifestPreviewer extends LitElement {
    */
   @property() manifestUrl = '';
 
+  /**
+   * The website's URL
+   */
   @state() siteUrl = '';
 
   /**
    * The URL used for icon previews, or undefined if the manifest specifies no icons.
    */
   @state() private iconUrl = '';
+
+  /**
+   * If true, the application's window is open.
+   */
+  @state() private isAppOpen = false;
+
+   /**
+   * If true, the start menu is open.
+   */
+  @state() private isMenuOpen = false;
+
+  /**
+   * If true, the jump list is open.
+   */
+  @state() private isJumplistOpen = false;
+
+  /**
+   * If true, the MSFT store window is 
+   */
+  @state() private isStoreOpen = true;
+
+  /**
+   * If true, the manifest's JSON has a syntax error.
+   */
+  @state() private invalidJSON = false;
+
+  constructor() {
+    super();
+
+    this.manifest = JSON.parse(MANIFEST_TEMPLATE);
+    // Update the manifest every time the code changes.
+    this.addEventListener(CodeEditorEvents.update, event => {
+      const e = event as CustomEvent<CodeEditorUpdateEvent>;
+      const doc: any = e.detail.transaction.newDoc;
+      try {
+        let text: string[] = [];
+        if (doc.children) {
+          text = text.concat(...doc.children.map((child: any) => child.text));
+        } else {
+          text = doc.text;
+        }
+        this.manifest = JSON.parse(text.join(''));
+        this.invalidJSON = false;
+      } catch (err) {
+        console.log(err)
+        // Ignore the syntax error but show error message
+        this.invalidJSON = true;
+      }
+    });
+  }
 
   firstUpdated() {
     // Set the site URL (assuming it can be derived from the manifest's URL)
@@ -129,50 +202,6 @@ export class ManifestPreviewer extends LitElement {
   }
 
   /**
-   * If true, the application's window is open.
-   */
-  @state() private isAppOpen = false;
-  private openAppWindow = () => { 
-    this.isAppOpen = true; 
-    this.closeJumplist();
-    this.closeStartMenu();
-  }
-  private closeAppWindow = () => { this.isAppOpen = false; }
-
-  /**
-   * If true, the start menu is open.
-   */
-  @state() private isMenuOpen = false;
-  private openStartMenu = () => { 
-    this.isMenuOpen = true;
-    this.closeJumplist();
-  }
-  private closeStartMenu = () => { this.isMenuOpen = false; }
-
-  /**
-   * If true, the jump list is open.
-   */
-  @state() private isJumplistOpen = false;
-  private openJumplist = () => { this.isJumplistOpen = true; }
-  private closeJumplist = () => { this.isJumplistOpen = false; }
-
-  constructor() {
-    super();
-
-    this.manifest = JSON.parse(MANIFEST_TEMPLATE);
-    // Update the manifest every time the code changes.
-    this.addEventListener(CodeEditorEvents.update, event => {
-      const e = event as CustomEvent<CodeEditorUpdateEvent>;
-      const doc: TextLeaf = e.detail.transaction.newDoc as any;
-      try {
-        this.manifest = JSON.parse(doc.text.join(''));
-      } catch (err) {
-        // Ignore the syntax error
-      }
-    });
-  }
-
-  /**
    * To show the jump list when right-clicking, disable the default 
    * context menu.
    */
@@ -189,6 +218,28 @@ export class ManifestPreviewer extends LitElement {
   private handleContextMenuDisable = (event: Event) => { 
     event.preventDefault();
   }
+
+  private openAppWindow = () => { 
+    this.isAppOpen = true; 
+    this.closeJumplist();
+    this.closeStartMenu();
+  }
+  private closeAppWindow = () => { this.isAppOpen = false; }
+
+  private openStartMenu = () => { 
+    this.isMenuOpen = true;
+    this.closeJumplist();
+  }
+  private closeStartMenu = () => { this.isMenuOpen = false; }
+
+  private openJumplist = () => { this.isJumplistOpen = true; }
+  private closeJumplist = () => { this.isJumplistOpen = false; }
+
+  private openStore = () => {
+    this.isStoreOpen = true;
+    this.closeJumplist();
+  }
+  private closeStore = () => { this.isStoreOpen = false; }
 
   /**
    * Depending on the click, open the jump list or application when clicking
@@ -217,39 +268,55 @@ export class ManifestPreviewer extends LitElement {
   render() {
     return html`
       <div class="background">
-        <div class="desktop-container">
-          <img @click=${this.handleBackdropClick} class="desktop" alt="Windows desktop" src="../assets/images/desktop.png" />
-          ${this.iconUrl ? 
-            html`
-              <div class="taskbar-icon" @mousedown=${this.handleTaskbarClick} @click=${this.handleTaskbarClick}>
-                <img alt="App icon" src=${this.iconUrl} />
-              </div>` : 
-            null}
-          <div class="menu-toggler" @click=${this.isMenuOpen ? this.closeStartMenu : this.openStartMenu}></div>
-          <start-menu
-          .isMenuOpen=${this.isMenuOpen}
-          .appName=${this.manifest.name}
-          .iconUrl=${this.iconUrl}
-          .onClose=${this.closeStartMenu}
-          .onOpenApp=${this.openAppWindow}>
-          </start-menu>
-          <app-window 
-          .isWindowOpen=${this.isAppOpen}
-          .onClose=${this.closeAppWindow}
-          .backgroundColor=${this.manifest.background_color}
-          .themeColor=${this.manifest.theme_color}
-          .appName=${this.manifest.name}
-          .iconUrl=${this.iconUrl}
-          .siteUrl=${this.siteUrl}
-          .display=${this.manifest.display || 'browser'}>
-          </app-window>
-          <jump-list
-          .isListOpen=${this.isJumplistOpen}
-          .shortcuts=${this.manifest.shortcuts}
-          .manifestUrl=${this.manifestUrl}>
-          </jump-list>
+        <div class="content">
+          <div class="desktop-container">
+            <img @click=${this.handleBackdropClick} class="desktop" alt="Windows desktop" src="../assets/images/desktop.png" />
+            <div @click=${this.openStore} class="taskbar-icon store-icon"></div>
+            ${this.iconUrl ? 
+              html`
+                <div class="taskbar-icon taskbar-app-icon" @mousedown=${this.handleTaskbarClick} @click=${this.handleTaskbarClick}>
+                  <img alt="App icon" src=${this.iconUrl} />
+                </div>` : 
+              null}
+            <div class="menu-toggler" @click=${this.isMenuOpen ? this.closeStartMenu : this.openStartMenu}></div>
+            <start-menu
+            .isMenuOpen=${this.isMenuOpen}
+            .appName=${this.manifest.name}
+            .iconUrl=${this.iconUrl}
+            .onClose=${this.closeStartMenu}
+            .onOpenApp=${this.openAppWindow}>
+            </start-menu>
+            <app-window 
+            .isWindowOpen=${this.isAppOpen}
+            .onClose=${this.closeAppWindow}
+            .backgroundColor=${this.manifest.background_color}
+            .themeColor=${this.manifest.theme_color}
+            .appName=${this.manifest.name}
+            .iconUrl=${this.iconUrl}
+            .siteUrl=${this.siteUrl}
+            .display=${this.manifest.display || 'browser'}>
+            </app-window>
+            <jump-list
+            .isListOpen=${this.isJumplistOpen}
+            .shortcuts=${this.manifest.shortcuts}
+            .manifestUrl=${this.manifestUrl}>
+            </jump-list>
+            <store-window
+            .isWindowOpen=${this.isStoreOpen}
+            .onClose=${this.closeStore}
+            .iconUrl=${this.iconUrl}
+            .manifestUrl=${this.manifestUrl}
+            .appName=${this.manifest.name || this.manifest.short_name}
+            .description=${this.manifest.description || 'An amazing progressive web app!'}
+            .screenshots=${this.manifest.screenshots}
+            .categories=${this.manifest.categories}>
+            </store-window>
+          </div>
+          <div>
+            <code-editor .startText=${MANIFEST_TEMPLATE}></code-editor>
+            <p class="invalid-message">${this.invalidJSON ? 'Invalid JSON!' : ''}</p>
+          </div>
         </div>
-        <code-editor .startText=${MANIFEST_TEMPLATE}></code-editor>
       </div>
     `;
   }

@@ -58,7 +58,3 @@ export interface CodeEditorSyncEvent {
 export interface CodeEditorUpdateEvent {
   transaction: Transaction;
 }
-
-export type TextLeaf = {
-  text: string[];
-}
