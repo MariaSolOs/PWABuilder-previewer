@@ -49,6 +49,7 @@ export class StartMenu extends LitElement {
       right: 88px;
       top: 34px;
       max-width: 38px;
+      min-width: 31px;
       overflow-x: hidden;
       min-height: 21px;
       justify-content: flex-end;
