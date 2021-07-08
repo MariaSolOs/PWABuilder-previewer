@@ -176,7 +176,6 @@ export class ManifestPreviewer extends LitElement {
         this.manifest = JSON.parse(text.join(''));
         this.invalidJSON = false;
       } catch (err) {
-        console.log(err)
         // Ignore the syntax error but show error message
         this.invalidJSON = true;
       }
