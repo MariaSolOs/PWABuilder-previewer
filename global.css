@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Hind';
-  src: url('/assets/fonts/Hind-Regular.ttf');
+  src: url('/PWABuilder-previewer/assets/fonts/Hind-Regular.ttf');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: 'Hind';
-  src: url('/assets/fonts/Hind-Bold.ttf');
+  src: url('/PWABuilder-previewer/assets/fonts/Hind-Bold.ttf');
   font-weight: 700;
   font-style: bold;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: 'Segoe';
-  src: url('/assets/fonts/SegoeUI.ttf');
+  src: url('/PWABuilder-previewer/assets/fonts/SegoeUI.ttf');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: 'SF-Pro';
-  src: url('/assets/fonts/SFProDisplay-Light.ttf');
+  src: url('/PWABuilder-previewer/assets/fonts/SFProDisplay-Light.ttf');
   font-weight: 400;
   font-style: normal;
 }
