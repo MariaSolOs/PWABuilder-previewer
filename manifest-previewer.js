@@ -405,7 +405,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         <img  
         class="preview-img"
         alt="Application mobile preview" 
-        src="../PWABuilder-previewer/assets/images/windows/background.svg" />
+        src="../assets/images/windows/background.svg" />
       </div>
     `}renderAndroid(){var t;return mt`
       <div class="container android">
@@ -431,12 +431,12 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         <img 
         class="preview-img"
         alt="Application mobile preview" 
-        src="../PWABuilder-previewer/assets/images/android/background.svg" />
+        src="../assets/images/android/background.svg" />
       </div>
     `}renderiOS(){return mt`
       <div class="container ios">
         <div class="add-btn">Add</div>
-        <img class="phone-img" alt="iOS PWA installation" src="../PWABuilder-previewer/assets/images/ios/add-to-home.png" />
+        <img class="phone-img" alt="iOS PWA installation" src="../assets/images/ios/add-to-home.png" />
         <div class="hidden"></div>
         <div class="icon">
           ${this.iconUrl?mt`<img alt="App icon" src=${this.iconUrl} />`:null}
@@ -597,7 +597,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       `]}firstUpdated(){this.contrastingBackgroundColor=this.backgroundColor?Kt(this.backgroundColor):"#000"}renderWindows(){return mt`
       <div 
       class="container windows">
-        <img class="desktop" alt="Window's desktop" src="../PWABuilder-previewer/assets/images/windows/desktop.png" />
+        <img class="desktop" alt="Window's desktop" src="../assets/images/windows/desktop.png" />
         <div class="screen" style=${_t({"--pwa-background-color":this.backgroundColor})}>
           <div class="window-actions">
             <div class="collapse" style=${_t({backgroundColor:this.contrastingBackgroundColor})}></div>
@@ -615,7 +615,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       </div>
     `}renderAndroid(){return mt`
     <div class="container android">
-      <img class="phone" alt="Application mobile preview" src="../PWABuilder-previewer/assets/images/android/background.svg" />
+      <img class="phone" alt="Application mobile preview" src="../assets/images/android/background.svg" />
       <div class="screen" style=${_t({"--pwa-background-color":this.backgroundColor})}>
         <div 
         class="phone-bar"
@@ -634,9 +634,9 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
     </div>
     `}renderiOS(){return mt`
       <div class="container ios"> 
-        <img class="phone" alt="Iphone" src="../PWABuilder-previewer/assets/images/ios/iphone.svg" />
+        <img class="phone" alt="Iphone" src="../assets/images/ios/iphone.svg" />
         <div class="screen" style=${_t({"--pwa-background-color":this.backgroundColor})}>
-          <img class="status-bar" alt="iOS status bar" src="../PWABuilder-previewer/assets/images/ios/statusbar.svg" />
+          <img class="status-bar" alt="iOS status bar" src="../assets/images/ios/statusbar.svg" />
           ${this.iconUrl?mt`<img class="icon" src=${this.iconUrl} alt="App's splash screen" />`:null}
           <h5 class="app-name" style=${_t({color:this.contrastingBackgroundColor})}>
             ${this.appName||"PWA App"}
@@ -739,7 +739,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
       `]}renderWindows(){return mt`
       <div class="windows container">
-        <img alt="Windows start menu" src="../PWABuilder-previewer/assets/images/windows/startmenu.png" class="menu-img" />
+        <img alt="Windows start menu" src="../assets/images/windows/startmenu.png" class="menu-img" />
         <div class="app-container">
           ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} class="app-icon" />`:null}
           <div class="app-name">${this.appName||"PWA App"}</div>
@@ -747,13 +747,13 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       </div>
     `}renderAndroid(){return mt`
       <div class="android container">
-        <img alt="Android app info" src="../PWABuilder-previewer/assets/images/android/appinfo.png" class="menu-img" />
+        <img alt="Android app info" src="../assets/images/android/appinfo.png" class="menu-img" />
         ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} class="app-icon" />`:mt`<div class="app-icon"></div>`}
         <div class="app-name">${this.appName||"PWA App"}</div>
       </div>
     `}renderiOS(){return mt`
       <div class="container ios">
-        <img class="menu-img" alt="iOS settings" src="../PWABuilder-previewer/assets/images/ios/appsettings.jpg" />
+        <img class="menu-img" alt="iOS settings" src="../assets/images/ios/appsettings.jpg" />
         <div class="app-icon">
           ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} />`:null}
         </div>
@@ -856,11 +856,11 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} class="app-icon" />`:null}
           <div class="app-name">${this.shortName||"PWA App"}</div>
         </div>
-        <img class="homescreen" alt="Android's home screen" src="../PWABuilder-previewer/assets/images/android/homescreen.png" />
+        <img class="homescreen" alt="Android's home screen" src="../assets/images/android/homescreen.png" />
       </div>
     `}renderiOS(){return mt`
       <div class="ios container">
-        <img class="background" alt="iOS home screen" src="../PWABuilder-previewer/assets/images/ios/homemenu.png" />
+        <img class="background" alt="iOS home screen" src="../assets/images/ios/homemenu.png" />
         <div class="app-name">${this.shortName||"PWA App"}</div>
         <div class="app-icon">
           ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} />`:null}
@@ -1016,7 +1016,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
       `]}firstUpdated(){this.contrastingColor=this.themeColor?Kt(this.themeColor):"#FFF"}renderWindows(){return mt`
       <div class="container windows">
-        <img alt="Windows' title bar" src="../PWABuilder-previewer/assets/images/windows/titlebar.png" class="titlebar-img" />
+        <img alt="Windows' title bar" src="../assets/images/windows/titlebar.png" class="titlebar-img" />
         <div 
         class="titlebar" 
         style=${_t({"--pwa-theme-color":this.themeColor})}>
@@ -1034,7 +1034,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       </div>
     `}renderAndroid(){return mt`
       <div class="container android">
-        <img alt="Android's app switcher" src="../PWABuilder-previewer/assets/images/android/appswitcher.jpg" class="switcher-img" />
+        <img alt="Android's app switcher" src="../assets/images/android/appswitcher.jpg" class="switcher-img" />
         <div class="app-box" style=${_t({"--pwa-theme-color":this.themeColor})}>
           ${this.iconUrl?mt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
           <div class="menu-actions" style=${_t({color:this.contrastingColor})}>
@@ -1046,9 +1046,9 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       </div>
     `}renderiOS(){return mt`
       <div class="container ios">
-        <img class="phone" alt="Iphone" src="../PWABuilder-previewer/assets/images/ios/iphone.svg" />
+        <img class="phone" alt="Iphone" src="../assets/images/ios/iphone.svg" />
         <div class="status-bar" style=${_t({"--pwa-theme-color":this.themeColor})}>
-          <img alt="Status bar" src="../PWABuilder-previewer/assets/images/ios/statusbar.svg" />
+          <img alt="Status bar" src="../assets/images/ios/statusbar.svg" />
         </div>
       </div>
     `}};t([Ht()],Qt.prototype,"themeColor",void 0),t([Ht()],Qt.prototype,"appName",void 0),t([Ht()],Qt.prototype,"iconUrl",void 0),t([jt()],Qt.prototype,"contrastingColor",void 0),Qt=t([Wt("themecolor-screen")],Qt);let Xt=class extends It{render(){return mt`<p class="message"><slot></slot></p>`}};Xt.styles=r`
@@ -1177,8 +1177,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         <img 
         class="menu-img" 
         alt="Application shortcuts" 
-        src="../PWABuilder-previewer/assets/images/${this.platform}/shortcutsmenu.png" />
-        ${"android"===this.platform?mt`<img alt="Chrome" class="chrome-icon" src="../PWABuilder-previewer/assets/images/chrome-icon.png" />`:null}
+        src="../assets/images/${this.platform}/shortcutsmenu.png" />
+        ${"android"===this.platform?mt`<img alt="Chrome" class="chrome-icon" src="../assets/images/chrome-icon.png" />`:null}
         ${this.iconUrl?mt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
         <div class="menu">
           <ul class="shortcut-list">
@@ -1404,12 +1404,12 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       </div>
     `;switch(this.display){case"fullscreen":return mt`
           <div class="container windows">
-            <img class="browser-img" alt="Window's browser" src="../PWABuilder-previewer/assets/images/windows/browserwindow.png" />
+            <img class="browser-img" alt="Window's browser" src="../assets/images/windows/browserwindow.png" />
             ${t}
           </div>
         `;case"browser":return mt`
           <div class="container windows">
-            <img class="browser-img" alt="Window's browser" src="../PWABuilder-previewer/assets/images/windows/browserwindow.png" />
+            <img class="browser-img" alt="Window's browser" src="../assets/images/windows/browserwindow.png" />
             <span class="app-url">${this.siteUrl}</span>
             ${t}
           </div>
@@ -1419,8 +1419,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
             class="title-bar"
             style=${_t({"--pwa-background-color":this.themeColor})}>
               <div class="nav-actions">
-                <img alt="Go back" src="../PWABuilder-previewer/assets/images/windows/backarrow.svg" />
-                <img alt="Refresh page" src="../PWABuilder-previewer/assets/images/windows/refresharrow.svg" />
+                <img alt="Go back" src="../assets/images/windows/backarrow.svg" />
+                <img alt="Refresh page" src="../assets/images/windows/refresharrow.svg" />
               </div>
               <span class="app-name">${this.appName}</span>
               <div class="nav-actions">
@@ -1453,7 +1453,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       <div class="container android">
         ${"fullscreen"!==this.display?mt`
           <div class="status-bar" style=${_t({"--pwa-background-color":this.themeColor})}>
-            <img alt="Status bar" src="../PWABuilder-previewer/assets/images/android/statusbar-icons.png" />
+            <img alt="Status bar" src="../assets/images/android/statusbar-icons.png" />
           </div>
         `:null}
         ${"browser"===this.display||"minimal-ui"===this.display?mt`<span class="app-url">${this.siteUrl}</span>`:null}
@@ -1467,7 +1467,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
             ${this.appName||"PWA App"}
           </h4>
         </div>
-        <img class="phone" alt="Android phone" src="../PWABuilder-previewer/assets/images/android/background.svg" />
+        <img class="phone" alt="Android phone" src="../assets/images/android/background.svg" />
       </div>
     `}renderiOS(){return mt`
       <div class="ios-message">
@@ -1618,7 +1618,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
       `]}getImageUrl(t){return`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${new URL(t,this.manifestUrl).href}`}renderWindows(){var t;return mt`
       <div class="container windows">
-        <img class="store-img" alt="Microsoft Store" src="../PWABuilder-previewer/assets/images/windows/store-listing.png" />
+        <img class="store-img" alt="Microsoft Store" src="../assets/images/windows/store-listing.png" />
         <div class="app-header">
           ${this.iconUrl?mt`<img alt="App icon" src=${this.iconUrl} />`:null}
           <h4>${this.appName||"PWA App"}</h4>
@@ -1633,7 +1633,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       </div>
     `}renderAndroid(){var t,i;return mt`
       <div class="container android">
-        <img class="store-img" alt="Microsoft store" src="../../PWABuilder-previewer/assets/images/android/app-listing.png" />
+        <img class="store-img" alt="Microsoft store" src="../../assets/images/android/app-listing.png" />
         ${this.iconUrl?mt`<img class="app-icon" alt="App icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
         <div class="app-name">${this.appName||"PWA App"}</div>
         <div class="screenshots">
@@ -1785,7 +1785,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
       `]}sharedRender(){return mt`
       <div class="container ${this.platform}">
-        <img class="dialog" alt="Web share trigger" src="../PWABuilder-previewer/assets/images/${this.platform}/share-dialog.png" />
+        <img class="dialog" alt="Web share trigger" src="../assets/images/${this.platform}/share-dialog.png" />
         ${"android"===this.platform?mt`<div class="media-url">via Media Content https://media-content.com</div>`:null}
         <div class="contacts">
           <div class="avatar">
@@ -1800,7 +1800,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       </div>
     `}renderWindows(){return this.sharedRender()}renderAndroid(){return this.sharedRender()}renderiOS(){return mt`
       <div class="container ios">
-        <img class="dialog" alt="" src="../PWABuilder-previewer/assets/images/ios/share-dialog.jpg" />
+        <img class="dialog" alt="" src="../assets/images/ios/share-dialog.jpg" />
         <div class="app">
           ${this.iconUrl?mt`<img alt="PWA icon" src=${this.iconUrl} />`:null}
           ${this.shortName||"PWA App"}
@@ -2035,13 +2035,13 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           <div id="content">${this.screenContent()}</div>
           <img 
           part="nav-arrow"
-          src="../PWABuilder-previewer/assets/images/nav-arrow.svg" 
+          src="../assets/images/nav-arrow.svg" 
           alt="Navigate right" 
           class="nav-arrow-right"
           @click=${this.handleNavigateRight} />
           <img 
           part="nav-arrow"
-          src="../PWABuilder-previewer/assets/images/nav-arrow.svg" 
+          src="../assets/images/nav-arrow.svg" 
           alt="Navigate left" 
           class="nav-arrow-left"
           @click=${this.handleNavigateLeft} />
