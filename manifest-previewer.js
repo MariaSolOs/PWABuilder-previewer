@@ -866,192 +866,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} />`:null}
         </div>
       </div>
-    `}};t([Ht()],Gt.prototype,"shortName",void 0),t([Ht()],Gt.prototype,"iconUrl",void 0),Gt=t([Wt("shortname-screen")],Gt);let Qt=class extends Vt{constructor(){super(...arguments),this.contrastingColor=""}static get styles(){return[super.styles,r`
-        .container {
-          position: relative;
-          width: 250px;
-          margin: 120px auto 0;
-        }
-    
-        .windows .titlebar-img {
-          position: absolute;
-          top: 0;
-          width: 100%;
-          box-shadow: var(--card-box-shadow);
-        }
-    
-        .windows .titlebar {
-          position: absolute;
-          height: 13px;
-          width: calc(100% - 1px);
-          top: 49px;
-          display: flex;
-          align-items: center;
-          border: 0.5px solid grey;
-          background-color: var(--pwa-theme-color);
-          font-family: var(--windows-font-family); 
-        }
-    
-        .windows .titlebar-actions {
-          margin-right: 3px; 
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          width: 50px;
-        }
-    
-        .windows .titlebar-actions .collapse {
-          width: 8px;
-          height: 1px;
-        }
-    
-        .windows .titlebar-actions .enlarge {
-          width: 7px;
-          height: 7px;
-          border-width: 1px;
-          border-style: solid;
-        }
-    
-        .windows .app-name {
-          font-size: 9px;
-          width: fit-content;
-          margin: 0 auto;
-          display: inline-block;
-        }
-    
-        .android .switcher-img {
-          width: 100%;
-          position: absolute; 
-          top: 0;
-          box-shadow: var(--card-box-shadow);
-        }
-    
-        .android .app-box {
-          border-radius: 3px 3px 0 0;
-          display: flex;
-          width: 163px;
-          position: absolute;
-          top: 33px;
-          height: 42px;
-          left: 44px;
-          background-color: var(--pwa-theme-color);
-        }
-    
-        .android .app-icon {
-          border-radius: 50%;
-          width: 30px;
-          height: 30px;
-          margin: -15px auto 0;
-          background-color: #FFF;
-        }
-    
-        .android .menu-actions {
-          display: flex;
-          width: 100%;
-          justify-content: space-evenly;
-          position: absolute;
-          bottom: 4px;
-          font-family: Roboto;
-          font-size: 10px;
-          letter-spacing: 0.3px;
-          opacity: 0.7;
-        }
-    
-        .android .menu-actions span:first-child {
-          text-decoration: underline;
-        }
-    
-        .container.ios {
-          margin-top: 60px;
-        }
-    
-        .ios .phone {
-          width: 100%;
-          height: 200px;
-          position: absolute;
-          top: 0px;
-          overflow-y: hidden;
-          object-fit: cover;
-          object-position: top;
-        }
-    
-        .ios .status-bar {
-          position: absolute;
-          top: 76px;
-          height: 18px;
-          left: 19.5px;
-          width: 212px;
-          background-color: var(--pwa-theme-color);
-        }
-    
-        .ios .status-bar img {
-          width: 100%;
-          height: 16px;
-          overflow-y: hidden;
-          object-fit: cover;
-          object-position: top;
-        }
-    
-        @media(max-width: 1366px) {
-          .windows .titlebar {
-            bottom: 16px;
-          }
-    
-          .android .app-box {
-            width: 164px;
-            top: 33px;
-            height: 42px;
-            left: 43px;
-          }
-    
-          .android .app-icon {
-            width: 26px;
-            height: 26px;
-            margin: -12px auto 0;
-          }
-    
-          .android .menu-actions {
-            font-size: 8px;
-          }
-        }
-      `]}firstUpdated(){this.contrastingColor=this.themeColor?Kt(this.themeColor):"#FFF"}renderWindows(){return mt`
-      <div class="container windows">
-        <img alt="Windows' title bar" src="../assets/images/windows/titlebar.png" class="titlebar-img" />
-        <div 
-        class="titlebar" 
-        style=${_t({"--pwa-theme-color":this.themeColor})}>
-          <p class="app-name" style=${_t({color:this.contrastingColor})}>
-            ${this.appName||"PWA App"}
-          </p>
-          <div class="titlebar-actions">
-            <div class="collapse" style=${_t({backgroundColor:this.contrastingColor})}></div>
-            <div class="enlarge" style=${_t({borderColor:this.contrastingColor})}></div>
-            <svg class="close" width="8px" height="8px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
-              <g><path style="fill:${this.contrastingColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
-            </svg>
-          </div>
-        </div>
-      </div>
-    `}renderAndroid(){return mt`
-      <div class="container android">
-        <img alt="Android's app switcher" src="../assets/images/android/appswitcher.jpg" class="switcher-img" />
-        <div class="app-box" style=${_t({"--pwa-theme-color":this.themeColor})}>
-          ${this.iconUrl?mt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
-          <div class="menu-actions" style=${_t({color:this.contrastingColor})}>
-            <span>HOME</span>
-            <span>PROFILE</span>
-            <span>SETTINGS</span>
-          </div>
-        </div>
-      </div>
-    `}renderiOS(){return mt`
-      <div class="container ios">
-        <img class="phone" alt="Iphone" src="../assets/images/ios/iphone.svg" />
-        <div class="status-bar" style=${_t({"--pwa-theme-color":this.themeColor})}>
-          <img alt="Status bar" src="../assets/images/ios/statusbar.svg" />
-        </div>
-      </div>
-    `}};t([Ht()],Qt.prototype,"themeColor",void 0),t([Ht()],Qt.prototype,"appName",void 0),t([Ht()],Qt.prototype,"iconUrl",void 0),t([jt()],Qt.prototype,"contrastingColor",void 0),Qt=t([Wt("themecolor-screen")],Qt);let Xt=class extends It{render(){return mt`<p class="message"><slot></slot></p>`}};Xt.styles=r`
+    `}};t([Ht()],Gt.prototype,"shortName",void 0),t([Ht()],Gt.prototype,"iconUrl",void 0),Gt=t([Wt("shortname-screen")],Gt);let Qt=class extends It{render(){return mt`<p class="message"><slot></slot></p>`}};Qt.styles=r`
     .message {
       font-style: italic;
       font-size: 14px;
@@ -1061,143 +876,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       margin: 0;
       text-align: center;
     }
-  `,Xt=t([Wt("disclaimer-message")],Xt);let Yt=class extends Vt{constructor(){super(...arguments),this.manifestUrl=""}static get styles(){return[super.styles,r`
-        .container {
-          width: 260px;
-          position: relative;
-          margin: 40px auto 0;
-        }
-
-        .container.windows {
-          font-family: var(--windows-font-family);
-        }
-
-        .menu-img {
-          width: 100%;
-          box-shadow: var(--card-box-shadow);
-        }
-
-        .windows .app-icon {
-          position: absolute;
-          width: 14px;
-          height: 14px;
-          bottom: 7px;
-          right: 59.5px;
-        }
-
-        .windows .menu {
-          position: absolute;
-          bottom: 41px;
-          right: 13px;
-          width: 105px;
-          height: 100px;
-        }
-
-        .windows .shortcut-list {
-          list-style: none;
-          padding: 0;
-          color: rgba(0, 0, 0, 0.6);
-          font-size: 6px;
-          font-weight: 600;
-          background-color: #D9E8F0;
-          height: 100%;
-        }
-
-        .windows .shortcut-list li {
-          padding: 0 0 0 4px;
-          margin: 0 0 10px;
-          display: flex;
-          align-items: center;
-        }
-
-        .windows .shortcut-list .icon {
-          width: 10px;
-          height: 10px;
-          margin-right: 5px;
-          display: inline-block;
-        }
-
-        .android .app-icon {
-          position: absolute;
-          width: 50px;
-          height: 50px;
-          top: 41px;
-          left: 18px;
-          background-color: #FFF;
-          border-radius: 50%;
-        }
-
-        .android .chrome-icon {
-          position: absolute;
-          width: 27px;
-          height: 27px;
-          top: 69px;
-          left: 45px;
-          z-index: 1;
-        }
-
-        .android .menu {
-          background-color: #FFF;
-          position: absolute;
-          right: 40px;
-          width: 195px;
-          height: 145px;
-          bottom: 30px;
-        }
-
-        .android .shortcut-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          color: #000;
-          font-size: 12px;
-        }
-
-        .android .shortcut-list li {
-          padding: 0;
-          margin: 0 0 10px;
-          display: flex;
-          align-items: center;
-          height: 25px;
-        }
-
-        .android .shortcut-list .icon {
-          width: 25px;
-          height: 25px;
-          margin-right: 15px;
-          display: inline-block;
-        }
-
-        .ios-message {
-          margin: 100px auto 0px;
-          width: 70%;
-        }
-      `]}getShortcutIcon(t){const i=t[0].src;return`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${new URL(i,this.manifestUrl).href}`}sharedRender(){var t;return mt`
-      <div class="container ${this.platform}">
-        <img 
-        class="menu-img" 
-        alt="Application shortcuts" 
-        src="../assets/images/${this.platform}/shortcutsmenu.png" />
-        ${"android"===this.platform?mt`<img alt="Chrome" class="chrome-icon" src="../assets/images/chrome-icon.png" />`:null}
-        ${this.iconUrl?mt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
-        <div class="menu">
-          <ul class="shortcut-list">
-            ${null===(t=this.shortcuts)||void 0===t?void 0:t.slice(0,5).map((t=>mt`
-                <li>
-                  ${t.icons?mt`<img class="icon" alt=${t.name} src=${this.getShortcutIcon(t.icons)} />`:mt`<div class="icon"></div>`}
-                  <span>${t.name}</span>
-                </li>
-              `))}
-          </ul>
-        </div>
-      </div>
-    `}renderWindows(){return this.sharedRender()}renderAndroid(){return this.sharedRender()}renderiOS(){return mt`
-      <div class="ios-message">
-        <disclaimer-message>
-          iOS does not support the shortcuts feature.
-        </disclaimer-message>
-      </div>
-    `}};t([Ht()],Yt.prototype,"manifestUrl",void 0),t([Ht({type:Array})],Yt.prototype,"shortcuts",void 0),t([Ht()],Yt.prototype,"iconUrl",void 0),Yt=t([Wt("shortcuts-screen")],Yt);let ti=class extends Vt{constructor(){super(...arguments),this.siteUrl="",this.contrastingThemeColor=""}static get styles(){return[super.styles,r`
+  `,Qt=t([Wt("disclaimer-message")],Qt);let Xt=class extends Vt{constructor(){super(...arguments),this.siteUrl="",this.contrastingThemeColor=""}static get styles(){return[super.styles,r`
         .container {
           position: relative;
           display: flex;
@@ -1475,7 +1154,333 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           iOS does not support different display modes.
         </disclaimer-message>
       </div>
-    `}};t([Ht()],ti.prototype,"display",void 0),t([Ht()],ti.prototype,"themeColor",void 0),t([Ht()],ti.prototype,"backgroundColor",void 0),t([Ht()],ti.prototype,"iconUrl",void 0),t([Ht()],ti.prototype,"appName",void 0),t([Ht()],ti.prototype,"siteUrl",void 0),t([jt()],ti.prototype,"contrastingThemeColor",void 0),ti=t([Wt("display-screen")],ti);let ii=class extends Vt{constructor(){super(...arguments),this.manifestUrl=""}static get styles(){return[super.styles,r`
+    `}};t([Ht()],Xt.prototype,"display",void 0),t([Ht()],Xt.prototype,"themeColor",void 0),t([Ht()],Xt.prototype,"backgroundColor",void 0),t([Ht()],Xt.prototype,"iconUrl",void 0),t([Ht()],Xt.prototype,"appName",void 0),t([Ht()],Xt.prototype,"siteUrl",void 0),t([jt()],Xt.prototype,"contrastingThemeColor",void 0),Xt=t([Wt("display-screen")],Xt);let Yt=class extends Vt{constructor(){super(...arguments),this.contrastingColor=""}static get styles(){return[super.styles,r`
+        .container {
+          position: relative;
+          width: 250px;
+          margin: 120px auto 0;
+        }
+        
+        .android .switcher-img {
+          width: 100%;
+          position: absolute; 
+          top: 0;
+          box-shadow: var(--card-box-shadow);
+        }
+    
+        .android .app-box {
+          border-radius: 3px 3px 0 0;
+          display: flex;
+          width: 163px;
+          position: absolute;
+          top: 33px;
+          height: 42px;
+          left: 44px;
+          background-color: var(--pwa-theme-color);
+        }
+    
+        .android .app-icon {
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          margin: -15px auto 0;
+          background-color: #FFF;
+        }
+    
+        .android .menu-actions {
+          display: flex;
+          width: 100%;
+          justify-content: space-evenly;
+          position: absolute;
+          bottom: 4px;
+          font-family: Roboto;
+          font-size: 10px;
+          letter-spacing: 0.3px;
+          opacity: 0.7;
+        }
+    
+        .android .menu-actions span:first-child {
+          text-decoration: underline;
+        }
+    
+        .container.ios {
+          margin-top: 60px;
+        }
+    
+        .ios .phone {
+          width: 100%;
+          height: 200px;
+          position: absolute;
+          top: 0px;
+          overflow-y: hidden;
+          object-fit: cover;
+          object-position: top;
+        }
+    
+        .ios .status-bar {
+          position: absolute;
+          top: 76px;
+          height: 18px;
+          left: 19.5px;
+          width: 212px;
+          background-color: var(--pwa-theme-color);
+        }
+    
+        .ios .status-bar img {
+          width: 100%;
+          height: 16px;
+          overflow-y: hidden;
+          object-fit: cover;
+          object-position: top;
+        }
+
+        .container.windows {
+          font-family: var(--windows-font-family);
+          height: 160px;
+          border: 1px solid #000;
+          margin-top: 50px;
+        }
+
+        .windows .title-bar {
+          width: 100%;
+          z-index: 1;
+          display: flex;
+          justify-content: space-between;
+          background-color: var(--pwa-theme-color);
+        }
+
+        .windows .nav-actions {
+          display: flex;
+          align-items: center;
+        }
+
+        .windows .nav-actions img {
+          width: 10px;
+          height: 8px;
+          margin: 4px 2px 0;
+          opacity: 0.8;
+        }
+
+        .windows .nav-actions svg {
+          margin: 4px 5px 0;
+        }
+
+        .windows .nav-actions .collapse {
+          margin: 4px 5px 0;
+          width: 6px;
+          height: 1px;
+        }
+
+        .windows .nav-actions .enlarge {
+          margin: 4px 5px 0;
+          width: 6px;
+          height: 6px;
+          border-width: 1px;
+          border-style: solid;
+        }
+
+        .windows .title-bar .app-name {
+          margin: 4px;
+          font-size: 6px;
+        }
+    
+        @media(max-width: 1366px) {
+          .windows .titlebar {
+            bottom: 16px;
+          }
+    
+          .android .app-box {
+            width: 164px;
+            top: 33px;
+            height: 42px;
+            left: 43px;
+          }
+    
+          .android .app-icon {
+            width: 26px;
+            height: 26px;
+            margin: -12px auto 0;
+          }
+    
+          .android .menu-actions {
+            font-size: 8px;
+          }
+        }
+      `]}firstUpdated(){this.contrastingColor=this.themeColor?Kt(this.themeColor):"#FFF"}renderWindows(){return mt`
+      <div class="windows container">
+        <div 
+        class="title-bar"
+        style=${_t({"--pwa-background-color":this.themeColor})}>
+          <div class="nav-actions">
+            <img alt="Go back" src="../assets/images/windows/backarrow.svg" />
+            <img alt="Refresh page" src="../assets/images/windows/refresharrow.svg" />
+          </div>
+          <span class="app-name">${this.appName}</span>
+          <div class="nav-actions">
+            <div class="collapse" style=${_t({backgroundColor:this.contrastingColor})}></div>
+            <div class="enlarge" style=${_t({borderColor:this.contrastingColor})}></div>
+            <svg class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+              <g><path style="fill:${this.contrastingColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    `}renderAndroid(){return mt`
+      <div class="container android">
+        <img alt="Android's app switcher" src="../assets/images/android/appswitcher.jpg" class="switcher-img" />
+        <div class="app-box" style=${_t({"--pwa-theme-color":this.themeColor})}>
+          ${this.iconUrl?mt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
+          <div class="menu-actions" style=${_t({color:this.contrastingColor})}>
+            <span>HOME</span>
+            <span>PROFILE</span>
+            <span>SETTINGS</span>
+          </div>
+        </div>
+      </div>
+    `}renderiOS(){return mt`
+      <div class="container ios">
+        <img class="phone" alt="Iphone" src="../assets/images/ios/iphone.svg" />
+        <div class="status-bar" style=${_t({"--pwa-theme-color":this.themeColor})}>
+          <img alt="Status bar" src="../assets/images/ios/statusbar.svg" />
+        </div>
+      </div>
+    `}};t([Ht()],Yt.prototype,"themeColor",void 0),t([Ht()],Yt.prototype,"appName",void 0),t([Ht()],Yt.prototype,"iconUrl",void 0),t([jt()],Yt.prototype,"contrastingColor",void 0),Yt=t([Wt("themecolor-screen")],Yt);let ti=class extends Vt{constructor(){super(...arguments),this.manifestUrl=""}static get styles(){return[super.styles,r`
+        .container {
+          width: 260px;
+          position: relative;
+          margin: 40px auto 0;
+        }
+
+        .container.windows {
+          font-family: var(--windows-font-family);
+        }
+
+        .menu-img {
+          width: 100%;
+          box-shadow: var(--card-box-shadow);
+        }
+
+        .windows .app-icon {
+          position: absolute;
+          width: 14px;
+          height: 14px;
+          bottom: 7px;
+          right: 59.5px;
+        }
+
+        .windows .menu {
+          position: absolute;
+          bottom: 41px;
+          right: 13px;
+          width: 105px;
+          height: 100px;
+        }
+
+        .windows .shortcut-list {
+          list-style: none;
+          padding: 0;
+          color: rgba(0, 0, 0, 0.6);
+          font-size: 6px;
+          font-weight: 600;
+          background-color: #D9E8F0;
+          height: 100%;
+        }
+
+        .windows .shortcut-list li {
+          padding: 0 0 0 4px;
+          margin: 0 0 10px;
+          display: flex;
+          align-items: center;
+        }
+
+        .windows .shortcut-list .icon {
+          width: 10px;
+          height: 10px;
+          margin-right: 5px;
+          display: inline-block;
+        }
+
+        .android .app-icon {
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          top: 41px;
+          left: 18px;
+          background-color: #FFF;
+          border-radius: 50%;
+        }
+
+        .android .chrome-icon {
+          position: absolute;
+          width: 27px;
+          height: 27px;
+          top: 69px;
+          left: 45px;
+          z-index: 1;
+        }
+
+        .android .menu {
+          background-color: #FFF;
+          position: absolute;
+          right: 40px;
+          width: 195px;
+          height: 145px;
+          bottom: 30px;
+        }
+
+        .android .shortcut-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          color: #000;
+          font-size: 12px;
+        }
+
+        .android .shortcut-list li {
+          padding: 0;
+          margin: 0 0 10px;
+          display: flex;
+          align-items: center;
+          height: 25px;
+        }
+
+        .android .shortcut-list .icon {
+          width: 25px;
+          height: 25px;
+          margin-right: 15px;
+          display: inline-block;
+        }
+
+        .ios-message {
+          margin: 100px auto 0px;
+          width: 70%;
+        }
+      `]}getShortcutIcon(t){const i=t[0].src;return`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${new URL(i,this.manifestUrl).href}`}sharedRender(){var t;return mt`
+      <div class="container ${this.platform}">
+        <img 
+        class="menu-img" 
+        alt="Application shortcuts" 
+        src="../assets/images/${this.platform}/shortcutsmenu.png" />
+        ${"android"===this.platform?mt`<img alt="Chrome" class="chrome-icon" src="../assets/images/chrome-icon.png" />`:null}
+        ${this.iconUrl?mt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
+        <div class="menu">
+          <ul class="shortcut-list">
+            ${null===(t=this.shortcuts)||void 0===t?void 0:t.slice(0,5).map((t=>mt`
+                <li>
+                  ${t.icons?mt`<img class="icon" alt=${t.name} src=${this.getShortcutIcon(t.icons)} />`:mt`<div class="icon"></div>`}
+                  <span>${t.name}</span>
+                </li>
+              `))}
+          </ul>
+        </div>
+      </div>
+    `}renderWindows(){return this.sharedRender()}renderAndroid(){return this.sharedRender()}renderiOS(){return mt`
+      <div class="ios-message">
+        <disclaimer-message>
+          iOS does not support the shortcuts feature.
+        </disclaimer-message>
+      </div>
+    `}};t([Ht()],ti.prototype,"manifestUrl",void 0),t([Ht({type:Array})],ti.prototype,"shortcuts",void 0),t([Ht()],ti.prototype,"iconUrl",void 0),ti=t([Wt("shortcuts-screen")],ti);let ii=class extends Vt{constructor(){super(...arguments),this.manifestUrl=""}static get styles(){return[super.styles,r`
         .container {
           position: relative;
           margin: 30px auto 0;
@@ -1806,7 +1811,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           ${this.shortName||"PWA App"}
         </div>
       </div>
-    `}};var si;t([Ht()],ei.prototype,"iconUrl",void 0),t([Ht()],ei.prototype,"appName",void 0),t([Ht()],ei.prototype,"shortName",void 0),t([Ht()],ei.prototype,"siteUrl",void 0),ei=t([Wt("share-target")],ei),function(t){t[t.Install=0]="Install",t[t.SplashScreen=1]="SplashScreen",t[t.Name=2]="Name",t[t.ShortName=3]="ShortName",t[t.ThemeColor=4]="ThemeColor",t[t.Shortcuts=5]="Shortcuts",t[t.Display=6]="Display",t[t.Categories=7]="Categories",t[t.ShareTarget=8]="ShareTarget"}(si||(si={}));let oi=class extends It{constructor(){super(...arguments),this.siteUrl="",this.iconUrl="",this.isInFullScreen=!1,this.stage=si.Categories,this.manifest={},this.manifestUrl="",this.platform="iOS",this.handleFullScreenChange=()=>{this.isInFullScreen=Boolean(document.fullscreenElement)}}firstUpdated(){var t;if(this.manifest.icons){let i=this.manifest.icons[0].src;for(const e of this.manifest.icons)if(null===(t=e.sizes)||void 0===t?void 0:t.includes("512x512")){i=e.src;break}const e=new URL(i,this.manifestUrl).href;this.iconUrl=`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${e}`}this.siteUrl=this.manifestUrl.substring(0,this.manifestUrl.lastIndexOf("manifest.json"))}handlePlatformChange(t){const i=t.target.name;this.platform=i}handleNavigateRight(){const t=Object.keys(si).length/2;this.stage=(this.stage+1)%t}handleNavigateLeft(){const t=Object.keys(si).length/2;this.stage=(this.stage+t-1)%t}updated(t){t.has("stage")&&this.dispatchEvent(new CustomEvent("previewscreenchange",{bubbles:!0,composed:!0,detail:{screen:this.stage}}))}connectedCallback(){super.connectedCallback(),document.addEventListener("fullscreenchange",this.handleFullScreenChange)}disconnectedCallback(){super.disconnectedCallback(),document.removeEventListener("fullscreenchange",this.handleFullScreenChange)}handleToggleEnlarge(){this.content.requestFullscreen()}screenContent(){switch(this.stage){case si.Install:return mt`
+    `}};var si;t([Ht()],ei.prototype,"iconUrl",void 0),t([Ht()],ei.prototype,"appName",void 0),t([Ht()],ei.prototype,"shortName",void 0),t([Ht()],ei.prototype,"siteUrl",void 0),ei=t([Wt("share-target")],ei),function(t){t[t.Install=0]="Install",t[t.SplashScreen=1]="SplashScreen",t[t.Name=2]="Name",t[t.ShortName=3]="ShortName",t[t.ThemeColor=4]="ThemeColor",t[t.Shortcuts=5]="Shortcuts",t[t.Display=6]="Display",t[t.Categories=7]="Categories",t[t.ShareTarget=8]="ShareTarget"}(si||(si={}));let oi=class extends It{constructor(){super(...arguments),this.siteUrl="",this.iconUrl="",this.isInFullScreen=!1,this.stage=si.ThemeColor,this.manifest={},this.manifestUrl="",this.platform="windows",this.handleFullScreenChange=()=>{this.isInFullScreen=Boolean(document.fullscreenElement)}}firstUpdated(){var t;if(this.manifest.icons){let i=this.manifest.icons[0].src;for(const e of this.manifest.icons)if(null===(t=e.sizes)||void 0===t?void 0:t.includes("512x512")){i=e.src;break}const e=new URL(i,this.manifestUrl).href;this.iconUrl=`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${e}`}this.siteUrl=this.manifestUrl.substring(0,this.manifestUrl.lastIndexOf("manifest.json"))}handlePlatformChange(t){const i=t.target.name;this.platform=i}handleNavigateRight(){const t=Object.keys(si).length/2;this.stage=(this.stage+1)%t}handleNavigateLeft(){const t=Object.keys(si).length/2;this.stage=(this.stage+t-1)%t}updated(t){t.has("stage")&&this.dispatchEvent(new CustomEvent("previewscreenchange",{bubbles:!0,composed:!0,detail:{screen:this.stage}}))}connectedCallback(){super.connectedCallback(),document.addEventListener("fullscreenchange",this.handleFullScreenChange)}disconnectedCallback(){super.disconnectedCallback(),document.removeEventListener("fullscreenchange",this.handleFullScreenChange)}handleToggleEnlarge(){this.content.requestFullscreen()}screenContent(){switch(this.stage){case si.Install:return mt`
           <install-screen
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
