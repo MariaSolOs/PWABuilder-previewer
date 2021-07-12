@@ -106,11 +106,11 @@ export class ManifestPreviewer extends LitElement {
       height: 18px;
     }
 
-    /* @media(max-width: 1100px) {
+    @media(max-width: 1100px) {
       .desktop-container { 
         display: none; 
       }
-    } */
+    }
   `;
 
   /**
@@ -151,7 +151,7 @@ export class ManifestPreviewer extends LitElement {
   /**
    * If true, the MSFT store window is 
    */
-  @state() private isStoreOpen = true;
+  @state() private isStoreOpen = false;
 
   /**
    * If true, the manifest's JSON has a syntax error.
