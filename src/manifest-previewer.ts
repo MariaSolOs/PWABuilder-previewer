@@ -1,12 +1,14 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, state, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import './app-window.js';
 import './start-menu.js';
 import './code-editor.js';
 import './jump-list.js';
 import './store-window.js';
-import MANIFEST_TEMPLATE from './manifest.js';
+import './explanation-text.js';
+import MANIFEST_TEMPLATE from './manifest-template.js';
 import { Manifest, CodeEditorEvents, CodeEditorUpdateEvent } from './models';
 
 @customElement('manifest-previewer')
@@ -14,9 +16,6 @@ export class ManifestPreviewer extends LitElement {
   static styles = css`
     .background {
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       width: 100vw;
       height: 100vh;
     }
@@ -28,12 +27,14 @@ export class ManifestPreviewer extends LitElement {
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(252.83deg, #5039A8 2.36%, #6AA2DB 99.69%);
+      background: var(--page-background);
       opacity: 0.3;
     }
 
     .content {
       display: flex;
+      justify-content: center;
+      padding-top: 12%;
     }
 
     .desktop-container {
@@ -42,7 +43,7 @@ export class ManifestPreviewer extends LitElement {
       height: 466px;
       position: relative;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      margin-right: 30px;
+      margin: 0 30px 18px 0;
     }
 
     img.desktop {
@@ -116,17 +117,37 @@ export class ManifestPreviewer extends LitElement {
   /**
    * The input web manifest.
    */
-  @state() manifest: Manifest;
+  @property({ 
+    type: Object,
+    converter: value => {
+      if (!value) {
+        return undefined;
+      }
+      
+      return JSON.parse(value);
+    }
+  }) 
+  manifest: Manifest = MANIFEST_TEMPLATE;
 
   /**
    * The url where the manifest resides.
    */
-  @property() manifestUrl = '';
+  @property() manifestUrl = 'https://www.pwabuilder.com/manifest.json';
 
   /**
    * The website's URL
    */
-  @state() siteUrl = '';
+  @property() siteUrl = '';
+
+  /**
+   * The background of the entire page.
+   */
+  @property() pageBackground = '';
+
+  /**
+   * If true, the code editor is hidden.
+   */
+  @property({ type: Boolean }) hideEditor = false;
 
   /**
    * The URL used for icon previews, or undefined if the manifest specifies no icons.
@@ -158,15 +179,23 @@ export class ManifestPreviewer extends LitElement {
    */
   @state() private invalidJSON = false;
 
+  /**
+   * The message explaining the current preview content.
+   */
+  @state() private explanationMessage = 'Do you see something familiar on the taskbar?';
+  @state() private isMessageFadingIn = false;
+  @state() private isMessageFadingOut = false;
+
   constructor() {
     super();
 
-    this.manifest = JSON.parse(MANIFEST_TEMPLATE);
     // Update the manifest every time the code changes.
     this.addEventListener(CodeEditorEvents.update, event => {
       const e = event as CustomEvent<CodeEditorUpdateEvent>;
       const doc: any = e.detail.transaction.newDoc;
       try {
+        // TODO: Sometimes the new doc is a TextNode and sometimes it is a TexLeaf.
+        // There's probably a cleaner way to deal with this...
         let text: string[] = [];
         if (doc.children) {
           text = text.concat(...doc.children.map((child: any) => child.text));
@@ -183,14 +212,16 @@ export class ManifestPreviewer extends LitElement {
   }
 
   firstUpdated() {
-    // Set the site URL (assuming it can be derived from the manifest's URL)
-    this.siteUrl = this.manifestUrl.substring(0, this.manifestUrl.lastIndexOf('manifest.json'));
+    // Set the site URL if not defined (assuming it can be derived from the manifest's URL)
+    if (!this.siteUrl) {
+      this.siteUrl = this.manifestUrl.substring(0, this.manifestUrl.lastIndexOf('manifest.json'));
+    }
 
     if (this.manifest.icons) {
       // Try to get the largest icon, or the first one by default
       let iconUrl = this.manifest.icons[0].src;
       for (const icon of this.manifest.icons) {
-        if (icon.sizes?.includes('192x192')) {
+        if (icon.sizes?.includes('512x512')) {
           iconUrl = icon.src;
           break;
         }
@@ -214,11 +245,26 @@ export class ManifestPreviewer extends LitElement {
     document.removeEventListener('contextmenu', this.handleContextMenuDisable);
   }
 
+  // Show explanation messages when the user interacts with the simulator.
+  private handleNewExplanation = (message: string) => {
+    this.isMessageFadingOut = true;
+    setTimeout(() => {
+      this.explanationMessage = message;
+      this.isMessageFadingOut = false;
+      this.isMessageFadingIn = true;
+
+      setTimeout(() => {
+        this.isMessageFadingOut = true;
+      }, 5000);
+    }, 400);
+  }
+
   private handleContextMenuDisable = (event: Event) => { 
     event.preventDefault();
   }
 
   private openAppWindow = () => { 
+    this.handleNewExplanation("The background color, theme color and display attributes determine several UI aspects of your PWA, such as the titlebar.");
     this.isAppOpen = true; 
     this.closeJumplist();
     this.closeStartMenu();
@@ -226,15 +272,20 @@ export class ManifestPreviewer extends LitElement {
   private closeAppWindow = () => { this.isAppOpen = false; }
 
   private openStartMenu = () => { 
+    this.handleNewExplanation("The application's name and icon are used in the start menu.");
     this.isMenuOpen = true;
     this.closeJumplist();
   }
   private closeStartMenu = () => { this.isMenuOpen = false; }
 
-  private openJumplist = () => { this.isJumplistOpen = true; }
+  private openJumplist = () => { 
+    this.handleNewExplanation("The actions listed on the shortcuts attribute define a context menu that is displayed when right-clicking on the taskbar icon.");
+    this.isJumplistOpen = true; 
+  }
   private closeJumplist = () => { this.isJumplistOpen = false; }
 
   private openStore = () => {
+    this.handleNewExplanation("Screenshots, a complete description and categories will enhance your app's listing in the Microsoft Store.");
     this.isStoreOpen = true;
     this.closeJumplist();
   }
@@ -265,8 +316,9 @@ export class ManifestPreviewer extends LitElement {
   }
 
   render() {
+    console.log(this.hideEditor)
     return html`
-      <div class="background">
+      <div class="background" style=${styleMap({ '--page-background': this.pageBackground })}>
         <div class="content">
           <div class="desktop-container">
             <img @click=${this.handleBackdropClick} class="desktop" alt="Windows desktop" src="../assets/images/desktop.png" />
@@ -293,7 +345,7 @@ export class ManifestPreviewer extends LitElement {
             .appName=${this.manifest.name}
             .iconUrl=${this.iconUrl}
             .siteUrl=${this.siteUrl}
-            .display=${this.manifest.display || 'browser'}>
+            .display=${this.manifest.display || 'standalone'}>
             </app-window>
             <jump-list
             .isListOpen=${this.isJumplistOpen}
@@ -312,10 +364,19 @@ export class ManifestPreviewer extends LitElement {
             </store-window>
           </div>
           <div>
-            <code-editor .startText=${MANIFEST_TEMPLATE}></code-editor>
-            <p class="invalid-message">${this.invalidJSON ? 'Invalid JSON!' : ''}</p>
+            ${this.hideEditor ? null :
+              html`
+                <code-editor 
+                .startText=${JSON.stringify(this.manifest, null, '  ')}>
+                </code-editor>
+                <p class="invalid-message">${this.invalidJSON ? 'Invalid JSON!' : ''}</p>`}
           </div>
         </div>
+        <explanation-text 
+        .message=${this.explanationMessage}
+        .isFadingIn=${this.isMessageFadingIn}
+        .isFadingOut=${this.isMessageFadingOut}>
+        </explanation-text>
       </div>
     `;
   }

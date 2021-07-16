@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import type { Display } from './models';
@@ -18,6 +19,14 @@ export class AppWindow extends LitElement {
       justify-content: center;
       align-items: center;
       background-color: var(--pwa-background-color);
+      transform: scale(0);
+      opacity: 0;
+      transition: 200ms all ease-in-out;
+    }
+
+    .screen.open {
+      transform: scale(1);
+      opacity: 1;
     }
 
     .window-actions {
@@ -83,11 +92,11 @@ export class AppWindow extends LitElement {
     }
     
     .display-background {
-      width: 98.9%;
+      width: 99%;
       position: absolute;
       top: -4.5px;
       left: 0px;
-      height: 230.7px;
+      height: 231px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -201,26 +210,10 @@ export class AppWindow extends LitElement {
    */
   @state() private contrastingBackgroundColor = '';
   @state() private contrastingThemeColor = '';
-
-  /**
-   * When true, the window is no longer showing the splashscreen and instead there's
-   * a preview of the display.
-   */
-  @state() private showDisplay = false;
   
   firstUpdated() {
     this.contrastingBackgroundColor = this.backgroundColor ? getContrastingColor(this.backgroundColor) : '#000';
     this.contrastingThemeColor = this.themeColor ? getContrastingColor(this.themeColor) : '#000';
-  }
-  
-  willUpdate(changedProps: Map<string, any>) {
-    // When opening the window, show the splash screen and then preview the app display
-    if (changedProps.has('isWindowOpen') && !changedProps.get('isWindowOpen')) {
-      this.showDisplay = false;
-      setTimeout(() => {
-        this.showDisplay = true;
-      }, 3000);
-    }
   }
 
   displayPreview() {
@@ -291,29 +284,12 @@ export class AppWindow extends LitElement {
   }
 
   render() {
-    return this.isWindowOpen ?
-      html`
-        <div 
-        class="screen" 
-        style=${styleMap({ '--pwa-background-color': this.backgroundColor })}>
-          ${this.showDisplay ? 
-            this.displayPreview() : 
-            html`
-              <div class="window-actions">
-                <div class="collapse" style=${styleMap({ backgroundColor: this.contrastingBackgroundColor })}></div>
-                <svg @click=${this.onClose} class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
-                  <g><path style="fill:${this.contrastingBackgroundColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
-                </svg>
-              </div>
-              <div class="app-info">
-                ${this.iconUrl ? 
-                  html`<img alt="Application icon" src=${this.iconUrl} />`: null}
-                <p style=${styleMap({ color: this.contrastingBackgroundColor })}>
-                  ${this.appName || 'PWA App'}
-                </p>
-              </div>
-            `}
-        </div>
-      ` : null;
+    return html`
+      <div 
+      class=${classMap({ screen: true, open: this.isWindowOpen })}
+      style=${styleMap({ '--pwa-background-color': this.backgroundColor })}>
+        ${this.displayPreview()}
+      </div>
+    `;
   }
 }
