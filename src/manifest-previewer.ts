@@ -9,7 +9,12 @@ import './jump-list.js';
 import './store-window.js';
 import './explanation-text.js';
 import MANIFEST_TEMPLATE from './manifest-template.js';
-import { Manifest, CodeEditorEvents, CodeEditorUpdateEvent } from './models';
+import { 
+  Manifest, 
+  Explanations,
+  CodeEditorEvents, 
+  CodeEditorUpdateEvent 
+} from './models';
 
 @customElement('manifest-previewer')
 export class ManifestPreviewer extends LitElement {
@@ -150,6 +155,35 @@ export class ManifestPreviewer extends LitElement {
   @property({ type: Boolean }) hideEditor = false;
 
   /**
+   * The duration (in ms) of the explanation message display, after
+   * which it fades out.
+   */
+  @property({ type: Number }) explanationDisplayTime = 5000;
+
+  @property() invalidJsonMessage = 'Invalid JSON!';
+
+  /**
+   * Object containing the explanation messages
+   */
+  @property({ 
+    type: Object,
+    converter: value => {
+      if (!value) {
+        return undefined;
+      }
+      
+      return JSON.parse(value);
+    }
+  }) 
+  explanations = {} as Explanations;
+
+  @state() private explanationMessage = '';
+
+  @state() private isExplanationFadingIn = false;
+
+  @state() private isExplanationFadingOut = false;
+
+  /**
    * The URL used for icon previews, or undefined if the manifest specifies no icons.
    */
   @state() private iconUrl = '';
@@ -179,13 +213,6 @@ export class ManifestPreviewer extends LitElement {
    */
   @state() private invalidJSON = false;
 
-  /**
-   * The message explaining the current preview content.
-   */
-  @state() private explanationMessage = 'Do you see something familiar on the taskbar?';
-  @state() private isMessageFadingIn = false;
-  @state() private isMessageFadingOut = false;
-
   constructor() {
     super();
 
@@ -194,7 +221,7 @@ export class ManifestPreviewer extends LitElement {
       const e = event as CustomEvent<CodeEditorUpdateEvent>;
       const doc: any = e.detail.transaction.newDoc;
       try {
-        // TODO: Sometimes the new doc is a TextNode and sometimes it is a TexLeaf.
+        // TODO: Sometimes the new doc is a TextNode and sometimes it is a TextLeaf.
         // There's probably a cleaner way to deal with this...
         let text: string[] = [];
         if (doc.children) {
@@ -229,6 +256,16 @@ export class ManifestPreviewer extends LitElement {
       const absoluteUrl = new URL(iconUrl, this.manifestUrl).href;
       this.iconUrl = `https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${absoluteUrl}`;
     }
+
+    // Set default values for the explanation messages
+    this.explanations = {
+      initial: this.explanations.initial || 'Do you see something familiar on the taskbar?',
+      appWindow: this.explanations.appWindow || 'The background color, theme color and display attributes determine several UI aspects of your PWA, such as the titlebar.',
+      startMenu: this.explanations.startMenu || "The application's name and icon are used in the start menu.",
+      jumpList: this.explanations.jumpList || 'The actions listed on the shortcuts attribute define a context menu that is displayed when right-clicking on the taskbar icon.',
+      store: this.explanations.store || "Screenshots, a complete description and categories will enhance your app's listing in the Microsoft Store."
+    }
+    this.handleNewExplanation(this.explanations.initial);
   }
 
   /**
@@ -245,26 +282,26 @@ export class ManifestPreviewer extends LitElement {
     document.removeEventListener('contextmenu', this.handleContextMenuDisable);
   }
 
-  // Show explanation messages when the user interacts with the simulator.
-  private handleNewExplanation = (message: string) => {
-    this.isMessageFadingOut = true;
-    setTimeout(() => {
-      this.explanationMessage = message;
-      this.isMessageFadingOut = false;
-      this.isMessageFadingIn = true;
-
-      setTimeout(() => {
-        this.isMessageFadingOut = true;
-      }, 5000);
-    }, 400);
-  }
-
   private handleContextMenuDisable = (event: Event) => { 
     event.preventDefault();
   }
 
+  // For adding a smooth transition between explanations.
+  private handleNewExplanation = (message: string) => {
+    this.isExplanationFadingOut = true;
+    setTimeout(() => {
+      this.explanationMessage = message;
+      this.isExplanationFadingOut = false;
+      this.isExplanationFadingIn = true;
+
+      setTimeout(() => {
+        this.isExplanationFadingOut = true;
+      }, this.explanationDisplayTime);
+    }, 400);
+  }
+
   private openAppWindow = () => { 
-    this.handleNewExplanation("The background color, theme color and display attributes determine several UI aspects of your PWA, such as the titlebar.");
+    this.handleNewExplanation(this.explanations.appWindow);
     this.isAppOpen = true; 
     this.closeJumplist();
     this.closeStartMenu();
@@ -272,20 +309,20 @@ export class ManifestPreviewer extends LitElement {
   private closeAppWindow = () => { this.isAppOpen = false; }
 
   private openStartMenu = () => { 
-    this.handleNewExplanation("The application's name and icon are used in the start menu.");
+    this.handleNewExplanation(this.explanations.startMenu);
     this.isMenuOpen = true;
     this.closeJumplist();
   }
   private closeStartMenu = () => { this.isMenuOpen = false; }
 
   private openJumplist = () => { 
-    this.handleNewExplanation("The actions listed on the shortcuts attribute define a context menu that is displayed when right-clicking on the taskbar icon.");
+    this.handleNewExplanation(this.explanations.jumpList);
     this.isJumplistOpen = true; 
   }
   private closeJumplist = () => { this.isJumplistOpen = false; }
 
   private openStore = () => {
-    this.handleNewExplanation("Screenshots, a complete description and categories will enhance your app's listing in the Microsoft Store.");
+    this.handleNewExplanation(this.explanations.store);
     this.isStoreOpen = true;
     this.closeJumplist();
   }
@@ -316,7 +353,6 @@ export class ManifestPreviewer extends LitElement {
   }
 
   render() {
-    console.log(this.hideEditor)
     return html`
       <div class="background" style=${styleMap({ '--page-background': this.pageBackground })}>
         <div class="content">
@@ -369,13 +405,13 @@ export class ManifestPreviewer extends LitElement {
                 <code-editor 
                 .startText=${JSON.stringify(this.manifest, null, '  ')}>
                 </code-editor>
-                <p class="invalid-message">${this.invalidJSON ? 'Invalid JSON!' : ''}</p>`}
+                <p class="invalid-message">${this.invalidJSON ? this.invalidJsonMessage : ''}</p>`}
           </div>
         </div>
         <explanation-text 
         .message=${this.explanationMessage}
-        .isFadingIn=${this.isMessageFadingIn}
-        .isFadingOut=${this.isMessageFadingOut}>
+        .isFadingIn=${this.isExplanationFadingIn}
+        .isFadingOut=${this.isExplanationFadingOut}>
         </explanation-text>
       </div>
     `;

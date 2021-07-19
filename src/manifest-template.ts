@@ -3,7 +3,7 @@ import type { Manifest } from './models';
 export default {
   name: 'PWA App',
   background_color: '#FFF',
-  theme_color: '#FFF',
+  theme_color: '#E3CEF6',
   categories: [],
   shortcuts: [],
   display: 'standalone',

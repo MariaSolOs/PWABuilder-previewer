@@ -46,6 +46,20 @@ export interface Manifest {
   iarc_rating_id?: string;
 }
 
+/**
+ * Type of the parameter for indicating the helper messages.
+ */
+ export type Explanations = {
+  initial: string;
+  appWindow: string;
+  startMenu: string;
+  store: string;
+  jumpList: string;
+}
+
+/**
+ * Typings for codemirror
+ */
 export enum CodeEditorEvents {
   sync = 'code-editor-sync',
   update = 'code-editor-update',
