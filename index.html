@@ -1,1 +1,37 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><base href="/"><title>PWABuilder - Interactive preview component</title><link rel="preload" crossorigin="anonymous" as="font" href="assets/fonts/SEGOEUI.TTF"><link href="/global.css" rel="stylesheet"></head><body><fast-design-system-provider use-defaults=""><manifest-previewer></manifest-previewer></fast-design-system-provider><script type="module" src="./fast-components.min.js"></script><script type="module" src="./manifest-previewer.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <base href="/">
+
+  <title>PWA simulator</title>
+
+  <script type="module" src="./pwa-simulator.js"></script>
+
+  <style>
+    @font-face {
+      font-family: 'Segoe-UI';
+      src: url('/assets/fonts/SEGOEUI.TTF');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+
+    pwa-simulator {
+      --font-family: 'Segoe-UI';
+    }
+  </style>
+</head>
+
+<body>
+  <pwa-simulator></pwa-simulator>
+</body>
+
+</html>
