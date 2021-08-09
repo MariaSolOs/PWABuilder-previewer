@@ -56,6 +56,14 @@ export declare class PWASimulator extends LitElement {
      * Used for displaying API/syntax errors.
      */
     private errorMessage;
+    /**
+     * Status of the changes previewed (used for screen readers).
+     */
+    private editorStatus;
+    /**
+     * The input field to enter the PWA URL.
+     */
+    pwaInput: HTMLInputElement;
     constructor();
     firstUpdated(): void;
     updated(changedProperties: Map<string, any>): void;
