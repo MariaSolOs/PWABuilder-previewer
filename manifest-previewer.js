@@ -22,95 +22,67 @@ function t(t,i,e,s){var o,n=arguments.length,r=n<3?i:null===s?s=Object.getOwnPro
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */;var l,p,d,c;const h={toAttribute(t,i){switch(i){case Boolean:t=t?"":null;break;case Object:case Array:t=null==t?t:JSON.stringify(t)}return t},fromAttribute(t,i){let e=t;switch(i){case Boolean:e=null!==t;break;case Number:e=null===t?null:Number(t);break;case Object:case Array:try{e=JSON.parse(t)}catch(t){e=null}}return e}},u=(t,i)=>i!==t&&(i==i||t==t),g={attribute:!0,type:String,converter:h,reflect:!1,hasChanged:u};class m extends HTMLElement{constructor(){super(),this.Πi=new Map,this.Πo=void 0,this.Πl=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this.Πh=null,this.u()}static addInitializer(t){var i;null!==(i=this.v)&&void 0!==i||(this.v=[]),this.v.push(t)}static get observedAttributes(){this.finalize();const t=[];return this.elementProperties.forEach(((i,e)=>{const s=this.Πp(e,i);void 0!==s&&(this.Πm.set(s,e),t.push(s))})),t}static createProperty(t,i=g){if(i.state&&(i.attribute=!1),this.finalize(),this.elementProperties.set(t,i),!i.noAccessor&&!this.prototype.hasOwnProperty(t)){const e="symbol"==typeof t?Symbol():"__"+t,s=this.getPropertyDescriptor(t,e,i);void 0!==s&&Object.defineProperty(this.prototype,t,s)}}static getPropertyDescriptor(t,i,e){return{get(){return this[i]},set(s){const o=this[t];this[i]=s,this.requestUpdate(t,o,e)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)||g}static finalize(){if(this.hasOwnProperty("finalized"))return!1;this.finalized=!0;const t=Object.getPrototypeOf(this);if(t.finalize(),this.elementProperties=new Map(t.elementProperties),this.Πm=new Map,this.hasOwnProperty("properties")){const t=this.properties,i=[...Object.getOwnPropertyNames(t),...Object.getOwnPropertySymbols(t)];for(const e of i)this.createProperty(e,t[e])}return this.elementStyles=this.finalizeStyles(this.styles),!0}static finalizeStyles(t){const i=[];if(Array.isArray(t)){const e=new Set(t.flat(1/0).reverse());for(const t of e)i.unshift(a(t))}else void 0!==t&&i.push(a(t));return i}static"Πp"(t,i){const e=i.attribute;return!1===e?void 0:"string"==typeof e?e:"string"==typeof t?t.toLowerCase():void 0}u(){var t;this.Πg=new Promise((t=>this.enableUpdating=t)),this.L=new Map,this.Π_(),this.requestUpdate(),null===(t=this.constructor.v)||void 0===t||t.forEach((t=>t(this)))}addController(t){var i,e;(null!==(i=this.ΠU)&&void 0!==i?i:this.ΠU=[]).push(t),void 0!==this.renderRoot&&this.isConnected&&(null===(e=t.hostConnected)||void 0===e||e.call(t))}removeController(t){var i;null===(i=this.ΠU)||void 0===i||i.splice(this.ΠU.indexOf(t)>>>0,1)}"Π_"(){this.constructor.elementProperties.forEach(((t,i)=>{this.hasOwnProperty(i)&&(this.Πi.set(i,this[i]),delete this[i])}))}createRenderRoot(){var t;const e=null!==(t=this.shadowRoot)&&void 0!==t?t:this.attachShadow(this.constructor.shadowRootOptions);return((t,e)=>{i?t.adoptedStyleSheets=e.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet)):e.forEach((i=>{const e=document.createElement("style");e.textContent=i.cssText,t.appendChild(e)}))})(e,this.constructor.elementStyles),e}connectedCallback(){var t;void 0===this.renderRoot&&(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostConnected)||void 0===i?void 0:i.call(t)})),this.Πl&&(this.Πl(),this.Πo=this.Πl=void 0)}enableUpdating(t){}disconnectedCallback(){var t;null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostDisconnected)||void 0===i?void 0:i.call(t)})),this.Πo=new Promise((t=>this.Πl=t))}attributeChangedCallback(t,i,e){this.K(t,e)}"Πj"(t,i,e=g){var s,o;const n=this.constructor.Πp(t,e);if(void 0!==n&&!0===e.reflect){const r=(null!==(o=null===(s=e.converter)||void 0===s?void 0:s.toAttribute)&&void 0!==o?o:h.toAttribute)(i,e.type);this.Πh=t,null==r?this.removeAttribute(n):this.setAttribute(n,r),this.Πh=null}}K(t,i){var e,s,o;const n=this.constructor,r=n.Πm.get(t);if(void 0!==r&&this.Πh!==r){const t=n.getPropertyOptions(r),a=t.converter,l=null!==(o=null!==(s=null===(e=a)||void 0===e?void 0:e.fromAttribute)&&void 0!==s?s:"function"==typeof a?a:null)&&void 0!==o?o:h.fromAttribute;this.Πh=r,this[r]=l(i,t.type),this.Πh=null}}requestUpdate(t,i,e){let s=!0;void 0!==t&&(((e=e||this.constructor.getPropertyOptions(t)).hasChanged||u)(this[t],i)?(this.L.has(t)||this.L.set(t,i),!0===e.reflect&&this.Πh!==t&&(void 0===this.Πk&&(this.Πk=new Map),this.Πk.set(t,e))):s=!1),!this.isUpdatePending&&s&&(this.Πg=this.Πq())}async"Πq"(){this.isUpdatePending=!0;try{for(await this.Πg;this.Πo;)await this.Πo}catch(t){Promise.reject(t)}const t=this.performUpdate();return null!=t&&await t,!this.isUpdatePending}performUpdate(){var t;if(!this.isUpdatePending)return;this.hasUpdated,this.Πi&&(this.Πi.forEach(((t,i)=>this[i]=t)),this.Πi=void 0);let i=!1;const e=this.L;try{i=this.shouldUpdate(e),i?(this.willUpdate(e),null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostUpdate)||void 0===i?void 0:i.call(t)})),this.update(e)):this.Π$()}catch(t){throw i=!1,this.Π$(),t}i&&this.E(e)}willUpdate(t){}E(t){var i;null===(i=this.ΠU)||void 0===i||i.forEach((t=>{var i;return null===(i=t.hostUpdated)||void 0===i?void 0:i.call(t)})),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}"Π$"(){this.L=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this.Πg}shouldUpdate(t){return!0}update(t){void 0!==this.Πk&&(this.Πk.forEach(((t,i)=>this.Πj(i,this[i],t))),this.Πk=void 0),this.Π$()}updated(t){}firstUpdated(t){}}
+ */;var l,d,p,c;const h={toAttribute(t,i){switch(i){case Boolean:t=t?"":null;break;case Object:case Array:t=null==t?t:JSON.stringify(t)}return t},fromAttribute(t,i){let e=t;switch(i){case Boolean:e=null!==t;break;case Number:e=null===t?null:Number(t);break;case Object:case Array:try{e=JSON.parse(t)}catch(t){e=null}}return e}},u=(t,i)=>i!==t&&(i==i||t==t),m={attribute:!0,type:String,converter:h,reflect:!1,hasChanged:u};class g extends HTMLElement{constructor(){super(),this.Πi=new Map,this.Πo=void 0,this.Πl=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this.Πh=null,this.u()}static addInitializer(t){var i;null!==(i=this.v)&&void 0!==i||(this.v=[]),this.v.push(t)}static get observedAttributes(){this.finalize();const t=[];return this.elementProperties.forEach(((i,e)=>{const s=this.Πp(e,i);void 0!==s&&(this.Πm.set(s,e),t.push(s))})),t}static createProperty(t,i=m){if(i.state&&(i.attribute=!1),this.finalize(),this.elementProperties.set(t,i),!i.noAccessor&&!this.prototype.hasOwnProperty(t)){const e="symbol"==typeof t?Symbol():"__"+t,s=this.getPropertyDescriptor(t,e,i);void 0!==s&&Object.defineProperty(this.prototype,t,s)}}static getPropertyDescriptor(t,i,e){return{get(){return this[i]},set(s){const o=this[t];this[i]=s,this.requestUpdate(t,o,e)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)||m}static finalize(){if(this.hasOwnProperty("finalized"))return!1;this.finalized=!0;const t=Object.getPrototypeOf(this);if(t.finalize(),this.elementProperties=new Map(t.elementProperties),this.Πm=new Map,this.hasOwnProperty("properties")){const t=this.properties,i=[...Object.getOwnPropertyNames(t),...Object.getOwnPropertySymbols(t)];for(const e of i)this.createProperty(e,t[e])}return this.elementStyles=this.finalizeStyles(this.styles),!0}static finalizeStyles(t){const i=[];if(Array.isArray(t)){const e=new Set(t.flat(1/0).reverse());for(const t of e)i.unshift(a(t))}else void 0!==t&&i.push(a(t));return i}static"Πp"(t,i){const e=i.attribute;return!1===e?void 0:"string"==typeof e?e:"string"==typeof t?t.toLowerCase():void 0}u(){var t;this.Πg=new Promise((t=>this.enableUpdating=t)),this.L=new Map,this.Π_(),this.requestUpdate(),null===(t=this.constructor.v)||void 0===t||t.forEach((t=>t(this)))}addController(t){var i,e;(null!==(i=this.ΠU)&&void 0!==i?i:this.ΠU=[]).push(t),void 0!==this.renderRoot&&this.isConnected&&(null===(e=t.hostConnected)||void 0===e||e.call(t))}removeController(t){var i;null===(i=this.ΠU)||void 0===i||i.splice(this.ΠU.indexOf(t)>>>0,1)}"Π_"(){this.constructor.elementProperties.forEach(((t,i)=>{this.hasOwnProperty(i)&&(this.Πi.set(i,this[i]),delete this[i])}))}createRenderRoot(){var t;const e=null!==(t=this.shadowRoot)&&void 0!==t?t:this.attachShadow(this.constructor.shadowRootOptions);return((t,e)=>{i?t.adoptedStyleSheets=e.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet)):e.forEach((i=>{const e=document.createElement("style");e.textContent=i.cssText,t.appendChild(e)}))})(e,this.constructor.elementStyles),e}connectedCallback(){var t;void 0===this.renderRoot&&(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostConnected)||void 0===i?void 0:i.call(t)})),this.Πl&&(this.Πl(),this.Πo=this.Πl=void 0)}enableUpdating(t){}disconnectedCallback(){var t;null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostDisconnected)||void 0===i?void 0:i.call(t)})),this.Πo=new Promise((t=>this.Πl=t))}attributeChangedCallback(t,i,e){this.K(t,e)}"Πj"(t,i,e=m){var s,o;const n=this.constructor.Πp(t,e);if(void 0!==n&&!0===e.reflect){const r=(null!==(o=null===(s=e.converter)||void 0===s?void 0:s.toAttribute)&&void 0!==o?o:h.toAttribute)(i,e.type);this.Πh=t,null==r?this.removeAttribute(n):this.setAttribute(n,r),this.Πh=null}}K(t,i){var e,s,o;const n=this.constructor,r=n.Πm.get(t);if(void 0!==r&&this.Πh!==r){const t=n.getPropertyOptions(r),a=t.converter,l=null!==(o=null!==(s=null===(e=a)||void 0===e?void 0:e.fromAttribute)&&void 0!==s?s:"function"==typeof a?a:null)&&void 0!==o?o:h.fromAttribute;this.Πh=r,this[r]=l(i,t.type),this.Πh=null}}requestUpdate(t,i,e){let s=!0;void 0!==t&&(((e=e||this.constructor.getPropertyOptions(t)).hasChanged||u)(this[t],i)?(this.L.has(t)||this.L.set(t,i),!0===e.reflect&&this.Πh!==t&&(void 0===this.Πk&&(this.Πk=new Map),this.Πk.set(t,e))):s=!1),!this.isUpdatePending&&s&&(this.Πg=this.Πq())}async"Πq"(){this.isUpdatePending=!0;try{for(await this.Πg;this.Πo;)await this.Πo}catch(t){Promise.reject(t)}const t=this.performUpdate();return null!=t&&await t,!this.isUpdatePending}performUpdate(){var t;if(!this.isUpdatePending)return;this.hasUpdated,this.Πi&&(this.Πi.forEach(((t,i)=>this[i]=t)),this.Πi=void 0);let i=!1;const e=this.L;try{i=this.shouldUpdate(e),i?(this.willUpdate(e),null===(t=this.ΠU)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostUpdate)||void 0===i?void 0:i.call(t)})),this.update(e)):this.Π$()}catch(t){throw i=!1,this.Π$(),t}i&&this.E(e)}willUpdate(t){}E(t){var i;null===(i=this.ΠU)||void 0===i||i.forEach((t=>{var i;return null===(i=t.hostUpdated)||void 0===i?void 0:i.call(t)})),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}"Π$"(){this.L=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this.Πg}shouldUpdate(t){return!0}update(t){void 0!==this.Πk&&(this.Πk.forEach(((t,i)=>this.Πj(i,this[i],t))),this.Πk=void 0),this.Π$()}updated(t){}firstUpdated(t){}}
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-var v,f,w,x;m.finalized=!0,m.elementProperties=new Map,m.elementStyles=[],m.shadowRootOptions={mode:"open"},null===(p=(l=globalThis).reactiveElementPlatformSupport)||void 0===p||p.call(l,{ReactiveElement:m}),(null!==(d=(c=globalThis).reactiveElementVersions)&&void 0!==d?d:c.reactiveElementVersions=[]).push("1.0.0-rc.2");const b=globalThis.trustedTypes,y=b?b.createPolicy("lit-html",{createHTML:t=>t}):void 0,$=`lit$${(Math.random()+"").slice(9)}$`,k="?"+$,S=`<${k}>`,U=document,A=(t="")=>U.createComment(t),C=t=>null===t||"object"!=typeof t&&"function"!=typeof t,F=Array.isArray,N=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,T=/-->/g,P=/>/g,z=/>|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g,O=/'/g,E=/"/g,I=/^(?:script|style|textarea)$/i,W=Symbol.for("lit-noChange"),L=Symbol.for("lit-nothing"),H=new WeakMap,j=U.createTreeWalker(U,129,null,!1);class R{constructor({strings:t,_$litType$:i},e){let s;this.parts=[];let o=0,n=0;const r=t.length-1,a=this.parts,[l,p]=((t,i)=>{const e=t.length-1,s=[];let o,n=2===i?"<svg>":"",r=N;for(let i=0;i<e;i++){const e=t[i];let a,l,p=-1,d=0;for(;d<e.length&&(r.lastIndex=d,l=r.exec(e),null!==l);)d=r.lastIndex,r===N?"!--"===l[1]?r=T:void 0!==l[1]?r=P:void 0!==l[2]?(I.test(l[2])&&(o=RegExp("</"+l[2],"g")),r=z):void 0!==l[3]&&(r=z):r===z?">"===l[0]?(r=null!=o?o:N,p=-1):void 0===l[1]?p=-2:(p=r.lastIndex-l[2].length,a=l[1],r=void 0===l[3]?z:'"'===l[3]?E:O):r===E||r===O?r=z:r===T||r===P?r=N:(r=z,o=void 0);const c=r===z&&t[i+1].startsWith("/>")?" ":"";n+=r===N?e+S:p>=0?(s.push(a),e.slice(0,p)+"$lit$"+e.slice(p)+$+c):e+$+(-2===p?(s.push(void 0),i):c)}const a=n+(t[e]||"<?>")+(2===i?"</svg>":"");return[void 0!==y?y.createHTML(a):a,s]})(t,i);if(this.el=R.createElement(l,e),j.currentNode=this.el.content,2===i){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes)}for(;null!==(s=j.nextNode())&&a.length<r;){if(1===s.nodeType){if(s.hasAttributes()){const t=[];for(const i of s.getAttributeNames())if(i.endsWith("$lit$")||i.startsWith($)){const e=p[n++];if(t.push(i),void 0!==e){const t=s.getAttribute(e.toLowerCase()+"$lit$").split($),i=/([.?@])?(.*)/.exec(e);a.push({type:1,index:o,name:i[2],strings:t,ctor:"."===i[1]?V:"?"===i[1]?q:"@"===i[1]?K:D})}else a.push({type:6,index:o})}for(const i of t)s.removeAttribute(i)}if(I.test(s.tagName)){const t=s.textContent.split($),i=t.length-1;if(i>0){s.textContent=b?b.emptyScript:"";for(let e=0;e<i;e++)s.append(t[e],A()),j.nextNode(),a.push({type:2,index:++o});s.append(t[i],A())}}}else if(8===s.nodeType)if(s.data===k)a.push({type:2,index:o});else{let t=-1;for(;-1!==(t=s.data.indexOf($,t+1));)a.push({type:7,index:o}),t+=$.length-1}o++}}static createElement(t,i){const e=U.createElement("template");return e.innerHTML=t,e}}function B(t,i,e=t,s){var o,n,r,a;if(i===W)return i;let l=void 0!==s?null===(o=e.Σi)||void 0===o?void 0:o[s]:e.Σo;const p=C(i)?void 0:i._$litDirective$;return(null==l?void 0:l.constructor)!==p&&(null===(n=null==l?void 0:l.O)||void 0===n||n.call(l,!1),void 0===p?l=void 0:(l=new p(t),l.T(t,e,s)),void 0!==s?(null!==(r=(a=e).Σi)&&void 0!==r?r:a.Σi=[])[s]=l:e.Σo=l),void 0!==l&&(i=B(t,l.S(t,i.values),l,s)),i}class M{constructor(t,i){this.l=[],this.N=void 0,this.D=t,this.M=i}u(t){var i;const{el:{content:e},parts:s}=this.D,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:U).importNode(e,!0);j.currentNode=o;let n=j.nextNode(),r=0,a=0,l=s[0];for(;void 0!==l;){if(r===l.index){let i;2===l.type?i=new _(n,n.nextSibling,this,t):1===l.type?i=new l.ctor(n,l.name,l.strings,this,t):6===l.type&&(i=new J(n,this,t)),this.l.push(i),l=s[++a]}r!==(null==l?void 0:l.index)&&(n=j.nextNode(),r++)}return o}v(t){let i=0;for(const e of this.l)void 0!==e&&(void 0!==e.strings?(e.I(t,e,i),i+=e.strings.length-2):e.I(t[i])),i++}}class _{constructor(t,i,e,s){this.type=2,this.N=void 0,this.A=t,this.B=i,this.M=e,this.options=s}setConnected(t){var i;null===(i=this.P)||void 0===i||i.call(this,t)}get parentNode(){return this.A.parentNode}get startNode(){return this.A}get endNode(){return this.B}I(t,i=this){t=B(this,t,i),C(t)?t===L||null==t||""===t?(this.H!==L&&this.R(),this.H=L):t!==this.H&&t!==W&&this.m(t):void 0!==t._$litType$?this._(t):void 0!==t.nodeType?this.$(t):(t=>{var i;return F(t)||"function"==typeof(null===(i=t)||void 0===i?void 0:i[Symbol.iterator])})(t)?this.g(t):this.m(t)}k(t,i=this.B){return this.A.parentNode.insertBefore(t,i)}$(t){this.H!==t&&(this.R(),this.H=this.k(t))}m(t){const i=this.A.nextSibling;null!==i&&3===i.nodeType&&(null===this.B?null===i.nextSibling:i===this.B.previousSibling)?i.data=t:this.$(U.createTextNode(t)),this.H=t}_(t){var i;const{values:e,_$litType$:s}=t,o="number"==typeof s?this.C(t):(void 0===s.el&&(s.el=R.createElement(s.h,this.options)),s);if((null===(i=this.H)||void 0===i?void 0:i.D)===o)this.H.v(e);else{const t=new M(o,this),i=t.u(this.options);t.v(e),this.$(i),this.H=t}}C(t){let i=H.get(t.strings);return void 0===i&&H.set(t.strings,i=new R(t)),i}g(t){F(this.H)||(this.H=[],this.R());const i=this.H;let e,s=0;for(const o of t)s===i.length?i.push(e=new _(this.k(A()),this.k(A()),this,this.options)):e=i[s],e.I(o),s++;s<i.length&&(this.R(e&&e.B.nextSibling,s),i.length=s)}R(t=this.A.nextSibling,i){var e;for(null===(e=this.P)||void 0===e||e.call(this,!1,!0,i);t&&t!==this.B;){const i=t.nextSibling;t.remove(),t=i}}}class D{constructor(t,i,e,s,o){this.type=1,this.H=L,this.N=void 0,this.V=void 0,this.element=t,this.name=i,this.M=s,this.options=o,e.length>2||""!==e[0]||""!==e[1]?(this.H=Array(e.length-1).fill(L),this.strings=e):this.H=L}get tagName(){return this.element.tagName}I(t,i=this,e,s){const o=this.strings;let n=!1;if(void 0===o)t=B(this,t,i,0),n=!C(t)||t!==this.H&&t!==W,n&&(this.H=t);else{const s=t;let r,a;for(t=o[0],r=0;r<o.length-1;r++)a=B(this,s[e+r],i,r),a===W&&(a=this.H[r]),n||(n=!C(a)||a!==this.H[r]),a===L?t=L:t!==L&&(t+=(null!=a?a:"")+o[r+1]),this.H[r]=a}n&&!s&&this.W(t)}W(t){t===L?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"")}}class V extends D{constructor(){super(...arguments),this.type=3}W(t){this.element[this.name]=t===L?void 0:t}}class q extends D{constructor(){super(...arguments),this.type=4}W(t){t&&t!==L?this.element.setAttribute(this.name,""):this.element.removeAttribute(this.name)}}class K extends D{constructor(){super(...arguments),this.type=5}I(t,i=this){var e;if((t=null!==(e=B(this,t,i,0))&&void 0!==e?e:L)===W)return;const s=this.H,o=t===L&&s!==L||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,n=t!==L&&(s===L||o);o&&this.element.removeEventListener(this.name,this,s),n&&this.element.addEventListener(this.name,this,t),this.H=t}handleEvent(t){var i,e;"function"==typeof this.H?this.H.call(null!==(e=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==e?e:this.element,t):this.H.handleEvent(t)}}class J{constructor(t,i,e){this.element=t,this.type=6,this.N=void 0,this.V=void 0,this.M=i,this.options=e}I(t){B(this,t)}}
+var v,w,f,x;g.finalized=!0,g.elementProperties=new Map,g.elementStyles=[],g.shadowRootOptions={mode:"open"},null===(d=(l=globalThis).reactiveElementPlatformSupport)||void 0===d||d.call(l,{ReactiveElement:g}),(null!==(p=(c=globalThis).reactiveElementVersions)&&void 0!==p?p:c.reactiveElementVersions=[]).push("1.0.0-rc.2");const b=globalThis.trustedTypes,y=b?b.createPolicy("lit-html",{createHTML:t=>t}):void 0,$=`lit$${(Math.random()+"").slice(9)}$`,k="?"+$,S=`<${k}>`,A=document,F=(t="")=>A.createComment(t),U=t=>null===t||"object"!=typeof t&&"function"!=typeof t,C=Array.isArray,N=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,T=/-->/g,O=/>/g,P=/>|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g,E=/'/g,z=/"/g,W=/^(?:script|style|textarea)$/i,I=Symbol.for("lit-noChange"),H=Symbol.for("lit-nothing"),L=new WeakMap,j=A.createTreeWalker(A,129,null,!1);class R{constructor({strings:t,_$litType$:i},e){let s;this.parts=[];let o=0,n=0;const r=t.length-1,a=this.parts,[l,d]=((t,i)=>{const e=t.length-1,s=[];let o,n=2===i?"<svg>":"",r=N;for(let i=0;i<e;i++){const e=t[i];let a,l,d=-1,p=0;for(;p<e.length&&(r.lastIndex=p,l=r.exec(e),null!==l);)p=r.lastIndex,r===N?"!--"===l[1]?r=T:void 0!==l[1]?r=O:void 0!==l[2]?(W.test(l[2])&&(o=RegExp("</"+l[2],"g")),r=P):void 0!==l[3]&&(r=P):r===P?">"===l[0]?(r=null!=o?o:N,d=-1):void 0===l[1]?d=-2:(d=r.lastIndex-l[2].length,a=l[1],r=void 0===l[3]?P:'"'===l[3]?z:E):r===z||r===E?r=P:r===T||r===O?r=N:(r=P,o=void 0);const c=r===P&&t[i+1].startsWith("/>")?" ":"";n+=r===N?e+S:d>=0?(s.push(a),e.slice(0,d)+"$lit$"+e.slice(d)+$+c):e+$+(-2===d?(s.push(void 0),i):c)}const a=n+(t[e]||"<?>")+(2===i?"</svg>":"");return[void 0!==y?y.createHTML(a):a,s]})(t,i);if(this.el=R.createElement(l,e),j.currentNode=this.el.content,2===i){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes)}for(;null!==(s=j.nextNode())&&a.length<r;){if(1===s.nodeType){if(s.hasAttributes()){const t=[];for(const i of s.getAttributeNames())if(i.endsWith("$lit$")||i.startsWith($)){const e=d[n++];if(t.push(i),void 0!==e){const t=s.getAttribute(e.toLowerCase()+"$lit$").split($),i=/([.?@])?(.*)/.exec(e);a.push({type:1,index:o,name:i[2],strings:t,ctor:"."===i[1]?q:"?"===i[1]?V:"@"===i[1]?K:M})}else a.push({type:6,index:o})}for(const i of t)s.removeAttribute(i)}if(W.test(s.tagName)){const t=s.textContent.split($),i=t.length-1;if(i>0){s.textContent=b?b.emptyScript:"";for(let e=0;e<i;e++)s.append(t[e],F()),j.nextNode(),a.push({type:2,index:++o});s.append(t[i],F())}}}else if(8===s.nodeType)if(s.data===k)a.push({type:2,index:o});else{let t=-1;for(;-1!==(t=s.data.indexOf($,t+1));)a.push({type:7,index:o}),t+=$.length-1}o++}}static createElement(t,i){const e=A.createElement("template");return e.innerHTML=t,e}}function B(t,i,e=t,s){var o,n,r,a;if(i===I)return i;let l=void 0!==s?null===(o=e.Σi)||void 0===o?void 0:o[s]:e.Σo;const d=U(i)?void 0:i._$litDirective$;return(null==l?void 0:l.constructor)!==d&&(null===(n=null==l?void 0:l.O)||void 0===n||n.call(l,!1),void 0===d?l=void 0:(l=new d(t),l.T(t,e,s)),void 0!==s?(null!==(r=(a=e).Σi)&&void 0!==r?r:a.Σi=[])[s]=l:e.Σo=l),void 0!==l&&(i=B(t,l.S(t,i.values),l,s)),i}class _{constructor(t,i){this.l=[],this.N=void 0,this.D=t,this.M=i}u(t){var i;const{el:{content:e},parts:s}=this.D,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:A).importNode(e,!0);j.currentNode=o;let n=j.nextNode(),r=0,a=0,l=s[0];for(;void 0!==l;){if(r===l.index){let i;2===l.type?i=new D(n,n.nextSibling,this,t):1===l.type?i=new l.ctor(n,l.name,l.strings,this,t):6===l.type&&(i=new G(n,this,t)),this.l.push(i),l=s[++a]}r!==(null==l?void 0:l.index)&&(n=j.nextNode(),r++)}return o}v(t){let i=0;for(const e of this.l)void 0!==e&&(void 0!==e.strings?(e.I(t,e,i),i+=e.strings.length-2):e.I(t[i])),i++}}class D{constructor(t,i,e,s){this.type=2,this.N=void 0,this.A=t,this.B=i,this.M=e,this.options=s}setConnected(t){var i;null===(i=this.P)||void 0===i||i.call(this,t)}get parentNode(){return this.A.parentNode}get startNode(){return this.A}get endNode(){return this.B}I(t,i=this){t=B(this,t,i),U(t)?t===H||null==t||""===t?(this.H!==H&&this.R(),this.H=H):t!==this.H&&t!==I&&this.m(t):void 0!==t._$litType$?this._(t):void 0!==t.nodeType?this.$(t):(t=>{var i;return C(t)||"function"==typeof(null===(i=t)||void 0===i?void 0:i[Symbol.iterator])})(t)?this.g(t):this.m(t)}k(t,i=this.B){return this.A.parentNode.insertBefore(t,i)}$(t){this.H!==t&&(this.R(),this.H=this.k(t))}m(t){const i=this.A.nextSibling;null!==i&&3===i.nodeType&&(null===this.B?null===i.nextSibling:i===this.B.previousSibling)?i.data=t:this.$(A.createTextNode(t)),this.H=t}_(t){var i;const{values:e,_$litType$:s}=t,o="number"==typeof s?this.C(t):(void 0===s.el&&(s.el=R.createElement(s.h,this.options)),s);if((null===(i=this.H)||void 0===i?void 0:i.D)===o)this.H.v(e);else{const t=new _(o,this),i=t.u(this.options);t.v(e),this.$(i),this.H=t}}C(t){let i=L.get(t.strings);return void 0===i&&L.set(t.strings,i=new R(t)),i}g(t){C(this.H)||(this.H=[],this.R());const i=this.H;let e,s=0;for(const o of t)s===i.length?i.push(e=new D(this.k(F()),this.k(F()),this,this.options)):e=i[s],e.I(o),s++;s<i.length&&(this.R(e&&e.B.nextSibling,s),i.length=s)}R(t=this.A.nextSibling,i){var e;for(null===(e=this.P)||void 0===e||e.call(this,!1,!0,i);t&&t!==this.B;){const i=t.nextSibling;t.remove(),t=i}}}class M{constructor(t,i,e,s,o){this.type=1,this.H=H,this.N=void 0,this.V=void 0,this.element=t,this.name=i,this.M=s,this.options=o,e.length>2||""!==e[0]||""!==e[1]?(this.H=Array(e.length-1).fill(H),this.strings=e):this.H=H}get tagName(){return this.element.tagName}I(t,i=this,e,s){const o=this.strings;let n=!1;if(void 0===o)t=B(this,t,i,0),n=!U(t)||t!==this.H&&t!==I,n&&(this.H=t);else{const s=t;let r,a;for(t=o[0],r=0;r<o.length-1;r++)a=B(this,s[e+r],i,r),a===I&&(a=this.H[r]),n||(n=!U(a)||a!==this.H[r]),a===H?t=H:t!==H&&(t+=(null!=a?a:"")+o[r+1]),this.H[r]=a}n&&!s&&this.W(t)}W(t){t===H?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"")}}class q extends M{constructor(){super(...arguments),this.type=3}W(t){this.element[this.name]=t===H?void 0:t}}class V extends M{constructor(){super(...arguments),this.type=4}W(t){t&&t!==H?this.element.setAttribute(this.name,""):this.element.removeAttribute(this.name)}}class K extends M{constructor(){super(...arguments),this.type=5}I(t,i=this){var e;if((t=null!==(e=B(this,t,i,0))&&void 0!==e?e:H)===I)return;const s=this.H,o=t===H&&s!==H||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,n=t!==H&&(s===H||o);o&&this.element.removeEventListener(this.name,this,s),n&&this.element.addEventListener(this.name,this,t),this.H=t}handleEvent(t){var i,e;"function"==typeof this.H?this.H.call(null!==(e=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==e?e:this.element,t):this.H.handleEvent(t)}}class G{constructor(t,i,e){this.element=t,this.type=6,this.N=void 0,this.V=void 0,this.M=i,this.options=e}I(t){B(this,t)}}
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-var Z,G,Q,X;null===(f=(v=globalThis).litHtmlPlatformSupport)||void 0===f||f.call(v,R,_),(null!==(w=(x=globalThis).litHtmlVersions)&&void 0!==w?w:x.litHtmlVersions=[]).push("2.0.0-rc.3");const Y=globalThis.trustedTypes,tt=Y?Y.createPolicy("lit-html",{createHTML:t=>t}):void 0,it=`lit$${(Math.random()+"").slice(9)}$`,et="?"+it,st=`<${et}>`,ot=document,nt=(t="")=>ot.createComment(t),rt=t=>null===t||"object"!=typeof t&&"function"!=typeof t,at=Array.isArray,lt=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,pt=/-->/g,dt=/>/g,ct=/>|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g,ht=/'/g,ut=/"/g,gt=/^(?:script|style|textarea)$/i,mt=(t=>(i,...e)=>({_$litType$:t,strings:i,values:e}))(1),vt=Symbol.for("lit-noChange"),ft=Symbol.for("lit-nothing"),wt=new WeakMap,xt=ot.createTreeWalker(ot,129,null,!1);class bt{constructor({strings:t,_$litType$:i},e){let s;this.parts=[];let o=0,n=0;const r=t.length-1,a=this.parts,[l,p]=((t,i)=>{const e=t.length-1,s=[];let o,n=2===i?"<svg>":"",r=lt;for(let i=0;i<e;i++){const e=t[i];let a,l,p=-1,d=0;for(;d<e.length&&(r.lastIndex=d,l=r.exec(e),null!==l);)d=r.lastIndex,r===lt?"!--"===l[1]?r=pt:void 0!==l[1]?r=dt:void 0!==l[2]?(gt.test(l[2])&&(o=RegExp("</"+l[2],"g")),r=ct):void 0!==l[3]&&(r=ct):r===ct?">"===l[0]?(r=null!=o?o:lt,p=-1):void 0===l[1]?p=-2:(p=r.lastIndex-l[2].length,a=l[1],r=void 0===l[3]?ct:'"'===l[3]?ut:ht):r===ut||r===ht?r=ct:r===pt||r===dt?r=lt:(r=ct,o=void 0);const c=r===ct&&t[i+1].startsWith("/>")?" ":"";n+=r===lt?e+st:p>=0?(s.push(a),e.slice(0,p)+"$lit$"+e.slice(p)+it+c):e+it+(-2===p?(s.push(void 0),i):c)}const a=n+(t[e]||"<?>")+(2===i?"</svg>":"");return[void 0!==tt?tt.createHTML(a):a,s]})(t,i);if(this.el=bt.createElement(l,e),xt.currentNode=this.el.content,2===i){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes)}for(;null!==(s=xt.nextNode())&&a.length<r;){if(1===s.nodeType){if(s.hasAttributes()){const t=[];for(const i of s.getAttributeNames())if(i.endsWith("$lit$")||i.startsWith(it)){const e=p[n++];if(t.push(i),void 0!==e){const t=s.getAttribute(e.toLowerCase()+"$lit$").split(it),i=/([.?@])?(.*)/.exec(e);a.push({type:1,index:o,name:i[2],strings:t,ctor:"."===i[1]?Ut:"?"===i[1]?At:"@"===i[1]?Ct:St})}else a.push({type:6,index:o})}for(const i of t)s.removeAttribute(i)}if(gt.test(s.tagName)){const t=s.textContent.split(it),i=t.length-1;if(i>0){s.textContent=Y?Y.emptyScript:"";for(let e=0;e<i;e++)s.append(t[e],nt()),xt.nextNode(),a.push({type:2,index:++o});s.append(t[i],nt())}}}else if(8===s.nodeType)if(s.data===et)a.push({type:2,index:o});else{let t=-1;for(;-1!==(t=s.data.indexOf(it,t+1));)a.push({type:7,index:o}),t+=it.length-1}o++}}static createElement(t,i){const e=ot.createElement("template");return e.innerHTML=t,e}}function yt(t,i,e=t,s){var o,n,r,a;if(i===vt)return i;let l=void 0!==s?null===(o=e.Σi)||void 0===o?void 0:o[s]:e.Σo;const p=rt(i)?void 0:i._$litDirective$;return(null==l?void 0:l.constructor)!==p&&(null===(n=null==l?void 0:l.O)||void 0===n||n.call(l,!1),void 0===p?l=void 0:(l=new p(t),l.T(t,e,s)),void 0!==s?(null!==(r=(a=e).Σi)&&void 0!==r?r:a.Σi=[])[s]=l:e.Σo=l),void 0!==l&&(i=yt(t,l.S(t,i.values),l,s)),i}class $t{constructor(t,i){this.l=[],this.N=void 0,this.D=t,this.M=i}u(t){var i;const{el:{content:e},parts:s}=this.D,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:ot).importNode(e,!0);xt.currentNode=o;let n=xt.nextNode(),r=0,a=0,l=s[0];for(;void 0!==l;){if(r===l.index){let i;2===l.type?i=new kt(n,n.nextSibling,this,t):1===l.type?i=new l.ctor(n,l.name,l.strings,this,t):6===l.type&&(i=new Ft(n,this,t)),this.l.push(i),l=s[++a]}r!==(null==l?void 0:l.index)&&(n=xt.nextNode(),r++)}return o}v(t){let i=0;for(const e of this.l)void 0!==e&&(void 0!==e.strings?(e.I(t,e,i),i+=e.strings.length-2):e.I(t[i])),i++}}class kt{constructor(t,i,e,s){this.type=2,this.N=void 0,this.A=t,this.B=i,this.M=e,this.options=s}setConnected(t){var i;null===(i=this.P)||void 0===i||i.call(this,t)}get parentNode(){return this.A.parentNode}get startNode(){return this.A}get endNode(){return this.B}I(t,i=this){t=yt(this,t,i),rt(t)?t===ft||null==t||""===t?(this.H!==ft&&this.R(),this.H=ft):t!==this.H&&t!==vt&&this.m(t):void 0!==t._$litType$?this._(t):void 0!==t.nodeType?this.$(t):(t=>{var i;return at(t)||"function"==typeof(null===(i=t)||void 0===i?void 0:i[Symbol.iterator])})(t)?this.g(t):this.m(t)}k(t,i=this.B){return this.A.parentNode.insertBefore(t,i)}$(t){this.H!==t&&(this.R(),this.H=this.k(t))}m(t){const i=this.A.nextSibling;null!==i&&3===i.nodeType&&(null===this.B?null===i.nextSibling:i===this.B.previousSibling)?i.data=t:this.$(ot.createTextNode(t)),this.H=t}_(t){var i;const{values:e,_$litType$:s}=t,o="number"==typeof s?this.C(t):(void 0===s.el&&(s.el=bt.createElement(s.h,this.options)),s);if((null===(i=this.H)||void 0===i?void 0:i.D)===o)this.H.v(e);else{const t=new $t(o,this),i=t.u(this.options);t.v(e),this.$(i),this.H=t}}C(t){let i=wt.get(t.strings);return void 0===i&&wt.set(t.strings,i=new bt(t)),i}g(t){at(this.H)||(this.H=[],this.R());const i=this.H;let e,s=0;for(const o of t)s===i.length?i.push(e=new kt(this.k(nt()),this.k(nt()),this,this.options)):e=i[s],e.I(o),s++;s<i.length&&(this.R(e&&e.B.nextSibling,s),i.length=s)}R(t=this.A.nextSibling,i){var e;for(null===(e=this.P)||void 0===e||e.call(this,!1,!0,i);t&&t!==this.B;){const i=t.nextSibling;t.remove(),t=i}}}class St{constructor(t,i,e,s,o){this.type=1,this.H=ft,this.N=void 0,this.V=void 0,this.element=t,this.name=i,this.M=s,this.options=o,e.length>2||""!==e[0]||""!==e[1]?(this.H=Array(e.length-1).fill(ft),this.strings=e):this.H=ft}get tagName(){return this.element.tagName}I(t,i=this,e,s){const o=this.strings;let n=!1;if(void 0===o)t=yt(this,t,i,0),n=!rt(t)||t!==this.H&&t!==vt,n&&(this.H=t);else{const s=t;let r,a;for(t=o[0],r=0;r<o.length-1;r++)a=yt(this,s[e+r],i,r),a===vt&&(a=this.H[r]),n||(n=!rt(a)||a!==this.H[r]),a===ft?t=ft:t!==ft&&(t+=(null!=a?a:"")+o[r+1]),this.H[r]=a}n&&!s&&this.W(t)}W(t){t===ft?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"")}}class Ut extends St{constructor(){super(...arguments),this.type=3}W(t){this.element[this.name]=t===ft?void 0:t}}class At extends St{constructor(){super(...arguments),this.type=4}W(t){t&&t!==ft?this.element.setAttribute(this.name,""):this.element.removeAttribute(this.name)}}class Ct extends St{constructor(){super(...arguments),this.type=5}I(t,i=this){var e;if((t=null!==(e=yt(this,t,i,0))&&void 0!==e?e:ft)===vt)return;const s=this.H,o=t===ft&&s!==ft||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,n=t!==ft&&(s===ft||o);o&&this.element.removeEventListener(this.name,this,s),n&&this.element.addEventListener(this.name,this,t),this.H=t}handleEvent(t){var i,e;"function"==typeof this.H?this.H.call(null!==(e=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==e?e:this.element,t):this.H.handleEvent(t)}}class Ft{constructor(t,i,e){this.element=t,this.type=6,this.N=void 0,this.V=void 0,this.M=i,this.options=e}I(t){yt(this,t)}}
+var J,Z,Q,X;null===(w=(v=globalThis).litHtmlPlatformSupport)||void 0===w||w.call(v,R,D),(null!==(f=(x=globalThis).litHtmlVersions)&&void 0!==f?f:x.litHtmlVersions=[]).push("2.0.0-rc.3");const Y=globalThis.trustedTypes,tt=Y?Y.createPolicy("lit-html",{createHTML:t=>t}):void 0,it=`lit$${(Math.random()+"").slice(9)}$`,et="?"+it,st=`<${et}>`,ot=document,nt=(t="")=>ot.createComment(t),rt=t=>null===t||"object"!=typeof t&&"function"!=typeof t,at=Array.isArray,lt=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,dt=/-->/g,pt=/>/g,ct=/>|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g,ht=/'/g,ut=/"/g,mt=/^(?:script|style|textarea)$/i,gt=(t=>(i,...e)=>({_$litType$:t,strings:i,values:e}))(1),vt=Symbol.for("lit-noChange"),wt=Symbol.for("lit-nothing"),ft=new WeakMap,xt=ot.createTreeWalker(ot,129,null,!1);class bt{constructor({strings:t,_$litType$:i},e){let s;this.parts=[];let o=0,n=0;const r=t.length-1,a=this.parts,[l,d]=((t,i)=>{const e=t.length-1,s=[];let o,n=2===i?"<svg>":"",r=lt;for(let i=0;i<e;i++){const e=t[i];let a,l,d=-1,p=0;for(;p<e.length&&(r.lastIndex=p,l=r.exec(e),null!==l);)p=r.lastIndex,r===lt?"!--"===l[1]?r=dt:void 0!==l[1]?r=pt:void 0!==l[2]?(mt.test(l[2])&&(o=RegExp("</"+l[2],"g")),r=ct):void 0!==l[3]&&(r=ct):r===ct?">"===l[0]?(r=null!=o?o:lt,d=-1):void 0===l[1]?d=-2:(d=r.lastIndex-l[2].length,a=l[1],r=void 0===l[3]?ct:'"'===l[3]?ut:ht):r===ut||r===ht?r=ct:r===dt||r===pt?r=lt:(r=ct,o=void 0);const c=r===ct&&t[i+1].startsWith("/>")?" ":"";n+=r===lt?e+st:d>=0?(s.push(a),e.slice(0,d)+"$lit$"+e.slice(d)+it+c):e+it+(-2===d?(s.push(void 0),i):c)}const a=n+(t[e]||"<?>")+(2===i?"</svg>":"");return[void 0!==tt?tt.createHTML(a):a,s]})(t,i);if(this.el=bt.createElement(l,e),xt.currentNode=this.el.content,2===i){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes)}for(;null!==(s=xt.nextNode())&&a.length<r;){if(1===s.nodeType){if(s.hasAttributes()){const t=[];for(const i of s.getAttributeNames())if(i.endsWith("$lit$")||i.startsWith(it)){const e=d[n++];if(t.push(i),void 0!==e){const t=s.getAttribute(e.toLowerCase()+"$lit$").split(it),i=/([.?@])?(.*)/.exec(e);a.push({type:1,index:o,name:i[2],strings:t,ctor:"."===i[1]?At:"?"===i[1]?Ft:"@"===i[1]?Ut:St})}else a.push({type:6,index:o})}for(const i of t)s.removeAttribute(i)}if(mt.test(s.tagName)){const t=s.textContent.split(it),i=t.length-1;if(i>0){s.textContent=Y?Y.emptyScript:"";for(let e=0;e<i;e++)s.append(t[e],nt()),xt.nextNode(),a.push({type:2,index:++o});s.append(t[i],nt())}}}else if(8===s.nodeType)if(s.data===et)a.push({type:2,index:o});else{let t=-1;for(;-1!==(t=s.data.indexOf(it,t+1));)a.push({type:7,index:o}),t+=it.length-1}o++}}static createElement(t,i){const e=ot.createElement("template");return e.innerHTML=t,e}}function yt(t,i,e=t,s){var o,n,r,a;if(i===vt)return i;let l=void 0!==s?null===(o=e.Σi)||void 0===o?void 0:o[s]:e.Σo;const d=rt(i)?void 0:i._$litDirective$;return(null==l?void 0:l.constructor)!==d&&(null===(n=null==l?void 0:l.O)||void 0===n||n.call(l,!1),void 0===d?l=void 0:(l=new d(t),l.T(t,e,s)),void 0!==s?(null!==(r=(a=e).Σi)&&void 0!==r?r:a.Σi=[])[s]=l:e.Σo=l),void 0!==l&&(i=yt(t,l.S(t,i.values),l,s)),i}class $t{constructor(t,i){this.l=[],this.N=void 0,this.D=t,this.M=i}u(t){var i;const{el:{content:e},parts:s}=this.D,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:ot).importNode(e,!0);xt.currentNode=o;let n=xt.nextNode(),r=0,a=0,l=s[0];for(;void 0!==l;){if(r===l.index){let i;2===l.type?i=new kt(n,n.nextSibling,this,t):1===l.type?i=new l.ctor(n,l.name,l.strings,this,t):6===l.type&&(i=new Ct(n,this,t)),this.l.push(i),l=s[++a]}r!==(null==l?void 0:l.index)&&(n=xt.nextNode(),r++)}return o}v(t){let i=0;for(const e of this.l)void 0!==e&&(void 0!==e.strings?(e.I(t,e,i),i+=e.strings.length-2):e.I(t[i])),i++}}class kt{constructor(t,i,e,s){this.type=2,this.N=void 0,this.A=t,this.B=i,this.M=e,this.options=s}setConnected(t){var i;null===(i=this.P)||void 0===i||i.call(this,t)}get parentNode(){return this.A.parentNode}get startNode(){return this.A}get endNode(){return this.B}I(t,i=this){t=yt(this,t,i),rt(t)?t===wt||null==t||""===t?(this.H!==wt&&this.R(),this.H=wt):t!==this.H&&t!==vt&&this.m(t):void 0!==t._$litType$?this._(t):void 0!==t.nodeType?this.$(t):(t=>{var i;return at(t)||"function"==typeof(null===(i=t)||void 0===i?void 0:i[Symbol.iterator])})(t)?this.g(t):this.m(t)}k(t,i=this.B){return this.A.parentNode.insertBefore(t,i)}$(t){this.H!==t&&(this.R(),this.H=this.k(t))}m(t){const i=this.A.nextSibling;null!==i&&3===i.nodeType&&(null===this.B?null===i.nextSibling:i===this.B.previousSibling)?i.data=t:this.$(ot.createTextNode(t)),this.H=t}_(t){var i;const{values:e,_$litType$:s}=t,o="number"==typeof s?this.C(t):(void 0===s.el&&(s.el=bt.createElement(s.h,this.options)),s);if((null===(i=this.H)||void 0===i?void 0:i.D)===o)this.H.v(e);else{const t=new $t(o,this),i=t.u(this.options);t.v(e),this.$(i),this.H=t}}C(t){let i=ft.get(t.strings);return void 0===i&&ft.set(t.strings,i=new bt(t)),i}g(t){at(this.H)||(this.H=[],this.R());const i=this.H;let e,s=0;for(const o of t)s===i.length?i.push(e=new kt(this.k(nt()),this.k(nt()),this,this.options)):e=i[s],e.I(o),s++;s<i.length&&(this.R(e&&e.B.nextSibling,s),i.length=s)}R(t=this.A.nextSibling,i){var e;for(null===(e=this.P)||void 0===e||e.call(this,!1,!0,i);t&&t!==this.B;){const i=t.nextSibling;t.remove(),t=i}}}class St{constructor(t,i,e,s,o){this.type=1,this.H=wt,this.N=void 0,this.V=void 0,this.element=t,this.name=i,this.M=s,this.options=o,e.length>2||""!==e[0]||""!==e[1]?(this.H=Array(e.length-1).fill(wt),this.strings=e):this.H=wt}get tagName(){return this.element.tagName}I(t,i=this,e,s){const o=this.strings;let n=!1;if(void 0===o)t=yt(this,t,i,0),n=!rt(t)||t!==this.H&&t!==vt,n&&(this.H=t);else{const s=t;let r,a;for(t=o[0],r=0;r<o.length-1;r++)a=yt(this,s[e+r],i,r),a===vt&&(a=this.H[r]),n||(n=!rt(a)||a!==this.H[r]),a===wt?t=wt:t!==wt&&(t+=(null!=a?a:"")+o[r+1]),this.H[r]=a}n&&!s&&this.W(t)}W(t){t===wt?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"")}}class At extends St{constructor(){super(...arguments),this.type=3}W(t){this.element[this.name]=t===wt?void 0:t}}class Ft extends St{constructor(){super(...arguments),this.type=4}W(t){t&&t!==wt?this.element.setAttribute(this.name,""):this.element.removeAttribute(this.name)}}class Ut extends St{constructor(){super(...arguments),this.type=5}I(t,i=this){var e;if((t=null!==(e=yt(this,t,i,0))&&void 0!==e?e:wt)===vt)return;const s=this.H,o=t===wt&&s!==wt||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,n=t!==wt&&(s===wt||o);o&&this.element.removeEventListener(this.name,this,s),n&&this.element.addEventListener(this.name,this,t),this.H=t}handleEvent(t){var i,e;"function"==typeof this.H?this.H.call(null!==(e=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==e?e:this.element,t):this.H.handleEvent(t)}}class Ct{constructor(t,i,e){this.element=t,this.type=6,this.N=void 0,this.V=void 0,this.M=i,this.options=e}I(t){yt(this,t)}}
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-var Nt,Tt,Pt,zt,Ot,Et;null===(G=(Z=globalThis).litHtmlPlatformSupport)||void 0===G||G.call(Z,bt,kt),(null!==(Q=(X=globalThis).litHtmlVersions)&&void 0!==Q?Q:X.litHtmlVersions=[]).push("2.0.0-rc.3"),(null!==(Nt=(Et=globalThis).litElementVersions)&&void 0!==Nt?Nt:Et.litElementVersions=[]).push("3.0.0-rc.2");class It extends m{constructor(){super(...arguments),this.renderOptions={host:this},this.Φt=void 0}createRenderRoot(){var t,i;const e=super.createRenderRoot();return null!==(t=(i=this.renderOptions).renderBefore)&&void 0!==t||(i.renderBefore=e.firstChild),e}update(t){const i=this.render();super.update(t),this.Φt=((t,i,e)=>{var s,o;const n=null!==(s=null==e?void 0:e.renderBefore)&&void 0!==s?s:i;let r=n._$litPart$;if(void 0===r){const t=null!==(o=null==e?void 0:e.renderBefore)&&void 0!==o?o:null;n._$litPart$=r=new kt(i.insertBefore(nt(),t),t,void 0,e)}return r.I(t),r})(i,this.renderRoot,this.renderOptions)}connectedCallback(){var t;super.connectedCallback(),null===(t=this.Φt)||void 0===t||t.setConnected(!0)}disconnectedCallback(){var t;super.disconnectedCallback(),null===(t=this.Φt)||void 0===t||t.setConnected(!1)}render(){return vt}}It.finalized=!0,It._$litElement$=!0,null===(Pt=(Tt=globalThis).litElementHydrateSupport)||void 0===Pt||Pt.call(Tt,{LitElement:It}),null===(Ot=(zt=globalThis).litElementPlatformSupport)||void 0===Ot||Ot.call(zt,{LitElement:It});
+var Nt,Tt,Ot,Pt,Et,zt;null===(Z=(J=globalThis).litHtmlPlatformSupport)||void 0===Z||Z.call(J,bt,kt),(null!==(Q=(X=globalThis).litHtmlVersions)&&void 0!==Q?Q:X.litHtmlVersions=[]).push("2.0.0-rc.3"),(null!==(Nt=(zt=globalThis).litElementVersions)&&void 0!==Nt?Nt:zt.litElementVersions=[]).push("3.0.0-rc.2");class Wt extends g{constructor(){super(...arguments),this.renderOptions={host:this},this.Φt=void 0}createRenderRoot(){var t,i;const e=super.createRenderRoot();return null!==(t=(i=this.renderOptions).renderBefore)&&void 0!==t||(i.renderBefore=e.firstChild),e}update(t){const i=this.render();super.update(t),this.Φt=((t,i,e)=>{var s,o;const n=null!==(s=null==e?void 0:e.renderBefore)&&void 0!==s?s:i;let r=n._$litPart$;if(void 0===r){const t=null!==(o=null==e?void 0:e.renderBefore)&&void 0!==o?o:null;n._$litPart$=r=new kt(i.insertBefore(nt(),t),t,void 0,e)}return r.I(t),r})(i,this.renderRoot,this.renderOptions)}connectedCallback(){var t;super.connectedCallback(),null===(t=this.Φt)||void 0===t||t.setConnected(!0)}disconnectedCallback(){var t;super.disconnectedCallback(),null===(t=this.Φt)||void 0===t||t.setConnected(!1)}render(){return vt}}Wt.finalized=!0,Wt._$litElement$=!0,null===(Ot=(Tt=globalThis).litElementHydrateSupport)||void 0===Ot||Ot.call(Tt,{LitElement:Wt}),null===(Et=(Pt=globalThis).litElementPlatformSupport)||void 0===Et||Et.call(Pt,{LitElement:Wt});
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const Wt=t=>i=>"function"==typeof i?((t,i)=>(window.customElements.define(t,i),i))(t,i):((t,i)=>{const{kind:e,elements:s}=i;return{kind:e,elements:s,finisher(i){window.customElements.define(t,i)}}})(t,i)
+const It=t=>i=>"function"==typeof i?((t,i)=>(window.customElements.define(t,i),i))(t,i):((t,i)=>{const{kind:e,elements:s}=i;return{kind:e,elements:s,finisher(i){window.customElements.define(t,i)}}})(t,i)
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */,Lt=(t,i)=>"method"===i.kind&&i.descriptor&&!("value"in i.descriptor)?{...i,finisher(e){e.createProperty(i.key,t)}}:{kind:"field",key:Symbol(),placement:"own",descriptor:{},originalKey:i.key,initializer(){"function"==typeof i.initializer&&(this[i.key]=i.initializer.call(this))},finisher(e){e.createProperty(i.key,t)}};function Ht(t){return(i,e)=>void 0!==e?((t,i,e)=>{i.constructor.createProperty(e,t)})(t,i,e):Lt(t,i)
+ */,Ht=(t,i)=>"method"===i.kind&&i.descriptor&&!("value"in i.descriptor)?{...i,finisher(e){e.createProperty(i.key,t)}}:{kind:"field",key:Symbol(),placement:"own",descriptor:{},originalKey:i.key,initializer(){"function"==typeof i.initializer&&(this[i.key]=i.initializer.call(this))},finisher(e){e.createProperty(i.key,t)}};function Lt(t){return(i,e)=>void 0!==e?((t,i,e)=>{i.constructor.createProperty(e,t)})(t,i,e):Ht(t,i)
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */}function jt(t){return Ht({...t,state:!0,attribute:!1})}
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */
+ */}function jt(t){return Lt({...t,state:!0,attribute:!1})}
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){}T(t,i,e){this.Σdt=t,this.M=i,this.Σct=e}S(t,i){return this.update(t,i)}update(t,i){return this.render(...i)}}
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class _t{constructor(t){}T(t,i,e){this.Σdt=t,this.M=i,this.Σct=e}S(t,i){return this.update(t,i)}update(t,i){return this.render(...i)}}
 /**
  * @license
  * Copyright 2018 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const _t=Bt(class extends Mt{constructor(t){var i;if(super(t),t.type!==Rt||"style"!==t.name||(null===(i=t.strings)||void 0===i?void 0:i.length)>2)throw Error("The `styleMap` directive must be used in the `style` attribute and must be the only part in the attribute.")}render(t){return Object.keys(t).reduce(((i,e)=>{const s=t[e];return null==s?i:i+`${e=e.replace(/(?:^(webkit|moz|ms|o)|)(?=[A-Z])/g,"-$&").toLowerCase()}:${s};`}),"")}update(t,[i]){const{style:e}=t.element;if(void 0===this.St){this.St=new Set;for(const t in i)this.St.add(t);return this.render(i)}this.St.forEach((t=>{null==i[t]&&(this.St.delete(t),t.includes("-")?e.removeProperty(t):e[t]="")}));for(const t in i){const s=i[t];null!=s&&(this.St.add(t),t.includes("-")?e.setProperty(t,s):e[t]=s)}return W}}),Dt=Bt(class extends Mt{constructor(t){var i;if(super(t),t.type!==Rt||"class"!==t.name||(null===(i=t.strings)||void 0===i?void 0:i.length)>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(t){return Object.keys(t).filter((i=>t[i])).join(" ")}update(t,[i]){if(void 0===this.bt){this.bt=new Set;for(const t in i)i[t]&&this.bt.add(t);return this.render(i)}const e=t.element.classList;this.bt.forEach((t=>{t in i||(e.remove(t),this.bt.delete(t))}));for(const t in i){const s=!!i[t];s!==this.bt.has(t)&&(s?(e.add(t),this.bt.add(t)):(e.remove(t),this.bt.delete(t)))}return W}});
-/**
- * @license
- * Copyright 2018 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */class Vt extends It{constructor(){super(...arguments),this.platform="windows",this.isInFullScreen=!1}mainContent(){switch(this.platform){case"windows":return this.renderWindows();case"android":return this.renderAndroid();case"iOS":return this.renderiOS()}}render(){return mt`
-      ${this.isInFullScreen?null:mt`
-          <slot class="preview-title" name="title"></slot>
-          <slot class="preview-info" name="info-${this.platform}"></slot>
-        `}
+ */const Dt=Bt(class extends _t{constructor(t){var i;if(super(t),t.type!==Rt||"class"!==t.name||(null===(i=t.strings)||void 0===i?void 0:i.length)>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(t){return Object.keys(t).filter((i=>t[i])).join(" ")}update(t,[i]){if(void 0===this.bt){this.bt=new Set;for(const t in i)i[t]&&this.bt.add(t);return this.render(i)}const e=t.element.classList;this.bt.forEach((t=>{t in i||(e.remove(t),this.bt.delete(t))}));for(const t in i){const s=!!i[t];s!==this.bt.has(t)&&(s?(e.add(t),this.bt.add(t)):(e.remove(t),this.bt.delete(t)))}return I}});class Mt extends Wt{constructor(){super(...arguments),this.platform="windows",this.isInFullScreen=!1}mainContent(){switch(this.platform){case"windows":return this.renderWindows();case"android":return this.renderAndroid();case"iOS":return this.renderiOS()}}render(){return gt`
       <div class=${this.isInFullScreen?"fullscreen-content":""}>
         ${this.mainContent()}
       </div>
-    `}}Vt.styles=r`
-    .preview-title {
-      margin: 10px auto;
-      width: fit-content;
-      font-weight: 600;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .preview-info {
-      margin: 0 auto;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 16px;
-      text-align: center;
-      color: var(--secondary-font-color);
-      width: 230px;
-      display: block;
-    }
-
+    `}}Mt.styles=r`
     .fullscreen-content {
       transform: scale(2.1);
       margin-top: 10vh;
       max-height: 10vh;
     }
-  `,t([Ht()],Vt.prototype,"platform",void 0),t([Ht({type:Boolean})],Vt.prototype,"isInFullScreen",void 0);let qt=class extends Vt{constructor(){super(...arguments),this.siteUrl="",this.manifestUrl=""}static get styles(){return[super.styles,r`
+  `,t([Lt()],Mt.prototype,"platform",void 0),t([Lt({type:Boolean})],Mt.prototype,"isInFullScreen",void 0);let qt=class extends Mt{constructor(){super(...arguments),this.siteUrl="",this.manifestUrl=""}static get styles(){return[super.styles,r`
         .container {
           position: relative;
           width: 220px;
@@ -119,7 +91,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
 
         .container.windows {
           margin: 80px auto 0;
-          font-family: var(--windows-font-family);
+          font-family: var(--windows-font-family, Arial);
         }
 
         .container.android {
@@ -127,13 +99,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
 
         .android .preview-img {
-          position: absolute;
           width: 100%;
           height: auto;
-          top: 0;
-          bottom: 0;
-          right: 0;
-          left: 0;
           margin: 0 auto;
           background: #FFF;
           box-shadow: var(--card-box-shadow);
@@ -323,7 +290,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
 
         .ios .add-btn {
-          font-family: var(--ios-font-family);
+          font-family: var(--ios-font-family, Arial);
           position: absolute;
           font-weight: 600;
           top: 0;
@@ -369,7 +336,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           top: 58px;
           left: 52px;
           font-size: 11px;
-          font-family: var(--ios-font-family);
+          font-family: var(--ios-font-family, Arial);
           font-weight: 600;
         }
 
@@ -382,14 +349,18 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           left: 52px;
           font-size: 9px;
           width: 159px;
-          font-family: var(--ios-font-family);
+          font-family: var(--ios-font-family, Arial);
           white-space: nowrap;
         }
-      `]}getImageUrl(t){return`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${new URL(t,this.manifestUrl).href}`}renderWindows(){return mt`
-      <div class="container windows">
+      `]}getImageUrl(t){return`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${new URL(t,this.manifestUrl).href}`}renderWindows(){return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label="PWA installation in Windows" 
+      class="container windows">
         <div class="add-dialog">
           <div class="header">
-            ${this.iconUrl?mt`<img class="icon" alt="App's Windows icon" src=${this.iconUrl} />`:mt`<div class="icon"></div>`}
+            ${this.iconUrl?gt`<img class="icon" alt="App's Windows icon" src=${this.iconUrl} />`:gt`<div class="icon"></div>`}
             <p class="dialog-title">Install ${this.appName||"PWA App"}</p>
           </div>
           <p class="dialog-text">Publisher: ${this.siteUrl}</p>
@@ -405,15 +376,19 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         <img  
         class="preview-img"
         alt="Application mobile preview" 
-        src="../assets/images/windows/background.svg" />
+        src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/windows/background.svg" />
       </div>
-    `}renderAndroid(){var t;return mt`
-      <div class="container android">
+    `}renderAndroid(){var t;return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label="PWA installation in Android" 
+      class="container android">
         <div class="url-bar">${this.siteUrl}</div>
         <div class="dialog">
           <div class="swipe-bar"></div>
           <div class="dialog-header">
-            ${this.iconUrl?mt`<img alt="App icon" src=${this.iconUrl} />`:null}
+            ${this.iconUrl?gt`<img alt="App icon" src=${this.iconUrl} />`:null}
             <div class="header-text">
               <p class="app-name">${this.appName}</p>
               <p class="app-url">${this.siteUrl}</p>
@@ -425,26 +400,46 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
             ${this.description||"A description of your app."}
           </p>
           <div class="screenshots">
-            ${null===(t=this.screenshots)||void 0===t?void 0:t.slice(0,2).map((t=>mt`<img alt="Preview" src=${this.getImageUrl(t.src)} />`))}
+            ${null===(t=this.screenshots)||void 0===t?void 0:t.slice(0,2).map((t=>gt`<img alt="Preview" src=${this.getImageUrl(t.src)} />`))}
           </div>
         </div>
         <img 
         class="preview-img"
         alt="Application mobile preview" 
-        src="../assets/images/android/background.svg" />
+        src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/android/background.svg" />
       </div>
-    `}renderiOS(){return mt`
-      <div class="container ios">
+    `}renderiOS(){return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label="PWA installation in iOS" 
+      class="container ios">
         <div class="add-btn">Add</div>
-        <img class="phone-img" alt="iOS PWA installation" src="../assets/images/ios/add-to-home.png" />
+        <img class="phone-img" alt="iOS PWA installation" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/ios/add-to-home.png" />
         <div class="hidden"></div>
         <div class="icon">
-          ${this.iconUrl?mt`<img alt="App icon" src=${this.iconUrl} />`:null}
+          ${this.iconUrl?gt`<img alt="App icon" src=${this.iconUrl} />`:null}
         </div>
         <div class="app-name">${this.appName}</div>
         <div class="app-link">${this.siteUrl}</div>
       </div>
-    `}};t([Ht()],qt.prototype,"iconUrl",void 0),t([Ht()],qt.prototype,"siteUrl",void 0),t([Ht()],qt.prototype,"manifestUrl",void 0),t([Ht()],qt.prototype,"appName",void 0),t([Ht()],qt.prototype,"appShortName",void 0),t([Ht()],qt.prototype,"description",void 0),t([Ht({type:Array})],qt.prototype,"screenshots",void 0),qt=t([Wt("install-screen")],qt);const Kt=t=>{const i=document.createElement("canvas");i.width=1,i.height=1;const e=i.getContext("2d");e.fillStyle=t,e.fillRect(0,0,1,1);const[s,o,n]=e.getImageData(0,0,1,1).data;return`hsl(0, 0%, ${-1e7*((.2126*s+.7152*o+.0722*n)/255-.5)}%)`};let Jt=class extends Vt{constructor(){super(...arguments),this.contrastingBackgroundColor=""}static get styles(){return[super.styles,r`
+    `}};t([Lt()],qt.prototype,"iconUrl",void 0),t([Lt()],qt.prototype,"siteUrl",void 0),t([Lt()],qt.prototype,"manifestUrl",void 0),t([Lt()],qt.prototype,"appName",void 0),t([Lt()],qt.prototype,"appShortName",void 0),t([Lt()],qt.prototype,"description",void 0),t([Lt({type:Array})],qt.prototype,"screenshots",void 0),qt=t([It("install-screen")],qt);
+/**
+ * @license
+ * Copyright 2018 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const Vt=Bt(class extends _t{constructor(t){var i;if(super(t),t.type!==Rt||"style"!==t.name||(null===(i=t.strings)||void 0===i?void 0:i.length)>2)throw Error("The `styleMap` directive must be used in the `style` attribute and must be the only part in the attribute.")}render(t){return Object.keys(t).reduce(((i,e)=>{const s=t[e];return null==s?i:i+`${e=e.replace(/(?:^(webkit|moz|ms|o)|)(?=[A-Z])/g,"-$&").toLowerCase()}:${s};`}),"")}update(t,[i]){const{style:e}=t.element;if(void 0===this.St){this.St=new Set;for(const t in i)this.St.add(t);return this.render(i)}this.St.forEach((t=>{null==i[t]&&(this.St.delete(t),t.includes("-")?e.removeProperty(t):e[t]="")}));for(const t in i){const s=i[t];null!=s&&(this.St.add(t),t.includes("-")?e.setProperty(t,s):e[t]=s)}return I}}),Kt=t=>{const i=document.createElement("canvas");i.width=1,i.height=1;const e=i.getContext("2d");e.fillStyle=t,e.fillRect(0,0,1,1);const[s,o,n]=e.getImageData(0,0,1,1).data;return`hsl(0, 0%, ${-1e7*((.2126*s+.7152*o+.0722*n)/255-.5)}%)`};let Gt=class extends Wt{render(){return gt`<p class="message"><slot></slot></p>`}};Gt.styles=r`
+    .message {
+      font-style: italic;
+      font-size: 14px;
+      opacity: 0.8;
+      color: var(--secondary-font-color);
+      font-weight: 600;
+      margin: 0;
+      text-align: center;
+    }
+  `,Gt=t([It("disclaimer-message")],Gt);let Jt=class extends Mt{constructor(){super(...arguments),this.contrastingBackgroundColor=""}static get styles(){return[super.styles,r`
         .container {
           position: relative;
           width: 220px;
@@ -452,16 +447,13 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
 
         .android .phone {
-          position: absolute;
           width: 100%;
           height: 460px;
-          top: 0;
           background: #FFF;
           box-shadow: var(--card-box-shadow);
           border-radius: 8.11976px;
           object-fit: cover;
           object-position: top;
-          z-index: -1;
         }
 
         .android .screen {
@@ -469,17 +461,16 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           width: 100%;
           height: 400px;
           top: 19px;
-          border-radius: 8.12px;
           display: flex;
           flex-direction: column;
           align-items: center;
-          background-color: var(--pwa-background-color);
+          background-color: var(--pwa-background-color, #FFF);
         }
 
         .phone-bar {
           padding: 7px 0;
           width: 100%;
-          background-color: var(--pwa-theme-color);
+          background-color: var(--pwa-theme-color, #EBD0FE);
         }
 
         .icon {
@@ -493,10 +484,6 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           width: fit-content;
           margin: 0 auto 30px;
           font-size: 16px;
-        }
-
-        .container.ios {
-          margin-top: 30px;
         }
 
         .ios .phone {
@@ -518,8 +505,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          font-family: var(--ios-font-family);
-          background-color: var(--pwa-background-color);
+          font-family: var(--ios-font-family, Arial);
+          background-color: var(--pwa-background-color, #FFF);
         }
 
         .ios .status-bar {
@@ -539,111 +526,53 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
 
         .container.windows {
           width: 250px;
-          margin-top: 30px;
+          margin-top: 120px;
         }
-
-        .windows img.desktop {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          box-shadow: var(--card-box-shadow);
-        }
-
-        .windows .screen {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: absolute;
-          width: 100px;
-          height: 55px;
-          top: 45px;
-          left: calc(50% - 50px);
-          background-color: var(--pwa-background-color);
-        }
-
-        .windows .app-info {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: fit-content
-        }
-
-        .windows .app-info img {
-          width: 30px;
-          height: 30px;
-          margin-right: 5px;
-        }
-
-        .windows .app-info p {
-          margin: 0;
-          font-size: 10px;
-          font-weight: 600;
-          font-family: var(--windows-font-family);
-        }
-
-        .windows .window-actions {
-          position: absolute;
-          top: 2px;
-          right: 2px;
-          display: flex;
-          align-items: center;
-        }
-
-        .windows .window-actions .collapse {
-          width: 4px;
-          height: 0.1px;
-          margin-right: 3px;
-        }
-      `]}firstUpdated(){this.contrastingBackgroundColor=this.backgroundColor?Kt(this.backgroundColor):"#000"}renderWindows(){return mt`
-      <div 
-      class="container windows">
-        <img class="desktop" alt="Window's desktop" src="../assets/images/windows/desktop.png" />
-        <div class="screen" style=${_t({"--pwa-background-color":this.backgroundColor})}>
-          <div class="window-actions">
-            <div class="collapse" style=${_t({backgroundColor:this.contrastingBackgroundColor})}></div>
-            <svg class="close" width="4px" height="4px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
-              <g><path style="fill:${this.contrastingBackgroundColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
-            </svg>
-          </div>
-          <div class="app-info">
-            ${this.iconUrl?mt`<img src=${this.iconUrl} alt="App's splash screen" />`:null}
-            <p style=${_t({color:this.contrastingBackgroundColor})}>
-              ${this.appName||"PWA App"}
-            </p>
-          </div>
-        </div>
+      `]}firstUpdated(){this.contrastingBackgroundColor=this.backgroundColor?Kt(this.backgroundColor):"#000"}renderWindows(){return gt`
+      <div class="container windows">
+        <disclaimer-message>
+          Windows does not currently use splash screens.
+        </disclaimer-message>
       </div>
-    `}renderAndroid(){return mt`
-    <div class="container android">
-      <img class="phone" alt="Application mobile preview" src="../assets/images/android/background.svg" />
-      <div class="screen" style=${_t({"--pwa-background-color":this.backgroundColor})}>
+    `}renderAndroid(){return gt`
+    <div 
+    role="img" 
+    tabindex="0" 
+    aria-label="Splash screen in Android" 
+    class="container android">
+      <img class="phone" alt="Application mobile preview" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/android/background.svg" />
+      <div class="screen" style=${Vt({"--pwa-background-color":this.backgroundColor})}>
         <div 
         class="phone-bar"
-        style=${_t({"--pwa-background-color":this.themeColor})}></div>
-        ${this.iconUrl?mt`
+        style=${Vt({"--pwa-theme-color":this.themeColor})}></div>
+        ${this.iconUrl?gt`
           <img 
           class="icon" 
           src=${this.iconUrl} 
           alt="App's splash screen" />
-          `:mt`<div class="icon"></div>`}
-        <h5 class="app-name" style=${_t({color:this.contrastingBackgroundColor})}>
+          `:gt`<div class="icon"></div>`}
+        <h5 class="app-name" style=${Vt({color:this.contrastingBackgroundColor})}>
           ${this.appName||"PWA App"}
         </h5>
-        <div class="phone-bar" style=${_t({"--pwa-background-color":this.themeColor})}></div>
+        <div class="phone-bar" style=${Vt({"--pwa-theme-color":this.themeColor})}></div>
       </div>
     </div>
-    `}renderiOS(){return mt`
-      <div class="container ios"> 
-        <img class="phone" alt="Iphone" src="../assets/images/ios/iphone.svg" />
-        <div class="screen" style=${_t({"--pwa-background-color":this.backgroundColor})}>
-          <img class="status-bar" alt="iOS status bar" src="../assets/images/ios/statusbar.svg" />
-          ${this.iconUrl?mt`<img class="icon" src=${this.iconUrl} alt="App's splash screen" />`:null}
-          <h5 class="app-name" style=${_t({color:this.contrastingBackgroundColor})}>
+    `}renderiOS(){return gt`
+      <div
+      role="img" 
+      tabindex="0" 
+      aria-label="Splash screen in iOS"  
+      class="container ios"> 
+        <img class="phone" alt="Iphone" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/ios/iphone.svg" />
+        <div class="screen" style=${Vt({"--pwa-background-color":this.backgroundColor})}>
+          <img class="status-bar" alt="iOS status bar" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/ios/statusbar.svg" />
+          ${this.iconUrl?gt`<img class="icon" src=${this.iconUrl} alt="App's splash screen" />`:null}
+          <h5 class="app-name" style=${Vt({color:this.contrastingBackgroundColor})}>
             ${this.appName||"PWA App"}
           </h5>
         </div>
       </div>
-    `}};t([Ht()],Jt.prototype,"backgroundColor",void 0),t([Ht()],Jt.prototype,"themeColor",void 0),t([Ht()],Jt.prototype,"iconUrl",void 0),t([Ht()],Jt.prototype,"appName",void 0),t([jt()],Jt.prototype,"contrastingBackgroundColor",void 0),Jt=t([Wt("splash-screen")],Jt);let Zt=class extends Vt{static get styles(){return[super.styles,r`
+    `}};t([Lt()],Jt.prototype,"backgroundColor",void 0),t([Lt()],Jt.prototype,"themeColor",void 0),t([Lt()],Jt.prototype,"iconUrl",void 0),t([Lt()],Jt.prototype,"appName",void 0),t([jt()],Jt.prototype,"contrastingBackgroundColor",void 0),Jt=t([It("splash-screen")],Jt);let Zt=class extends Mt{static get styles(){return[super.styles,r`
         .container {
           position: relative;
           margin: 70px auto 0;
@@ -659,6 +588,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           top: 0;
           width: 100%;
           box-shadow: var(--card-box-shadow);
+          border-radius: 5px;
         }
     
         .windows .app-container {
@@ -680,7 +610,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           font-weight: 600;
           letter-spacing: -0.07px;
           margin-top: 2.5px;
-          font-family: var(--windows-font-family); 
+          font-family: var(--windows-font-family, Arial); 
           max-width: 40px;
           white-space: nowrap;
           overflow-x: hidden;
@@ -728,7 +658,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
     
         .ios .app-name {
-          font-family: var(--ios-font-family);
+          font-family: var(--ios-font-family, Arial);
           background-color: #F4F4F4;
           position: absolute;
           top: 146px;
@@ -737,29 +667,41 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           font-weight: 600;
           min-width: 50px;
         }
-      `]}renderWindows(){return mt`
-      <div class="windows container">
-        <img alt="Windows start menu" src="../assets/images/windows/startmenu.png" class="menu-img" />
+      `]}renderWindows(){return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label="The name attribute in Windows"  
+      class="windows container">
+        <img alt="Windows start menu" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/windows/startmenu.png" class="menu-img" />
         <div class="app-container">
-          ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} class="app-icon" />`:null}
+          ${this.iconUrl?gt`<img alt="Application's icon" src=${this.iconUrl} class="app-icon" />`:null}
           <div class="app-name">${this.appName||"PWA App"}</div>
         </div>
       </div>
-    `}renderAndroid(){return mt`
-      <div class="android container">
-        <img alt="Android app info" src="../assets/images/android/appinfo.png" class="menu-img" />
-        ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} class="app-icon" />`:mt`<div class="app-icon"></div>`}
+    `}renderAndroid(){return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label="The name attribute in Android" 
+      class="android container">
+        <img alt="Android app info" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/android/appinfo.png" class="menu-img" />
+        ${this.iconUrl?gt`<img alt="Application's icon" src=${this.iconUrl} class="app-icon" />`:gt`<div class="app-icon"></div>`}
         <div class="app-name">${this.appName||"PWA App"}</div>
       </div>
-    `}renderiOS(){return mt`
-      <div class="container ios">
-        <img class="menu-img" alt="iOS settings" src="../assets/images/ios/appsettings.jpg" />
+    `}renderiOS(){return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label="The name attribute in iOS" 
+      class="container ios">
+        <img class="menu-img" alt="iOS settings" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/ios/appsettings.jpg" />
         <div class="app-icon">
-          ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} />`:null}
+          ${this.iconUrl?gt`<img alt="Application's icon" src=${this.iconUrl} />`:null}
         </div>
         <div class="app-name">${this.appName||"PWA App"}</div>
       </div>
-    `}};t([Ht()],Zt.prototype,"appName",void 0),t([Ht()],Zt.prototype,"iconUrl",void 0),Zt=t([Wt("name-screen")],Zt);let Gt=class extends Vt{static get styles(){return[super.styles,r`
+    `}};t([Lt()],Zt.prototype,"appName",void 0),t([Lt()],Zt.prototype,"iconUrl",void 0),Zt=t([It("name-screen")],Zt);let Qt=class extends Mt{static get styles(){return[super.styles,r`
         .windows-message {
           margin: 100px auto 0px;
           width: 70%;
@@ -822,7 +764,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           text-align: center;
           background-color: rgb(113, 137, 150);
           color: rgb(255, 255, 255);
-          font-family: var(--ios-font-family);
+          font-family: var(--ios-font-family, Arial);
           font-size: 9px;
         }
 
@@ -842,51 +784,49 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         .ios .app-icon img {
           width: 80%;
         }
-      `]}renderWindows(){return mt`
+      `]}renderWindows(){return gt`
       <name-screen
       .isInFullScreen=${this.isInFullScreen}
       .platform=${this.platform}
       .appName=${this.shortName}
       .iconUrl=${this.iconUrl}>
       </name-screen>
-    `}renderAndroid(){return mt`
-      <div class="android container">
+    `}renderAndroid(){return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label="The short name attribute in Android" 
+      class="android container">
         <div class="background"></div>
         <div class="icon-container">
-          ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} class="app-icon" />`:null}
+          ${this.iconUrl?gt`<img alt="Application's icon" src=${this.iconUrl} class="app-icon" />`:null}
           <div class="app-name">${this.shortName||"PWA App"}</div>
         </div>
-        <img class="homescreen" alt="Android's home screen" src="../assets/images/android/homescreen.png" />
+        <img class="homescreen" alt="Android's home screen" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/android/homescreen.png" />
       </div>
-    `}renderiOS(){return mt`
-      <div class="ios container">
-        <img class="background" alt="iOS home screen" src="../assets/images/ios/homemenu.png" />
+    `}renderiOS(){return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label="The short name attribute in iOS" 
+      class="ios container">
+        <img class="background" alt="iOS home screen" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/ios/homemenu.png" />
         <div class="app-name">${this.shortName||"PWA App"}</div>
         <div class="app-icon">
-          ${this.iconUrl?mt`<img alt="Application's icon" src=${this.iconUrl} />`:null}
+          ${this.iconUrl?gt`<img alt="Application's icon" src=${this.iconUrl} />`:null}
         </div>
       </div>
-    `}};t([Ht()],Gt.prototype,"shortName",void 0),t([Ht()],Gt.prototype,"iconUrl",void 0),Gt=t([Wt("shortname-screen")],Gt);let Qt=class extends It{render(){return mt`<p class="message"><slot></slot></p>`}};Qt.styles=r`
-    .message {
-      font-style: italic;
-      font-size: 14px;
-      opacity: 0.8;
-      color: var(--secondary-font-color);
-      font-weight: 600;
-      margin: 0;
-      text-align: center;
-    }
-  `,Qt=t([Wt("disclaimer-message")],Qt);let Xt=class extends Vt{constructor(){super(...arguments),this.siteUrl="",this.contrastingThemeColor=""}static get styles(){return[super.styles,r`
+    `}};t([Lt()],Qt.prototype,"shortName",void 0),t([Lt()],Qt.prototype,"iconUrl",void 0),Qt=t([It("shortname-screen")],Qt);let Xt=class extends Mt{constructor(){super(...arguments),this._themeColor="",this._backgroundColor="",this.siteUrl="",this.contrastingThemeColor=""}static get styles(){return[super.styles,r`
         .container {
           position: relative;
           display: flex;
           justify-content: center;
-          margin: 0 auto;
+          margin: 20px auto 0;
           width: fit-content;
         }
 
         .container.windows {
-          font-family: var(--windows-font-family);
+          font-family: var(--windows-font-family, Arial);
         }
 
         .container.android {
@@ -901,7 +841,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           box-shadow: var(--card-box-shadow);
           border-radius: 8px;
           object-fit: cover;
-          z-index: -1;
+          z-index: 0;
         }
 
         .android .status-bar {
@@ -912,8 +852,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           height: 18px;
           position: absolute;
           top: 16px;
-          z-index: 1;
-          background-color: var(--pwa-theme-color);
+          z-index: 2;
+          background-color: var(--pwa-theme-color, #EBD0FE);
         }
 
         .android .status-bar img {
@@ -930,7 +870,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           justify-content: center;
           align-items: center;
           flex-direction: column;
-          background-color: var(--pwa-background-color);
+          background-color: var(--pwa-background-color, #FFF);
+          z-index: 1;
         }
 
         .android .app-background-partial {
@@ -942,7 +883,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           justify-content: center;
           align-items: center;
           flex-direction: column;
-          background-color: var(--pwa-background-color);
+          background-color: var(--pwa-background-color, #FFF);
+          z-index: 1;
         }
 
         .android .app-icon {
@@ -982,7 +924,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           align-items: center;
           flex-direction: column;
           box-shadow: var(--card-box-shadow);
-          background-color: var(--pwa-background-color);
+          background-color: var(--pwa-background-color, #FFF);
         }
 
         .windows .app-background.browser {
@@ -1028,7 +970,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           z-index: 1;
           display: flex;
           justify-content: space-between;
-          background-color: var(--pwa-theme-color);
+          background-color: var(--pwa-theme-color, #EBD0FE);
         }
 
         .windows .nav-actions {
@@ -1070,91 +1012,107 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           margin: 90px auto 0px;
           width: 70%;
         }
-      `]}firstUpdated(){this.contrastingThemeColor=this.themeColor?Kt(this.themeColor):"#000"}renderWindows(){const t=mt`
+      `]}set themeColor(t){const i=this._themeColor;this._themeColor="none"===t||"transparent"===t?"darkGray":t,this.requestUpdate("themeColor",i)}get themeColor(){return this._themeColor}set backgroundColor(t){const i=this._backgroundColor;this._backgroundColor="none"===t||"transparent"===t?"#FFF":t,this.requestUpdate("backgroundColor",i)}get backgroundColor(){return this._backgroundColor}firstUpdated(){this.contrastingThemeColor=this.themeColor?Kt(this.themeColor):"#000"}renderWindows(){const t=gt`
       <div
       class="app-background ${this.display}"
-      style=${_t({"--pwa-background-color":this.backgroundColor})}>
-        ${this.iconUrl?mt`<img class="app-icon" alt="App icon" src=${this.iconUrl} />`:null}
+      style=${Vt({"--pwa-background-color":this.backgroundColor})}>
+        ${this.iconUrl?gt`<img class="app-icon" alt="App icon" src=${this.iconUrl} />`:null}
         <h4 
         class="app-name" 
-        style=${_t({color:this.backgroundColor?Kt(this.backgroundColor):"#000"})}>
+        style=${Vt({color:this.backgroundColor?Kt(this.backgroundColor):"#000"})}>
           ${this.appName||"PWA App"}
         </h4>
       </div>
-    `;switch(this.display){case"fullscreen":return mt`
-          <div class="container windows">
-            <img class="browser-img" alt="Window's browser" src="../assets/images/windows/browserwindow.png" />
+    `;switch(this.display){case"fullscreen":return gt`
+          <div 
+          role="img" 
+          tabindex="0" 
+          aria-label="Display modes in Windows" 
+          class="container windows">
+            <img class="browser-img" alt="Window's browser" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/windows/browserwindow.png" />
             ${t}
           </div>
-        `;case"browser":return mt`
-          <div class="container windows">
-            <img class="browser-img" alt="Window's browser" src="../assets/images/windows/browserwindow.png" />
+        `;case"browser":return gt`
+          <div 
+          role="img" 
+          tabindex="0" 
+          aria-label="Display modes in Windows"
+          class="container windows">
+            <img class="browser-img" alt="Window's browser" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/windows/browserwindow.png" />
             <span class="app-url">${this.siteUrl}</span>
             ${t}
           </div>
-        `;case"minimal-ui":return mt`
-          <div class="windows container">
+        `;case"minimal-ui":return gt`
+          <div 
+          role="img" 
+          tabindex="0" 
+          aria-label="Display modes in Windows"
+          class="windows container">
             <div 
             class="title-bar"
-            style=${_t({"--pwa-background-color":this.themeColor})}>
+            style=${Vt({"--pwa-theme-color":this.themeColor})}>
               <div class="nav-actions">
-                <img alt="Go back" src="../assets/images/windows/backarrow.svg" />
-                <img alt="Refresh page" src="../assets/images/windows/refresharrow.svg" />
+                <img alt="Go back" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/windows/backarrow.svg" />
+                <img alt="Refresh page" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/windows/refresharrow.svg" />
               </div>
-              <span class="app-name">${this.appName}</span>
+              <span tabindex="-1" class="app-name">${this.appName}</span>
               <div class="nav-actions">
-                <div class="collapse" style=${_t({backgroundColor:this.contrastingThemeColor})}></div>
-                <div class="enlarge" style=${_t({borderColor:this.contrastingThemeColor})}></div>
-                <svg class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                <div class="collapse" style=${Vt({backgroundColor:this.contrastingThemeColor})}></div>
+                <div class="enlarge" style=${Vt({borderColor:this.contrastingThemeColor})}></div>
+                <svg tabindex="-1" class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
                   <g><path style="fill:${this.contrastingThemeColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
                 </svg>
               </div>
             </div>
             ${t}
           </div>
-        `;case"standalone":return mt`
-          <div class="windows container">
+        `;case"standalone":return gt`
+          <div 
+          role="img" 
+          tabindex="0" 
+          aria-label="Display modes in Windows"
+          class="windows container">
             <div 
             class="title-bar"
-            style=${_t({"--pwa-background-color":this.themeColor})}>
-              <span class="app-name">${this.appName}</span>
+            style=${Vt({"--pwa-theme-color":this.themeColor})}>
+              <span tabindex="-1" class="app-name">${this.appName}</span>
               <div class="nav-actions">
-                <div class="collapse" style=${_t({backgroundColor:this.contrastingThemeColor})}></div>
-                <div class="enlarge" style=${_t({borderColor:this.contrastingThemeColor})}></div>
-                <svg class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+                <div class="collapse" style=${Vt({backgroundColor:this.contrastingThemeColor})}></div>
+                <div class="enlarge" style=${Vt({borderColor:this.contrastingThemeColor})}></div>
+                <svg tabindex="-1" class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
                   <g><path style="fill:${this.contrastingThemeColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
                 </svg>
               </div>
             </div>
             ${t}
           </div>
-        `;default:return null}}renderAndroid(){return mt`
-      <div class="container android">
-        ${"fullscreen"!==this.display?mt`
-          <div class="status-bar" style=${_t({"--pwa-background-color":this.themeColor})}>
-            <img alt="Status bar" src="../assets/images/android/statusbar-icons.png" />
+        `;default:return null}}renderAndroid(){return gt`
+      <div role="img" tabindex="0" aria-label="Display modes in Android" class="container android">
+        ${"fullscreen"!==this.display?gt`
+          <div class="status-bar" style=${Vt({"--pwa-theme-color":this.themeColor})}>
+            <img alt="Status bar" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/android/statusbar-icons.png" />
           </div>
         `:null}
-        ${"browser"===this.display||"minimal-ui"===this.display?mt`<span class="app-url">${this.siteUrl}</span>`:null}
+        ${"browser"===this.display||"minimal-ui"===this.display?gt`<span class="app-url">${this.siteUrl}</span>`:null}
         <div 
         class=${Dt({"app-background-full":"fullscreen"===this.display||"standalone"===this.display,"app-background-partial":"minimal-ui"===this.display||"browser"===this.display})} 
-        style=${_t({"--pwa-background-color":this.backgroundColor})}>
-          ${this.iconUrl?mt`<img class="app-icon" alt="App icon" src=${this.iconUrl} />`:null}
+        style=${Vt({"--pwa-background-color":this.backgroundColor})}>
+          ${this.iconUrl?gt`<img class="app-icon" alt="App icon" src=${this.iconUrl} />`:null}
           <h4 
           class="app-name" 
-          style=${_t({color:this.backgroundColor?Kt(this.backgroundColor):"#000"})}>
+          style=${Vt({color:this.backgroundColor?Kt(this.backgroundColor):"#000"})}>
             ${this.appName||"PWA App"}
           </h4>
         </div>
-        <img class="phone" alt="Android phone" src="../assets/images/android/background.svg" />
+        <img class="phone" alt="Android phone" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/android/background.svg" />
       </div>
-    `}renderiOS(){return mt`
+    `}renderiOS(){return gt`
       <div class="ios-message">
         <disclaimer-message>
           iOS does not support different display modes.
         </disclaimer-message>
       </div>
-    `}};t([Ht()],Xt.prototype,"display",void 0),t([Ht()],Xt.prototype,"themeColor",void 0),t([Ht()],Xt.prototype,"backgroundColor",void 0),t([Ht()],Xt.prototype,"iconUrl",void 0),t([Ht()],Xt.prototype,"appName",void 0),t([Ht()],Xt.prototype,"siteUrl",void 0),t([jt()],Xt.prototype,"contrastingThemeColor",void 0),Xt=t([Wt("display-screen")],Xt);let Yt=class extends Vt{constructor(){super(...arguments),this.contrastingColor=""}static get styles(){return[super.styles,r`
+    `}};t([Lt()],Xt.prototype,"display",void 0),t([Lt()],Xt.prototype,"themeColor",null),t([Lt()],Xt.prototype,"backgroundColor",null),t([Lt()],Xt.prototype,"iconUrl",void 0),t([Lt()],Xt.prototype,"appName",void 0),t([Lt()],Xt.prototype,"siteUrl",void 0),t([jt()],Xt.prototype,"contrastingThemeColor",void 0),Xt=t([It("display-screen")],Xt);let Yt=class extends Mt{constructor(){super(...arguments),this._themeColor="",this.contrastingColor=""}static get styles(){return[super.styles,r`
         .container {
           position: relative;
           width: 250px;
@@ -1176,7 +1134,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           top: 33px;
           height: 42px;
           left: 44px;
-          background-color: var(--pwa-theme-color);
+          background-color: var(--pwa-theme-color, #EBD0FE);
         }
     
         .android .app-icon {
@@ -1223,7 +1181,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           height: 18px;
           left: 19.5px;
           width: 212px;
-          background-color: var(--pwa-theme-color);
+          background-color: var(--pwa-theme-color, #EBD0FE);
         }
     
         .ios .status-bar img {
@@ -1235,7 +1193,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
 
         .container.windows {
-          font-family: var(--windows-font-family);
+          font-family: var(--windows-font-family, Arial);
           height: 160px;
           border: 1px solid #000;
           margin-top: 50px;
@@ -1246,7 +1204,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           z-index: 1;
           display: flex;
           justify-content: space-between;
-          background-color: var(--pwa-theme-color);
+          background-color: var(--pwa-theme-color, #EBD0FE);
         }
 
         .windows .nav-actions {
@@ -1306,45 +1264,56 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
             font-size: 8px;
           }
         }
-      `]}firstUpdated(){this.contrastingColor=this.themeColor?Kt(this.themeColor):"#FFF"}renderWindows(){return mt`
-      <div class="windows container">
+      `]}set themeColor(t){const i=this._themeColor;this._themeColor="none"===t||"transparent"===t?"darkGray":t,this.requestUpdate("themeColor",i)}get themeColor(){return this._themeColor}firstUpdated(){this.contrastingColor=this.themeColor?Kt(this.themeColor):"#FFF"}renderWindows(){return gt`
+      <div role="img" tabindex="0" aria-label="Theme color use in Windows" class="windows container">
         <div 
         class="title-bar"
-        style=${_t({"--pwa-background-color":this.themeColor})}>
+        style=${Vt({"--pwa-theme-color":this.themeColor})}>
           <div class="nav-actions">
-            <img alt="Go back" src="../assets/images/windows/backarrow.svg" />
-            <img alt="Refresh page" src="../assets/images/windows/refresharrow.svg" />
+            <img alt="Go back" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/windows/backarrow.svg" />
+            <img alt="Refresh page" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/windows/refresharrow.svg" />
           </div>
           <span class="app-name">${this.appName}</span>
-          <div class="nav-actions">
-            <div class="collapse" style=${_t({backgroundColor:this.contrastingColor})}></div>
-            <div class="enlarge" style=${_t({borderColor:this.contrastingColor})}></div>
-            <svg class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+          <div role="img" aria-label="Navigation actions" class="nav-actions">
+            <div 
+            class="collapse" 
+            style=${Vt({backgroundColor:this.contrastingColor})}>
+            </div>
+            <div 
+            class="enlarge" 
+            style=${Vt({borderColor:this.contrastingColor})}>
+            </div>
+            <svg 
+            class="close" 
+            width="6px" 
+            height="6px" 
+            version="1.1" 
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
               <g><path style="fill:${this.contrastingColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
             </svg>
           </div>
         </div>
       </div>
-    `}renderAndroid(){return mt`
-      <div class="container android">
-        <img alt="Android's app switcher" src="../assets/images/android/appswitcher.jpg" class="switcher-img" />
-        <div class="app-box" style=${_t({"--pwa-theme-color":this.themeColor})}>
-          ${this.iconUrl?mt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
-          <div class="menu-actions" style=${_t({color:this.contrastingColor})}>
+    `}renderAndroid(){return gt`
+      <div role="img" tabindex="0" aria-label="Theme color use in Android" class="container android">
+        <img alt="Android's app switcher" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/android/appswitcher.jpg" class="switcher-img" />
+        <div class="app-box" style=${Vt({"--pwa-theme-color":this.themeColor})}>
+          ${this.iconUrl?gt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:gt`<div class="app-icon"></div>`}
+          <div class="menu-actions" style=${Vt({color:this.contrastingColor})}>
             <span>HOME</span>
             <span>PROFILE</span>
             <span>SETTINGS</span>
           </div>
         </div>
       </div>
-    `}renderiOS(){return mt`
-      <div class="container ios">
-        <img class="phone" alt="Iphone" src="../assets/images/ios/iphone.svg" />
-        <div class="status-bar" style=${_t({"--pwa-theme-color":this.themeColor})}>
-          <img alt="Status bar" src="../assets/images/ios/statusbar.svg" />
+    `}renderiOS(){return gt`
+      <div role="img" tabindex="0" aria-label="Theme color use in iOS" class="container ios">
+        <img class="phone" alt="Iphone" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/ios/iphone.svg" />
+        <div class="status-bar" style=${Vt({"--pwa-theme-color":this.themeColor})}>
+          <img alt="Status bar" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/ios/statusbar.svg" />
         </div>
       </div>
-    `}};t([Ht()],Yt.prototype,"themeColor",void 0),t([Ht()],Yt.prototype,"appName",void 0),t([Ht()],Yt.prototype,"iconUrl",void 0),t([jt()],Yt.prototype,"contrastingColor",void 0),Yt=t([Wt("themecolor-screen")],Yt);let ti=class extends Vt{constructor(){super(...arguments),this.manifestUrl=""}static get styles(){return[super.styles,r`
+    `}};t([Lt()],Yt.prototype,"themeColor",null),t([Lt()],Yt.prototype,"appName",void 0),t([Lt()],Yt.prototype,"iconUrl",void 0),t([jt()],Yt.prototype,"contrastingColor",void 0),Yt=t([It("themecolor-screen")],Yt);let ti=class extends Mt{constructor(){super(...arguments),this.manifestUrl=""}static get styles(){return[super.styles,r`
         .container {
           width: 260px;
           position: relative;
@@ -1352,7 +1321,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
 
         .container.windows {
-          font-family: var(--windows-font-family);
+          font-family: var(--windows-font-family, Arial);
         }
 
         .menu-img {
@@ -1370,7 +1339,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
 
         .windows .menu {
           position: absolute;
-          bottom: 41px;
+          bottom: 40px;
           right: 13px;
           width: 105px;
           height: 100px;
@@ -1455,32 +1424,36 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           margin: 100px auto 0px;
           width: 70%;
         }
-      `]}getShortcutIcon(t){const i=t[0].src;return`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${new URL(i,this.manifestUrl).href}`}sharedRender(){var t;return mt`
-      <div class="container ${this.platform}">
+      `]}getShortcutIcon(t){const i=t[0].src;return`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${new URL(i,this.manifestUrl).href}`}sharedRender(){var t;return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label=${`Shortcuts in ${this.platform}`} 
+      class="container ${this.platform}">
         <img 
         class="menu-img" 
         alt="Application shortcuts" 
-        src="../assets/images/${this.platform}/shortcutsmenu.png" />
-        ${"android"===this.platform?mt`<img alt="Chrome" class="chrome-icon" src="../assets/images/chrome-icon.png" />`:null}
-        ${this.iconUrl?mt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
+        src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/${this.platform}/shortcutsmenu.png" />
+        ${"android"===this.platform?gt`<img alt="Chrome" class="chrome-icon" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/chrome-icon.png" />`:null}
+        ${this.iconUrl?gt`<img class="app-icon" alt="Application's icon" src=${this.iconUrl} />`:gt`<div class="app-icon"></div>`}
         <div class="menu">
           <ul class="shortcut-list">
-            ${null===(t=this.shortcuts)||void 0===t?void 0:t.slice(0,5).map((t=>mt`
+            ${null===(t=this.shortcuts)||void 0===t?void 0:t.slice(0,5).map((t=>gt`
                 <li>
-                  ${t.icons?mt`<img class="icon" alt=${t.name} src=${this.getShortcutIcon(t.icons)} />`:mt`<div class="icon"></div>`}
+                  ${t.icons?gt`<img class="icon" alt=${t.name} src=${this.getShortcutIcon(t.icons)} />`:gt`<div class="icon"></div>`}
                   <span>${t.name}</span>
                 </li>
               `))}
           </ul>
         </div>
       </div>
-    `}renderWindows(){return this.sharedRender()}renderAndroid(){return this.sharedRender()}renderiOS(){return mt`
+    `}renderWindows(){return this.sharedRender()}renderAndroid(){return this.sharedRender()}renderiOS(){return gt`
       <div class="ios-message">
         <disclaimer-message>
           iOS does not support the shortcuts feature.
         </disclaimer-message>
       </div>
-    `}};t([Ht()],ti.prototype,"manifestUrl",void 0),t([Ht({type:Array})],ti.prototype,"shortcuts",void 0),t([Ht()],ti.prototype,"iconUrl",void 0),ti=t([Wt("shortcuts-screen")],ti);let ii=class extends Vt{constructor(){super(...arguments),this.manifestUrl=""}static get styles(){return[super.styles,r`
+    `}};t([Lt()],ti.prototype,"manifestUrl",void 0),t([Lt({type:Array})],ti.prototype,"shortcuts",void 0),t([Lt()],ti.prototype,"iconUrl",void 0),ti=t([It("shortcuts-screen")],ti);let ii=class extends Mt{constructor(){super(...arguments),this.manifestUrl=""}static get styles(){return[super.styles,r`
         .container {
           position: relative;
           margin: 30px auto 0;
@@ -1488,7 +1461,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         }
 
         .container.windows {
-          font-family: var(--windows-font-family);
+          font-family: var(--windows-font-family, Arial);
         }
 
         .container.android {
@@ -1621,11 +1594,11 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           margin: 130px auto 0px;
           width: 60%;
         }
-      `]}getImageUrl(t){return`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${new URL(t,this.manifestUrl).href}`}renderWindows(){var t;return mt`
-      <div class="container windows">
-        <img class="store-img" alt="Microsoft Store" src="../assets/images/windows/store-listing.png" />
+      `]}getImageUrl(t){return`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${new URL(t,this.manifestUrl).href}`}renderWindows(){var t;return gt`
+      <div role="img" tabindex="0" aria-label="PWA categories in Windows" class="container windows">
+        <img class="store-img" alt="Microsoft Store" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/windows/store-listing.png" />
         <div class="app-header">
-          ${this.iconUrl?mt`<img alt="App icon" src=${this.iconUrl} />`:null}
+          ${this.iconUrl?gt`<img alt="App icon" src=${this.iconUrl} />`:null}
           <h4>${this.appName||"PWA App"}</h4>
         </div>
         <p class="rating">5.0</p>
@@ -1633,36 +1606,36 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           ${this.description||"A description of your PWA."}
         </div>
         <div class="categories">
-          ${null===(t=this.categories)||void 0===t?void 0:t.map((t=>mt`<div>${t}</div>`))}
+          ${null===(t=this.categories)||void 0===t?void 0:t.map((t=>gt`<div>${t}</div>`))}
         </div>
       </div>
-    `}renderAndroid(){var t,i;return mt`
-      <div class="container android">
-        <img class="store-img" alt="Microsoft store" src="../../assets/images/android/app-listing.png" />
-        ${this.iconUrl?mt`<img class="app-icon" alt="App icon" src=${this.iconUrl} />`:mt`<div class="app-icon"></div>`}
+    `}renderAndroid(){var t,i;return gt`
+      <div role="img" tabindex="0" aria-label="PWA categories in Android" class="container android">
+        <img class="store-img" alt="Microsoft store" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/android/app-listing.png" />
+        ${this.iconUrl?gt`<img class="app-icon" alt="App icon" src=${this.iconUrl} />`:gt`<div class="app-icon"></div>`}
         <div class="app-name">${this.appName||"PWA App"}</div>
         <div class="screenshots">
-          ${null===(t=this.screenshots)||void 0===t?void 0:t.map((t=>mt`<img alt="App screenshot" src=${this.getImageUrl(t.src)} />`))}
+          ${null===(t=this.screenshots)||void 0===t?void 0:t.map((t=>gt`<img alt="App screenshot" src=${this.getImageUrl(t.src)} />`))}
         </div>
         <div class="description">
           ${this.description||"A description of your PWA."}
         </div>
         <div class="categories">
-          ${null===(i=this.categories)||void 0===i?void 0:i.map((t=>mt`<div>${t}</div>`))}
+          ${null===(i=this.categories)||void 0===i?void 0:i.map((t=>gt`<div>${t}</div>`))}
         </div>
       </div>
-    `}renderiOS(){return mt`
+    `}renderiOS(){return gt`
       <div class="ios-message">
         <disclaimer-message>
           These categories are not necessarily related to those specified on 
           the manifest. 
         </disclaimer-message>
       </div>
-    `}};t([Ht({type:Array})],ii.prototype,"categories",void 0),t([Ht()],ii.prototype,"appName",void 0),t([Ht()],ii.prototype,"iconUrl",void 0),t([Ht()],ii.prototype,"description",void 0),t([Ht({type:Array})],ii.prototype,"screenshots",void 0),t([Ht()],ii.prototype,"manifestUrl",void 0),ii=t([Wt("categories-screen")],ii);let ei=class extends Vt{constructor(){super(...arguments),this.siteUrl=""}static get styles(){return[super.styles,r`
+    `}};t([Lt({type:Array})],ii.prototype,"categories",void 0),t([Lt()],ii.prototype,"appName",void 0),t([Lt()],ii.prototype,"iconUrl",void 0),t([Lt()],ii.prototype,"description",void 0),t([Lt({type:Array})],ii.prototype,"screenshots",void 0),t([Lt()],ii.prototype,"manifestUrl",void 0),ii=t([It("categories-screen")],ii);let ei=class extends Mt{constructor(){super(...arguments),this.siteUrl=""}static get styles(){return[super.styles,r`
         .container {
           position: relative;
           width: fit-content;
-          margin: 0px auto;
+          margin: 30px auto 0;
           width: 260px;
         }
 
@@ -1679,7 +1652,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           width: 100%;
           left: 0;
           height: 70px;
-          font-family: var(--windows-font-family);
+          font-family: var(--windows-font-family, Arial);
         }
 
         .avatar, .app {
@@ -1777,7 +1750,7 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           position: absolute;
           top: 12px;
           right: 81px;
-          font-family: var(--ios-font-family);
+          font-family: var(--ios-font-family, Arial);
           width: 50px;
           overflow: hidden;
           min-height: 61px;
@@ -1788,10 +1761,14 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           height: 48px;
           margin-bottom: 3px;
         }
-      `]}sharedRender(){return mt`
-      <div class="container ${this.platform}">
-        <img class="dialog" alt="Web share trigger" src="../assets/images/${this.platform}/share-dialog.png" />
-        ${"android"===this.platform?mt`<div class="media-url">via Media Content https://media-content.com</div>`:null}
+      `]}sharedRender(){return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label=${`Share target in ${this.platform}`} 
+      class="container ${this.platform}">
+        <img class="dialog" alt="Web share trigger" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/${this.platform}/share-dialog.png" />
+        ${"android"===this.platform?gt`<div class="media-url">via Media Content https://media-content.com</div>`:null}
         <div class="contacts">
           <div class="avatar">
             <div>JD</div>
@@ -1799,19 +1776,23 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           </div>
         </div>
         <div class="app">
-          ${this.iconUrl?mt`<img alt="PWA icon" src=${this.iconUrl} />`:null}
+          ${this.iconUrl?gt`<img alt="PWA icon" src=${this.iconUrl} />`:null}
           ${this.shortName||this.appName||"PWA App"}
         </div>
       </div>
-    `}renderWindows(){return this.sharedRender()}renderAndroid(){return this.sharedRender()}renderiOS(){return mt`
-      <div class="container ios">
-        <img class="dialog" alt="" src="../assets/images/ios/share-dialog.jpg" />
+    `}renderWindows(){return this.sharedRender()}renderAndroid(){return this.sharedRender()}renderiOS(){return gt`
+      <div 
+      role="img" 
+      tabindex="0" 
+      aria-label="Share target in iOS" 
+      class="container ios">
+        <img class="dialog" alt="" src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/ios/share-dialog.jpg" />
         <div class="app">
-          ${this.iconUrl?mt`<img alt="PWA icon" src=${this.iconUrl} />`:null}
+          ${this.iconUrl?gt`<img alt="PWA icon" src=${this.iconUrl} />`:null}
           ${this.shortName||"PWA App"}
         </div>
       </div>
-    `}};var si;t([Ht()],ei.prototype,"iconUrl",void 0),t([Ht()],ei.prototype,"appName",void 0),t([Ht()],ei.prototype,"shortName",void 0),t([Ht()],ei.prototype,"siteUrl",void 0),ei=t([Wt("share-target")],ei),function(t){t[t.Install=0]="Install",t[t.SplashScreen=1]="SplashScreen",t[t.Name=2]="Name",t[t.ShortName=3]="ShortName",t[t.ThemeColor=4]="ThemeColor",t[t.Shortcuts=5]="Shortcuts",t[t.Display=6]="Display",t[t.Categories=7]="Categories",t[t.ShareTarget=8]="ShareTarget"}(si||(si={}));let oi=class extends It{constructor(){super(...arguments),this.siteUrl="",this.iconUrl="",this.isInFullScreen=!1,this.stage=si.ThemeColor,this.manifest={},this.manifestUrl="",this.platform="windows",this.handleFullScreenChange=()=>{this.isInFullScreen=Boolean(document.fullscreenElement)}}firstUpdated(){var t;if(this.manifest.icons){let i=this.manifest.icons[0].src;for(const e of this.manifest.icons)if(null===(t=e.sizes)||void 0===t?void 0:t.includes("512x512")){i=e.src;break}const e=new URL(i,this.manifestUrl).href;this.iconUrl=`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${e}`}this.siteUrl=this.manifestUrl.substring(0,this.manifestUrl.lastIndexOf("manifest.json"))}handlePlatformChange(t){const i=t.target.name;this.platform=i}handleNavigateRight(){const t=Object.keys(si).length/2;this.stage=(this.stage+1)%t}handleNavigateLeft(){const t=Object.keys(si).length/2;this.stage=(this.stage+t-1)%t}updated(t){t.has("stage")&&this.dispatchEvent(new CustomEvent("previewscreenchange",{bubbles:!0,composed:!0,detail:{screen:this.stage}}))}connectedCallback(){super.connectedCallback(),document.addEventListener("fullscreenchange",this.handleFullScreenChange)}disconnectedCallback(){super.disconnectedCallback(),document.removeEventListener("fullscreenchange",this.handleFullScreenChange)}handleToggleEnlarge(){this.content.requestFullscreen()}screenContent(){switch(this.stage){case si.Install:return mt`
+    `}};t([Lt()],ei.prototype,"iconUrl",void 0),t([Lt()],ei.prototype,"appName",void 0),t([Lt()],ei.prototype,"shortName",void 0),t([Lt()],ei.prototype,"siteUrl",void 0),ei=t([It("share-target")],ei);const si=["install","splashScreen","name","shortName","themeColor","shortcuts","display","categories","shareTarget"];let oi=class extends Wt{constructor(){super(...arguments),this.siteUrl="",this.stage="name",this.manifest={},this.manifestUrl="",this.platform="windows",this.descriptions={},this.titles={},this.enlargeText="Click to enlarge Preview",this.onEnlarge=this.handleToggleEnlarge,this.cardTitle="Preview",this.iconUrl="",this.isInFullScreen=!1,this.handleFullScreenChange=()=>{this.isInFullScreen=Boolean(document.fullscreenElement)}}handleToggleEnlarge(){this.content.requestFullscreen()}firstUpdated(){var t,i;if(this.manifest.icons&&this.manifest.icons.length>0){let e=null===(t=this.manifest.icons.find((t=>{var i;return null===(i=t.sizes)||void 0===i?void 0:i.includes("512x512")})))||void 0===t?void 0:t.src;if(e||(e=null===(i=this.manifest.icons[0])||void 0===i?void 0:i.src),e){const t=new URL(e,this.manifestUrl).href;this.iconUrl=`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${t}`}}this.siteUrl||(this.siteUrl=this.manifestUrl.substring(0,this.manifestUrl.lastIndexOf("manifest.json"))),this.setDefaultDescriptions(),this.setDefaultTitles()}setDefaultDescriptions(){var t,i,e,s,o,n,r,a,l,d,p,c,h,u,m,g,v,w,f,x,b,y,$,k,S,A,F;this.descriptions={install:{windows:(null===(t=this.descriptions.install)||void 0===t?void 0:t.windows)||"Windows includes the application's icon, name, and website URL in its installation dialog.",android:(null===(i=this.descriptions.install)||void 0===i?void 0:i.android)||"When installing a PWA on Android, the description, name, icon and screenshots are used for giving a preview of the application.",iOS:(null===(e=this.descriptions.install)||void 0===e?void 0:e.iOS)||"iOS uses the application's icon, name, and website URL in its installation screen."},splashScreen:{windows:(null===(s=this.descriptions.splashScreen)||void 0===s?void 0:s.windows)||"Splash screens are used to provide a smooth transition between the loading state and the initial launch of the application.",android:(null===(o=this.descriptions.splashScreen)||void 0===o?void 0:o.android)||"When launching the PWA, Android uses the background color, theme color, name and icon for displaying the splash screen.",iOS:(null===(n=this.descriptions.splashScreen)||void 0===n?void 0:n.iOS)||"When launching the PWA, iOS uses the background color, name and icon for displaying the splash screen while the content loads."},name:{windows:(null===(r=this.descriptions.name)||void 0===r?void 0:r.windows)||"The name of the web application is displayed on Window's start menu, application preferences, title bar, etc.",android:(null===(a=this.descriptions.name)||void 0===a?void 0:a.android)||"The name of the web application will be included in the app info screen on Android.",iOS:(null===(l=this.descriptions.name)||void 0===l?void 0:l.iOS)||"On iOS, the name of the web application will be used on settings."},shortName:{windows:(null===(d=this.descriptions.shortName)||void 0===d?void 0:d.windows)||"Windows uses the short name as a fallback when the manifest does not specify a value for the name attribute.",android:(null===(p=this.descriptions.shortName)||void 0===p?void 0:p.android)||"On Android, the application's short name is used in the home screen as a label for the icon.",iOS:(null===(c=this.descriptions.shortName)||void 0===c?void 0:c.iOS)||"On iOS, the application's short name is used in the home screen as a label for the icon."},themeColor:{windows:(null===(h=this.descriptions.themeColor)||void 0===h?void 0:h.windows)||"The theme color defines the default color theme for the application, and is used for the PWA's title bar.",android:(null===(u=this.descriptions.themeColor)||void 0===u?void 0:u.android)||"The theme color defines the default color theme for the application, and affects how the site is displayed.",iOS:(null===(m=this.descriptions.themeColor)||void 0===m?void 0:m.iOS)||"The theme color defines the default color theme for the PWA, and defines the background color of the status bar when using the application."},shortcuts:{windows:(null===(g=this.descriptions.shortcuts)||void 0===g?void 0:g.windows)||"This attribute (A.K.A. jump list) assembles a context menu that is shows when a user right-clicks on the app's icon on the taskbar.",android:(null===(v=this.descriptions.shortcuts)||void 0===v?void 0:v.android)||"This attribute (A.K.A. jump list) assembles a context menu that is shows when a user long-presses the app's icon on the home screen.",iOS:(null===(w=this.descriptions.shortcuts)||void 0===w?void 0:w.iOS)||"This attribute (A.K.A. jump list) defines a list of shortcuts/links to key tasks or pages within a web app, assembling a context menu when a user interacts with the app's icon."},display:{windows:(null===(f=this.descriptions.display)||void 0===f?void 0:f.windows)||"The display mode changes how much of the browser's UI is shown to the user. It can range from browser (the full browser window is shown) to fullscreen (the app is full-screened).",android:(null===(x=this.descriptions.display)||void 0===x?void 0:x.android)||"The display mode changes how much of the browser's UI (like the status bar and navigation buttons) is shown to the user.",iOS:(null===(b=this.descriptions.display)||void 0===b?void 0:b.iOS)||"The display mode changes how much of the browser's UI is shown to the user. It can range from browser (the full browser window is shown) to fullscreen (the app is full-screened)."},categories:{windows:(null===(y=this.descriptions.categories)||void 0===y?void 0:y.windows)||"The Microsoft store uses the indicated categories as tags in the app's listing.",android:(null===($=this.descriptions.categories)||void 0===$?void 0:$.android)||"Google Play includes the categories specified in the manifest in the application's listing page.",iOS:(null===(k=this.descriptions.categories)||void 0===k?void 0:k.iOS)||"On iOS, your application's categories are set from a predetermined set of options and enhance the discoverability of your app."},shareTarget:{windows:(null===(S=this.descriptions.shareTarget)||void 0===S?void 0:S.windows)||"This attribute allows your application to easily share and receive media content on Windows.",android:(null===(A=this.descriptions.shareTarget)||void 0===A?void 0:A.android)||"By using the share target attribute, you can quickly share and receive links and files like a native Android application.",iOS:(null===(F=this.descriptions.shareTarget)||void 0===F?void 0:F.iOS)||"By using the share target attribute, you can quickly share and receive links and files like a native iOS application. "}}}setDefaultTitles(){this.titles={install:this.titles.install||"Installation dialog",splashScreen:this.titles.splashScreen||"Splash screen",name:this.titles.name||"The name attribute",shortName:this.titles.shortName||"The short name attribute",themeColor:this.titles.themeColor||"The theme color attribute",shortcuts:this.titles.shortcuts||"The shortcuts attribute",display:this.titles.display||"The display attribute",categories:this.titles.categories||"The categories attribute",shareTarget:this.titles.shareTarget||"The share target attribute"}}handlePlatformChange(t){const i=t.target.name;this.platform=i}handleNavigateRight(){const t=(si.indexOf(this.stage)+1)%si.length;this.stage=si[t]}handleNavigateLeft(){const t=(si.indexOf(this.stage)+si.length-1)%si.length;this.stage=si[t]}updated(t){t.has("stage")&&this.dispatchEvent(new CustomEvent("previewscreenchange",{bubbles:!0,composed:!0,detail:{screen:this.stage}}))}connectedCallback(){super.connectedCallback(),document.addEventListener("fullscreenchange",this.handleFullScreenChange)}disconnectedCallback(){super.disconnectedCallback(),document.removeEventListener("fullscreenchange",this.handleFullScreenChange)}screenContent(){switch(this.stage){case"install":return gt`
           <install-screen
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
@@ -1822,21 +1803,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           .description=${this.manifest.description}
           .screenshots=${this.manifest.screenshots}
           .manifestUrl=${this.manifestUrl}>
-            <p slot="title">Installation dialog</p>
-            <p slot="info-windows">
-              Windows includes the application's icon, name, and website URL in its
-              installation dialog.
-            </p>
-            <p slot="info-android">
-              When installing a PWA on Android, the description, name, icon and screenshots are used for
-              giving a preview of the application.
-            </p>
-            <p slot="info-iOS">
-              iOS uses the application's icon, name, and website URL in its
-              installation screen.
-            </p>
           </install-screen>
-        `;case si.SplashScreen:return mt`
+        `;case"splashScreen":return gt`
           <splash-screen
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
@@ -1844,127 +1812,49 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           .backgroundColor=${this.manifest.background_color}
           .themeColor=${this.manifest.theme_color}
           .appName=${this.manifest.name}>
-            <p slot="title">Splash screen</p>
-            <p slot="info-windows">
-              While the PWA is loading, Windows uses the background color, name and 
-              icon for displaying the splash screen.
-            </p>
-            <p slot="info-android">
-              When launching the PWA, Android uses the background color, theme color, name and 
-              icon for displaying the splash screen.
-            </p>
-            <p slot="info-iOS">
-              When launching the PWA, iOS uses the background color, name and icon for displaying
-              the splash screen while the content loads.
-            </p>
           </splash-screen>
-        `;case si.Name:return mt`
+        `;case"name":return gt`
           <name-screen
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
           .appName=${this.manifest.name}
           .iconUrl=${this.iconUrl}>
-            <p slot="title">The name attribute</p>
-            <p slot="info-windows">
-              The name of the web application is displayed on Window's start menu, application 
-              preferences, title bar, etc.
-            </p>
-            <p slot="info-android">
-              The name of the web application will be included in the app info screen on Android.
-            </p>
-            <p slot="info-iOS">
-              On iOS, the name of the web application will be used on settings.
-            </p>
           </name-screen>
-        `;case si.ShortName:return mt`
+        `;case"shortName":return gt`
           <shortname-screen
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
           .shortName=${this.manifest.short_name}
           .iconUrl=${this.iconUrl}>
-            <p slot="title">The short name attribute</p>
-            <p slot="info-windows">
-              Windows uses the short name as a fallback when the manifest does not specify a 
-              value for the name attribute.
-            </p>
-            <p slot="info-android">
-              On Android, the application's short name is used in the home screen as a label for 
-              the icon.
-            </p>
-            <p slot="info-iOS">
-              On iOS, the application's short name is used in the home screen as a label for 
-              the icon.
-            </p>
           </shortname-screen>
-        `;case si.ThemeColor:return mt`
+        `;case"themeColor":return gt`
           <themecolor-screen
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
-          .themeColor=${this.manifest.theme_color}
+          .themeColor=${this.manifest.theme_color||""}
           .appName=${this.manifest.name}
           .iconUrl=${this.iconUrl}>
-            <p slot="title">The theme color attribute</p>
-            <p slot="info-windows">
-              The theme color defines the default color theme for the application, and is used 
-              for the PWA's title bar.
-            </p>
-            <p slot="info-android">
-              The theme color defines the default color theme for the application, and affects
-              how the site is displayed.
-            </p>
-            <p slot="info-iOS">
-              The theme color defines the default color theme for the PWA, and defines the 
-              background color of the status bar when using the application.
-            </p>
           </themecolor-screen>
-        `;case si.Shortcuts:return mt`
+        `;case"shortcuts":return gt`
           <shortcuts-screen
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
           .shortcuts=${this.manifest.shortcuts}
           .iconUrl=${this.iconUrl}
           .manifestUrl=${this.manifestUrl}>
-            <p slot="title">The shortcuts attribute</p>
-            <p slot="info-windows">
-              This attribute (A.K.A. jump list) assembles a context menu that is shows when a user 
-              right-clicks on the app's icon on the taskbar.
-            </p>
-            <p slot="info-android">
-              This attribute (A.K.A. jump list) assembles a context menu that is shows when a user 
-              long-presses the app's icon on the home screen.
-            </p>
-            <p slot="info-iOS">
-              This attribute (A.K.A. jump list) defines a list of shortcuts/links to key tasks or pages 
-              within a web app, assembling a context menu when a user interacts with the app's icon.
-            </p>
           </shortcuts-screen>
-        `;case si.Display:return mt`
+        `;case"display":return gt`
           <display-screen
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
-          .display=${this.manifest.display||"browser"} 
-          .themeColor=${this.manifest.theme_color}
-          .backgroundColor=${this.manifest.background_color}
+          .display=${this.manifest.display||"standalone"} 
+          .themeColor=${this.manifest.theme_color||""}
+          .backgroundColor=${this.manifest.background_color||""}
           .iconUrl=${this.iconUrl}
           .appName=${this.manifest.name}
           .siteUrl=${this.siteUrl}>
-            <p slot="title">The display attribute</p>
-            <p slot="info-windows">
-              The display mode changes how much of the browser's UI is shown to the user. It can 
-              range from browser (the full browser window is shown) to fullscreen (the app is 
-              full-screened).
-            </p>
-            <p slot="info-android">
-              The display mode changes how much of the browser's UI (like the status bar and
-              navigation buttons) is shown to the user. 
-            </p>
-            <p slot="info-iOS">
-              The display mode changes how much of the browser's UI is shown to the user. It can 
-              range from browser (the full browser window is shown) to fullscreen (the app is 
-              full-screened).
-            </p>
           </display-screen>
-        `;case si.Categories:return mt`
+        `;case"categories":return gt`
           <categories-screen
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
@@ -1974,20 +1864,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           .description=${this.manifest.description}
           .screenshots=${this.manifest.screenshots}
           .manifestUrl=${this.manifestUrl}>
-            <p slot="title">The categories attribute</p>
-            <p slot="info-windows">
-              The Microsoft store uses the indicated categories as tags in the app's listing.
-            </p>
-            <p slot="info-android">
-              Google Play includes the categories specified in the manifest in the 
-              application's listing page.
-            </p>
-            <p slot="info-iOS">
-              On iOS, your application's categories are set from a predetermined set of options
-              and enhance the discoverability of your app. 
-            </p>
           </categories-screen>
-        `;case si.ShareTarget:return mt`
+        `;case"shareTarget":return gt`
           <share-target
           .isInFullScreen=${this.isInFullScreen}
           .platform=${this.platform}
@@ -1995,77 +1873,71 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
           .appName=${this.manifest.name}
           .shortName=${this.manifest.short_name}
           .siteUrl=${this.siteUrl}>
-            <p slot="title">The share target attribute</p>
-            <p slot="info-windows">
-              This attribute allows your application to easily share and receive
-              media content on Windows.
-            </p>
-            <p slot="info-android">
-              By using the share target attribute, you can quickly share and receive 
-              links and files like a native Android application. 
-            </p>
-            <p slot="info-iOS">
-              By using the share target attribute, you can quickly share and receive 
-              links and files like a native iOS application. 
-            </p>
           </share-target>
-        `;default:return null}}render(){return mt`
-      <div class="container">
-        <fast-card class="card">
-          <h4 part="card-title" class="title">Preview</h4>
-          <div part="platform-buttons" class="buttons-div">
-            <fast-button 
-            part="platform-button"
-            class=${Dt({"platform-button":!0,selected:"windows"===this.platform})} 
-            name="windows"
-            @click=${this.handlePlatformChange}>
-              Windows
-            </fast-button>
-            <fast-button 
-            part="platform-button"
-            class=${Dt({"platform-button":!0,selected:"android"===this.platform})} 
-            name="android"
-            @click=${this.handlePlatformChange}>
-              Android
-            </fast-button>
-            <fast-button
-            part="platform-button"
-            class=${Dt({"platform-button":!0,selected:"iOS"===this.platform})}
-            name="iOS"
-            @click=${this.handlePlatformChange}>
-              iOS
-            </fast-button>
-          </div>
-          <div part="app-name" class="name">${this.manifest.name}</div>
-          <div id="content">${this.screenContent()}</div>
-          <img 
-          part="nav-arrow"
-          src="../assets/images/nav-arrow.svg" 
-          alt="Navigate right" 
-          class="nav-arrow-right"
-          @click=${this.handleNavigateRight} />
-          <img 
-          part="nav-arrow"
-          src="../assets/images/nav-arrow.svg" 
-          alt="Navigate left" 
-          class="nav-arrow-left"
-          @click=${this.handleNavigateLeft} />
-          <p 
-          part="preview-text"
-          class="preview-text" 
-          style=${_t({cursor:"pointer"})} 
-          @click=${this.handleToggleEnlarge}>
-            Click to enlarge Preview
-          </p>
-        </fast-card>
+        `;default:return null}}render(){return gt`
+      <div part="card" class="card">
+        <h1 part="card-title" class="title">${this.cardTitle}</h1>
+        <div part="platform-buttons" class="buttons-div">
+          <button 
+          part="platform-button"
+          aria-pressed=${"windows"===this.platform}
+          class=${Dt({"platform-button":!0,selected:"windows"===this.platform})} 
+          name="windows"
+          @click=${this.handlePlatformChange}>
+            Windows
+          </button>
+          <button 
+          part="platform-button"
+          aria-pressed=${"android"===this.platform}
+          class=${Dt({"platform-button":!0,selected:"android"===this.platform})} 
+          name="android"
+          @click=${this.handlePlatformChange}>
+            Android
+          </button>
+          <button
+          part="platform-button"
+          aria-pressed=${"iOS"===this.platform}
+          class=${Dt({"platform-button":!0,selected:"iOS"===this.platform})}
+          name="iOS"
+          @click=${this.handlePlatformChange}>
+            iOS
+          </button>
+        </div>
+        <div part="app-name" class="name">${this.manifest.name||"PWA App"}</div>
+        <p aria-live="polite" part="screen-title" class="screen-title">${this.titles[this.stage]}</p>
+        <p part="screen-description" class="screen-info">
+          ${this.descriptions[this.stage]?this.descriptions[this.stage][this.platform]:""}
+        </p>
+        <div id="content">${this.screenContent()}</div>
+        <img 
+        part="nav-arrow"
+        class="nav-arrow-right"
+        role="navigation"
+        tabindex="0"
+        src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/nav-arrow.svg" 
+        alt="Navigate right" 
+        @click=${this.handleNavigateRight} />
+        <img 
+        part="nav-arrow" 
+        class="nav-arrow-left"
+        role="navigation"
+        tabindex="0"
+        src="https://github.com/pwa-builder/manifest-previewer/raw/main/assets/images/nav-arrow.svg" 
+        alt="Navigate left" 
+        @click=${this.handleNavigateLeft} />
+        ${this.enlargeText?gt`
+        <button
+        part="enlarge-toggle"
+        class="preview-button" 
+        @click=${this.onEnlarge}>
+          ${this.enlargeText}
+        </button>`:null}
       </div>
     `}};oi.styles=r`
-    .container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    :host {
+      font-family: var(--font-family, Arial);
+      color: var(--font-color, #292C3A);
+      --card-box-shadow: 0px 3px 5.41317px rgba(0, 0, 0, 0.25);
     }
 
     .card {
@@ -2073,20 +1945,17 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 6px;
       height: 792px;
-      display: none;
+      position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     .title {
-      position: absolute;
-      left: calc(50% - 33px);
-      top: 23px;
-      margin: 0;
-      width: 66px;
+      margin: 23px auto 40px;
       font-weight: 700;
       font-size: 18px;
-      line-height: 24px;
-      color: var(--font-color);
-      text-decoration: underline solid var(--secondary-font-color);
+      width: fit-content;
+      text-decoration: underline solid var(--secondary-font-color, #808080);
       text-underline-position: under;
       text-decoration-thickness: 2px;
     }
@@ -2094,11 +1963,11 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
     .buttons-div {
       display: flex;
       justify-content: space-between;
-      margin: 71px auto 0;
+      margin: 0 auto;
       width: 272px;
     }
 
-    fast-button.platform-button {
+    .platform-button {
       height: 35px;
       border-radius: 33px;
       font-size: 12.5751px;
@@ -2106,11 +1975,13 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       width: 80px;
       background: #FFF;
       box-shadow: 0px 3px 3.02588px rgba(0, 0, 0, 0.25);
-      color: var(--font-color);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
     }
-    
-    fast-button::part(control) {
-      font-weight: 700;
+
+    button:focus-visible, .nav-arrow-left:focus-visible, .nav-arrow-right:focus-visible {
+      outline: 2px solid #000;
     }
 
     .platform-button.selected {
@@ -2122,10 +1993,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
     .name {
       background: rgba(194, 194, 194, 0.4);
       border-radius: 4px;
-      height: 24px;
       font-weight: 700;
-      font-size: 16px;
-      line-height: 25px;
+      font-size: 14px;
       text-align: center;
       color: #000;
       margin: 20px auto 0;
@@ -2135,17 +2004,30 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
 
     .preview-text {
       position: absolute;
-      bottom: 25px;
+      bottom: 10px;
       left: calc(50% - 55px);
       font-weight: 400;
       font-size: 10px;
       line-height: 16px;
       text-align: center;
-      color: var(--secondary-font-color);
+      color: var(--secondary-font-color, #808080);
       width: 110px;
     }
 
-    img.nav-arrow-right {
+    .preview-button {
+      position: absolute;
+      bottom: 15px;
+      left: calc(50% - 75px);
+      font-weight: 400;
+      font-size: 10px;
+      text-align: center;
+      color: var(--secondary-font-color, #808080);
+      width: 150px;
+      background: none;
+      border: none;
+    }
+
+    .nav-arrow-right {
       position: absolute;
       width: 19px;
       height: 38px;
@@ -2153,8 +2035,8 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       right: 16px;
       cursor: pointer;
     }
-    
-    img.nav-arrow-left {
+
+    .nav-arrow-left {
       position: absolute;
       width: 19px;
       height: 38px;
@@ -2164,11 +2046,22 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
       cursor: pointer;
     }
 
-    /* The card is hidden for smaller screens */
-    @media(min-width: 800px) {
-      .card {
-        display: block;
-      }
+    .screen-title {
+      margin: 10px auto;
+      width: fit-content;
+      font-weight: 600;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .screen-info {
+      margin: 0 auto;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+      color: var(--secondary-font-color, #808080);
+      width: 230px;
     }
 
     /* 800 designs */
@@ -2199,10 +2092,10 @@ const Rt=1,Bt=t=>(...i)=>({_$litDirective$:t,values:i});class Mt{constructor(t){
         left: 30px;
       }
     }
-  `,t([jt()],oi.prototype,"siteUrl",void 0),t([jt()],oi.prototype,"iconUrl",void 0),t([jt()],oi.prototype,"isInFullScreen",void 0),t([Ht({type:Number})],oi.prototype,"stage",void 0),t([Ht({type:Object,converter:t=>{if(t)return JSON.parse(t)}})],oi.prototype,"manifest",void 0),t([Ht()],oi.prototype,"manifestUrl",void 0),t([Ht()],oi.prototype,"platform",void 0),t([
+  `,t([Lt()],oi.prototype,"siteUrl",void 0),t([Lt()],oi.prototype,"stage",void 0),t([Lt({type:Object,converter:t=>{if(t)return JSON.parse(t)}})],oi.prototype,"manifest",void 0),t([Lt()],oi.prototype,"manifestUrl",void 0),t([Lt()],oi.prototype,"platform",void 0),t([Lt({type:Object})],oi.prototype,"descriptions",void 0),t([Lt({type:Object})],oi.prototype,"titles",void 0),t([Lt()],oi.prototype,"enlargeText",void 0),t([Lt()],oi.prototype,"onEnlarge",void 0),t([Lt()],oi.prototype,"cardTitle",void 0),t([jt()],oi.prototype,"iconUrl",void 0),t([jt()],oi.prototype,"isInFullScreen",void 0),t([
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-function(t,i){return(({finisher:t,descriptor:i})=>(e,s)=>{var o;if(void 0===s){const s=null!==(o=e.originalKey)&&void 0!==o?o:e.key,n=null!=i?{kind:"method",placement:"prototype",key:s,descriptor:i(e.key)}:{...e,key:s};return null!=t&&(n.finisher=function(i){t(i,s)}),n}{const o=e.constructor;void 0!==i&&Object.defineProperty(e,s,i(s)),null==t||t(o,s)}})({descriptor:e=>{const s={get(){var i;return null===(i=this.renderRoot)||void 0===i?void 0:i.querySelector(t)},enumerable:!0,configurable:!0};if(i){const i="symbol"==typeof e?Symbol():"__"+e;s.get=function(){var e;return void 0===this[i]&&(this[i]=null===(e=this.renderRoot)||void 0===e?void 0:e.querySelector(t)),this[i]}}return s}})}("#content")],oi.prototype,"content",void 0),oi=t([Wt("manifest-previewer")],oi);export{oi as ManifestPreviewer};
+function(t,i){return(({finisher:t,descriptor:i})=>(e,s)=>{var o;if(void 0===s){const s=null!==(o=e.originalKey)&&void 0!==o?o:e.key,n=null!=i?{kind:"method",placement:"prototype",key:s,descriptor:i(e.key)}:{...e,key:s};return null!=t&&(n.finisher=function(i){t(i,s)}),n}{const o=e.constructor;void 0!==i&&Object.defineProperty(e,s,i(s)),null==t||t(o,s)}})({descriptor:e=>{const s={get(){var i;return null===(i=this.renderRoot)||void 0===i?void 0:i.querySelector(t)},enumerable:!0,configurable:!0};if(i){const i="symbol"==typeof e?Symbol():"__"+e;s.get=function(){var e;return void 0===this[i]&&(this[i]=null===(e=this.renderRoot)||void 0===e?void 0:e.querySelector(t)),this[i]}}return s}})}("#content")],oi.prototype,"content",void 0),oi=t([It("manifest-previewer")],oi);export{oi as ManifestPreviewer};
