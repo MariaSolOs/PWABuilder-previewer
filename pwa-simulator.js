@@ -805,7 +805,6 @@ const Wt=1,Vt=t=>(...e)=>({_$litDirective$:t,values:e});class Ft{constructor(t){
     }
 
     .desktop-container {
-      overflow: hidden;
       width: 700px;
       height: 466px;
       position: relative;
