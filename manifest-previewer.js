@@ -2025,6 +2025,7 @@ const Vt=Bt(class extends _t{constructor(t){var i;if(super(t),t.type!==Rt||"styl
       width: 150px;
       background: none;
       border: none;
+      cursor: pointer;
     }
 
     .nav-arrow-right {
