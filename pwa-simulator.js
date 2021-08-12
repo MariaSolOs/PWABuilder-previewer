@@ -91,7 +91,8 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
           role="button" 
           aria-label="Close application window" 
           class="browser-close" 
-          @click=${this.onClose}>
+          @click=${this.onClose}
+          @keydown=${this.onClose}>
           </div>
           ${t}
         `;case"browser":return gt`
@@ -103,7 +104,8 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
           role="button" 
           aria-label="Close application window" 
           class="browser-close" 
-          @click=${this.onClose}>
+          @click=${this.onClose}
+          @keydown=${this.onClose}>
           </div>
           ${t}
         `;case"minimal-ui":return gt`
@@ -118,7 +120,7 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
             <div class="nav-actions">
               <div class="collapse" style=${Ut({backgroundColor:this.contrastingThemeColor})}></div>
               <div class="enlarge" style=${Ut({borderColor:this.contrastingThemeColor})}></div>
-              <svg role="button" aria-label="Close application window" tabindex="0" @click=${this.onClose} class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+              <svg role="button" aria-label="Close application window" tabindex="0" @click=${this.onClose} @keydown=${this.onClose} class="close" width="6px" height="6px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
                 <g><path style="fill:${this.contrastingThemeColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
               </svg>
             </div>
@@ -132,7 +134,7 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
             <div class="nav-actions">
               <div class="collapse" style=${Ut({backgroundColor:this.contrastingThemeColor})}></div>
               <div class="enlarge" style=${Ut({borderColor:this.contrastingThemeColor})}></div>
-              <svg role="button" aria-label="Close application window" tabindex="0" @click=${this.onClose} class="close" width="4px" height="4px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+              <svg role="button" aria-label="Close application window" tabindex="0" @click=${this.onClose} @keydown=${this.onClose} class="close" width="4px" height="4px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
                 <g><path style="fill:${this.contrastingThemeColor}" d="M990,61.2L933.3,5.1L500,443.3L66.7,5.1L10,61.2L443.9,500L10,938.8l56.7,56.1L500,556.7l433.3,438.2l56.7-56.1L556.1,500L990,61.2z"/></g>
               </svg>
             </div>
@@ -314,14 +316,9 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
       class=${jt({"menu-container":!0,open:this.isMenuOpen})}>
         <img aria-hidden=${!this.isMenuOpen} alt="Start menu background" src="https://github.com/pwa-builder/pwa-simulator/raw/main/assets/images/start-menu.png" class="menu" />
         <div tabindex="-1" class="hidden"></div>
-        <div class="app-info" @click=${this.handleAppClick}>
+        <div aria-label="Open application window" role="button" tabindex="0" class="app-info" @click=${this.handleAppClick} @keydown=${this.handleAppClick}>
           ${this.iconUrl?gt`
-              <img 
-              aria-label="Open application window"
-              role="button"
-              class="app-icon" 
-              alt="App icon" 
-              src=${this.iconUrl} />`:null}
+              <img class="app-icon" alt="App icon" src=${this.iconUrl} />`:null}
           <div class="app-name">${this.appName||"PWA App"}</div>
         </div>
         <div class="avatar">
@@ -509,7 +506,8 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
         aria-label="Close store window" 
         class="close" 
         tabindex="0"
-        @click=${this.onClose}>
+        @click=${this.onClose}
+        @keydown=${this.onClose}>
         </div>
         <div class="app-header">
           ${this.iconUrl?gt`<img alt="App icon" src=${this.iconUrl} />`:null}
@@ -674,7 +672,7 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
         display: none; 
       }
     }
-  `,t([Ht()],pp.prototype,"message",void 0),t([Ht({type:Boolean})],pp.prototype,"isFadingIn",void 0),t([Ht({type:Boolean})],pp.prototype,"isFadingOut",void 0),pp=t([It("explanation-text")],pp);var gp={name:"PWA App",background_color:"#FFF",theme_color:"#E3CEF6",categories:[],shortcuts:[],display:"standalone",description:"An amazing progressive web app!",icons:[{src:"/assets/icons/icon_512.png",sizes:"512x512",type:"image/png"}]};const mp=new RegExp("^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$","i"),vp=t=>{let e;if(!t||t.startsWith("http")||t.startsWith("https")||(e="https://"+t),e){if(wp(e)||t.toLowerCase().startsWith("http://"))return e;throw new Error("You have a bad https certificate or the url is incorrect.")}return t},wp=t=>mp.test(t);let bp=class extends Bt{constructor(){super(),this.siteUrl="",this.hideEditor=!1,this.explanationDisplayTime=5e3,this.explanations={},this.explanationMessage="",this.isExplanationFadingIn=!1,this.isExplanationFadingOut=!1,this.iconUrl="",this.isAppOpen=!1,this.isMenuOpen=!1,this.isJumplistOpen=!1,this.isStoreOpen=!1,this.errorMessage="",this.editorStatus="",this.handleContextMenuDisable=t=>{t.preventDefault()},this.handleSiteInputChange=t=>{this.siteUrl=t.target.value},this.handleSearchManifest=async t=>{t.preventDefault();try{const t=vp(this.siteUrl);this.siteUrl=t;const e=await fetch(`https://pwabuilder-manifest-finder.azurewebsites.net/api/FindManifest?url=${t}\n      `).then((t=>t.json()));e.error?(this.errorMessage=e.error,this.pwaInput.focus()):(this.errorMessage="",this.manifest=e.manifestContents)}catch(t){const e=t.message||"We couldn't fetch your manifest...";this.errorMessage=e,this.pwaInput.focus()}},this.handleNewExplanation=t=>{this.isExplanationFadingOut=!0,setTimeout((()=>{this.explanationMessage=t,this.isExplanationFadingOut=!1,this.isExplanationFadingIn=!0,setTimeout((()=>{this.isExplanationFadingOut=!0}),this.explanationDisplayTime)}),400)},this.openAppWindow=()=>{this.handleNewExplanation(this.explanations.appWindow),this.isAppOpen=!0,this.closeJumplist(),this.closeStartMenu()},this.closeAppWindow=()=>{this.isAppOpen=!1},this.openStartMenu=()=>{this.handleNewExplanation(this.explanations.startMenu),this.isMenuOpen=!0,this.closeJumplist()},this.closeStartMenu=()=>{this.isMenuOpen=!1},this.openJumplist=()=>{this.handleNewExplanation(this.explanations.jumpList),this.isJumplistOpen=!0},this.closeJumplist=()=>{this.isJumplistOpen=!1},this.openStore=()=>{this.handleNewExplanation(this.explanations.store),this.isStoreOpen=!0,this.closeJumplist()},this.closeStore=()=>{this.isStoreOpen=!1},this.handleTaskbarClick=t=>{t.preventDefault(),t.stopPropagation();2===t.buttons?this.openJumplist():this.openAppWindow()},this.handleBackdropClick=()=>{this.closeJumplist(),this.closeStartMenu()},this.addEventListener(rp.update,(t=>{const e=t.detail.transaction.newDoc;try{let t=[];t=e.children?t.concat(...e.children.map((t=>t.text))):e.text,this.manifest=JSON.parse(t.join("")),this.editorStatus="Changes applied",this.errorMessage=""}catch(t){this.errorMessage="Invalid JSON!",this.editorStatus="Changes could not be applied"}}))}firstUpdated(){this.siteUrl&&!this.manifest&&(this.manifest=gp),this.explanations={initial:this.explanations.initial||"Do you see something familiar on the taskbar?",appWindow:this.explanations.appWindow||"The background color, theme color and display attributes determine several UI aspects of your PWA, such as the titlebar.",startMenu:this.explanations.startMenu||"The application's name and icon are used in the start menu.",jumpList:this.explanations.jumpList||"The actions listed on the shortcuts attribute define a context menu that is displayed when right-clicking on the taskbar icon.",store:this.explanations.store||"Screenshots, a complete description and categories will enhance your app's listing in the Microsoft Store."}}updated(t){var e;if(t.has("manifest")&&void 0===t.get("manifest")&&this.manifest){if(this.manifest.icons){let t=this.manifest.icons[0].src;for(const i of this.manifest.icons)if(null===(e=i.sizes)||void 0===e?void 0:e.includes("512x512")){t=i.src;break}this.siteUrl=vp(this.siteUrl);const i=new URL(t,this.siteUrl).href;this.iconUrl=`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${i}`}this.handleNewExplanation(this.explanations.initial)}}connectedCallback(){super.connectedCallback(),document.addEventListener("contextmenu",this.handleContextMenuDisable)}disconnectedCallback(){super.disconnectedCallback(),document.removeEventListener("contextmenu",this.handleContextMenuDisable)}render(){return this.manifest?gt`
+  `,t([Ht()],pp.prototype,"message",void 0),t([Ht({type:Boolean})],pp.prototype,"isFadingIn",void 0),t([Ht({type:Boolean})],pp.prototype,"isFadingOut",void 0),pp=t([It("explanation-text")],pp);var gp={name:"PWA App",background_color:"#FFF",theme_color:"#E3CEF6",categories:[],shortcuts:[],display:"standalone",description:"An amazing progressive web app!",icons:[{src:"/assets/icons/icon_512.png",sizes:"512x512",type:"image/png"}]};const mp=new RegExp("^(https?:\\/\\/)?((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$","i"),vp=t=>{let e;if(!t||t.startsWith("http")||t.startsWith("https")||(e="https://"+t),e){if(wp(e)||t.toLowerCase().startsWith("http://"))return e;throw new Error("You have a bad https certificate or the url is incorrect.")}return t},wp=t=>mp.test(t);let bp=class extends Bt{constructor(){super(),this.siteUrl="",this.hideEditor=!1,this.explanationDisplayTime=5e3,this.explanations={},this.explanationMessage="",this.isExplanationFadingIn=!1,this.isExplanationFadingOut=!1,this.iconUrl="",this.isAppOpen=!1,this.isMenuOpen=!1,this.isJumplistOpen=!1,this.isStoreOpen=!1,this.errorMessage="",this.editorStatus="",this.handleContextMenuDisable=t=>{t.preventDefault()},this.handleSiteInputChange=t=>{this.siteUrl=t.target.value},this.handleSearchManifest=async t=>{if(t.preventDefault(),0===this.pwaInput.value.trim().length)return this.errorMessage="Please enter a URL to continue.",void this.pwaInput.focus();try{const t=vp(this.siteUrl);this.siteUrl=t;const e=await fetch(`https://pwabuilder-manifest-finder.azurewebsites.net/api/FindManifest?url=${t}\n      `).then((t=>t.json()));e.error?(this.errorMessage=e.error,this.pwaInput.focus()):(this.errorMessage="",this.manifest=e.manifestContents)}catch(t){const e=t.message||"We couldn't fetch your manifest...";this.errorMessage=e,this.pwaInput.focus()}},this.handleNewExplanation=t=>{this.isExplanationFadingOut=!0,setTimeout((()=>{this.explanationMessage=t,this.isExplanationFadingOut=!1,this.isExplanationFadingIn=!0,setTimeout((()=>{this.isExplanationFadingOut=!0}),this.explanationDisplayTime)}),400)},this.openAppWindow=()=>{this.handleNewExplanation(this.explanations.appWindow),this.isAppOpen=!0,this.closeJumplist(),this.isMenuOpen=!1},this.closeAppWindow=t=>{t instanceof KeyboardEvent&&" "!==t.key&&"Enter"!==t.key||(this.isAppOpen=!1)},this.openStartMenu=t=>{t instanceof KeyboardEvent&&" "!==t.key&&"Enter"!==t.key||(this.handleNewExplanation(this.explanations.startMenu),this.isMenuOpen=!0,this.closeJumplist())},this.closeStartMenu=t=>{t instanceof KeyboardEvent&&" "!==t.key&&"Enter"!==t.key||(this.isMenuOpen=!1)},this.openJumplist=()=>{this.handleNewExplanation(this.explanations.jumpList),this.isJumplistOpen=!0},this.closeJumplist=()=>{this.isJumplistOpen=!1},this.openStore=t=>{t instanceof KeyboardEvent&&" "!==t.key&&"Enter"!==t.key||(this.handleNewExplanation(this.explanations.store),this.isStoreOpen=!0,this.closeJumplist())},this.closeStore=()=>{this.isStoreOpen=!1},this.handleTaskbarClick=t=>{if(t instanceof KeyboardEvent&&" "!==t.key&&"Enter"!==t.key)return;t.preventDefault(),t.stopPropagation();2===t.buttons?this.openJumplist():this.openAppWindow()},this.handleBackdropClick=()=>{this.closeJumplist(),this.isMenuOpen=!1},this.addEventListener(rp.update,(t=>{const e=t.detail.transaction.newDoc;try{let t=[];t=e.children?t.concat(...e.children.map((t=>t.text))):e.text,this.manifest=JSON.parse(t.join("")),this.editorStatus="Changes applied",this.errorMessage=""}catch(t){this.errorMessage="Invalid JSON!",this.editorStatus="Changes could not be applied"}}))}firstUpdated(){this.siteUrl&&!this.manifest&&(this.manifest=gp),this.explanations={initial:this.explanations.initial||"Do you see something familiar on the taskbar?",appWindow:this.explanations.appWindow||"The background color, theme color and display attributes determine several UI aspects of your PWA, such as the titlebar.",startMenu:this.explanations.startMenu||"The application's name and icon are used in the start menu.",jumpList:this.explanations.jumpList||"The actions listed on the shortcuts attribute define a context menu that is displayed when right-clicking on the taskbar icon.",store:this.explanations.store||"Screenshots, a complete description and categories will enhance your app's listing in the Microsoft Store."}}updated(t){var e;if(t.has("manifest")&&void 0===t.get("manifest")&&this.manifest){if(this.manifest.icons){let t=this.manifest.icons[0].src;for(const i of this.manifest.icons)if(null===(e=i.sizes)||void 0===e?void 0:e.includes("512x512")){t=i.src;break}this.siteUrl=vp(this.siteUrl);const i=new URL(t,this.siteUrl).href;this.iconUrl=`https://pwabuilder-safe-url.azurewebsites.net/api/getsafeurl?url=${i}`}this.handleNewExplanation(this.explanations.initial)}}connectedCallback(){super.connectedCallback(),document.addEventListener("contextmenu",this.handleContextMenuDisable)}disconnectedCallback(){super.disconnectedCallback(),document.removeEventListener("contextmenu",this.handleContextMenuDisable)}render(){return this.manifest?gt`
         <div part="background" class="background">
           <div 
           part="content"
@@ -691,6 +689,7 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
               tabindex="0"
               aria-label="Open Microsoft Store"
               @click=${this.openStore} 
+              @keydown=${this.openStore}
               class="taskbar-icon store-icon">
               </div>
               ${this.iconUrl?gt`
@@ -700,7 +699,8 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
                   aria-label="Open application window"
                   class="taskbar-icon taskbar-app-icon" 
                   @mousedown=${this.handleTaskbarClick} 
-                  @click=${this.handleTaskbarClick}>
+                  @click=${this.handleTaskbarClick}
+                  @keydown=${this.handleTaskbarClick}>
                     <img alt="App icon" src=${this.iconUrl} />
                   </div>`:null}
               <div 
@@ -708,7 +708,8 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
               tabindex="0"
               aria-label="Open Windows start menu"
               class="menu-toggler" 
-              @click=${this.isMenuOpen?this.closeStartMenu:this.openStartMenu}>
+              @click=${this.isMenuOpen?this.closeStartMenu:this.openStartMenu}
+              @keydown=${this.isMenuOpen?this.closeStartMenu:this.openStartMenu}>
               </div>
               <start-menu
               .isMenuOpen=${this.isMenuOpen}
