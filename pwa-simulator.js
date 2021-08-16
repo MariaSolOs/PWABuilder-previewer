@@ -98,7 +98,6 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
         `;case"browser":return gt`
           <img class="browser-img" alt="Window's browser" src="https://github.com/pwa-builder/pwa-simulator/raw/main/assets/images/browser-window.png" />
           <span class="app-url">${this.siteUrl}</span>
-          <img class="avatar" alt="User" src="https://github.com/pwa-builder/pwa-simulator/raw/main/assets/images/avatar.jpg" />
           <div
           tabindex="0" 
           role="button" 
@@ -429,6 +428,7 @@ const Wt=1,Ft=t=>(...e)=>({_$litDirective$:t,values:e});class Vt{constructor(t){
     }
 
     .container.open {
+      z-index: 1;
       opacity: 1;
       transform: translateY(0);
     }
