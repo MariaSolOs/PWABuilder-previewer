@@ -597,8 +597,8 @@ const Vt=Bt(class extends _t{constructor(t){var i;if(super(t),t.type!==Rt||"styl
           display: flex;
           flex-direction: column;
           align-items: center;
-          top: 58px;
-          right: 96px;
+          top: 51px;
+          right: 93px;
           min-width: 30px;
           height: 25px;
           justify-content: flex-end;
@@ -730,7 +730,7 @@ const Vt=Bt(class extends _t{constructor(t){var i;if(super(t),t.type!==Rt||"styl
           justify-content: center;
           position: absolute;
           background-color: #FFF;
-          bottom: 141px;
+          bottom: 140px;
           right: 23px;
           padding: 3px 4px;
           border-radius: 13px;
@@ -1500,7 +1500,7 @@ const Vt=Bt(class extends _t{constructor(t){var i;if(super(t),t.type!==Rt||"styl
           position: absolute;
           font-size: 9px;
           text-align: center;
-          bottom: 70px;
+          bottom: 56px;
           padding: 0 30px;
           box-sizing: border-box;
           height: 50px;
@@ -1513,12 +1513,13 @@ const Vt=Bt(class extends _t{constructor(t){var i;if(super(t),t.type!==Rt||"styl
           flex-wrap: wrap;
           position: absolute;
           background-color: #FFF;
-          left: 8px;
-          right: 8px;
+          left: 6px;
+          right: 6px;
+          height: 45px;
         }
 
         .windows .categories {
-          bottom: 45px;
+          bottom: 12px;
         }
 
         .android .categories {
